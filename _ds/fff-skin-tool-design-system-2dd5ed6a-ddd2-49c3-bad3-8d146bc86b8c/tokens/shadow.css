@@ -1,0 +1,16 @@
+/* FFF Skin Tool — Elevation & glow
+ * On a dark canvas, elevation reads through lighter surface + subtle border, not heavy shadow.
+ * Glows are reserved (focus, legendary/mythic items) — never ambient neon everywhere.
+ */
+:root{
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md:0 6px 20px rgba(0,0,0,0.45);
+  --shadow-lg:0 18px 48px rgba(0,0,0,0.55);
+  --shadow-inset:inset 0 1px 0 rgba(255,255,255,0.05);
+
+  /* Focus + accent glows */
+  --glow-crystal:0 0 0 1px rgba(31,205,245,0.5),0 0 24px rgba(31,205,245,0.28);
+  --glow-gold:0 0 0 1px rgba(245,184,51,0.55),0 0 22px rgba(245,184,51,0.25);
+  --glow-violet:0 0 0 1px rgba(138,92,255,0.5),0 0 22px rgba(138,92,255,0.25);
+  --focus-ring:0 0 0 2px var(--ink-950),0 0 0 4px var(--crystal-500);
+}

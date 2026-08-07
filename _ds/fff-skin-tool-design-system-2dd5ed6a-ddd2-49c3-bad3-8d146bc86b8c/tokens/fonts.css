@@ -1,0 +1,9 @@
+/* FFF Skin Tool — Webfonts
+ * SUBSTITUTION NOTE: No brand font files were provided. These Google Fonts are
+ * chosen as the closest match to the logo's angular, technical wordmark:
+ *   - Chakra Petch  → squared, technical display (headings, stats, the "gaming-first" voice)
+ *   - IBM Plex Sans → clean, professional body/UI text
+ *   - IBM Plex Mono → numerics, diamond counts, IDs, code-like data
+ * Replace with licensed brand fonts when available.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');

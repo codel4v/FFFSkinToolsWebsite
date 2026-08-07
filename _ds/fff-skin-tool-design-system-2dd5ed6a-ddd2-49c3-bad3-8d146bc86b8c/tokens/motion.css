@@ -1,0 +1,13 @@
+/* FFF Skin Tool — Motion
+ * Fast, confident, snappy. Short durations, decisive easing. No bounce, no float loops.
+ */
+:root{
+  --dur-fast:120ms; /* @kind other */
+  --dur-base:180ms; /* @kind other */
+  --dur-slow:280ms; /* @kind other */
+  --ease-out:cubic-bezier(0.16,1,0.3,1); /* @kind other */
+  --ease-in-out:cubic-bezier(0.65,0,0.35,1); /* @kind other */
+  --ease-standard:cubic-bezier(0.4,0,0.2,1); /* @kind other */
+
+  --press-scale:0.97; /* @kind other */
+}

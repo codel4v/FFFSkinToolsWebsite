@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/colors.css">
+<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/typography.css">
+<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/radius.css">
+<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/shadow.css">
+<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/motion.css">
+<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/base.css">
+<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/styles.css">
+<script src="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/_ds_bundle.js"></script>
+<style>
+  html,body{margin:0;background:#05070F;font-family:var(--font-sans)}
+  h1,h2,h3,p,span,div,button,input{font-family:inherit}
+  a{color:var(--crystal-400);text-decoration:none}
+  a:hover{color:var(--crystal-300)}
+  :root{--rarity-mythic:#FF4D6A;--web-col:480px}
+  *{scrollbar-width:none}
+  *::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+
+<div style="position:relative;min-height:100vh;width:100%;background:var(--ink-950);display:flex;justify-content:center">
+  <div style="position:fixed;inset:0;z-index:0;overflow:hidden">
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+      <img src="assets/home-coins-header.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:74% 40%;opacity:0.5;filter:blur(2px) saturate(1.05)">
+    </sc-if>
+    <sc-if value="{{ notHome }}" hint-placeholder-val="{{ true }}">
+      <img src="assets/site-bg.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;opacity:0.5;filter:blur(2px) saturate(1.05)">
+    </sc-if>
+    <div style="position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 0%, rgba(31,205,245,0.18), transparent 62%), linear-gradient(180deg, rgba(5,7,15,0.72), rgba(5,7,15,0.92))"></div>
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.08) 1px,transparent 1px);background-size:36px 36px;opacity:0.5"></div>
+  </div>
+
+  <div style="position:relative;z-index:1;width:100%;max-width:var(--web-col);min-height:100vh;background:var(--bg-canvas);border-left:1px solid var(--line-strong);border-right:1px solid var(--line-strong);box-shadow:0 0 80px rgba(0,0,0,0.7);display:flex;flex-direction:column;color:var(--text-primary)">
+
+    <!-- ==================== LAUNCH / SPLASH ==================== -->
+    <sc-if value="{{ isSplash }}" hint-placeholder-val="{{ true }}">
+    <div onClick="{{ goWelcome }}" style="position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow:hidden;cursor:pointer;background:radial-gradient(120% 70% at 50% 26%, rgba(31,205,245,0.16), transparent 62%), var(--bg-canvas)">
+      <img src="assets/splash-bg.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;opacity:0.55">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,7,15,0.5) 0%, rgba(5,7,15,0.82) 58%, var(--ink-950) 100%)"></div>
+      <div style="position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:96px 32px 56px;min-height:100vh;box-sizing:border-box">
+        <div style="margin:auto 0;display:flex;flex-direction:column;align-items:center;gap:26px">
+          <img src="assets/app-icon.png" width="150" height="150" alt="FFF Skin Tool" style="border-radius:32px;box-shadow:0 24px 64px rgba(31,205,245,0.28),0 0 0 1px var(--line-strong)">
+          <div style="text-align:center">
+            <div style="font-family:var(--font-display);font-weight:700;font-size:38px;letter-spacing:-0.01em;line-height:1"><span style="background:linear-gradient(90deg,#4FE3FF,#2B63F5);-webkit-background-clip:text;background-clip:text;color:transparent">FFF Skin Tools</span></div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:16px"><span style="width:30px;height:1px;background:linear-gradient(90deg,transparent,var(--line-strong))"></span><span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-tertiary)">Web Edition</span><span style="width:30px;height:1px;background:linear-gradient(90deg,var(--line-strong),transparent)"></span></div>
+          </div>
+        </div>
+        <div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:16px">
+          <span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--crystal-400)">Loading Catalog</span>
+          <div style="width:210px;height:4px;border-radius:999px;background:var(--ink-700);overflow:hidden"><div style="height:100%;width:72%;border-radius:999px;background:linear-gradient(90deg,#4FE3FF,#2B63F5)"></div></div>
+          <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--text-tertiary)">Web 0.1.0 · Season 52</span>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== WELCOME ==================== -->
+    <sc-if value="{{ isWelcome }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column">
+      <div style="position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:11px;padding:12px 16px;background:rgba(10,14,27,0.82);backdrop-filter:blur(8px) saturate(1.3);-webkit-backdrop-filter:blur(8px) saturate(1.3);border-bottom:1px solid rgba(255,255,255,0.1)">
+        <img src="assets/app-icon.png" width="32" height="32" alt="" style="border-radius:9px;border:1px solid var(--line-strong)">
+        <div style="flex:1;min-width:0">
+          <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--text-primary);line-height:1.1">FFF Skin Tools</div>
+          <div style="font-size:12px;color:var(--text-tertiary);line-height:1.2">Time to find some drip</div>
+        </div>
+        <span style="display:inline-flex;align-items:center;height:24px;padding:0 10px;white-space:nowrap;border-radius:999px;background:rgba(31,205,245,0.1);border:1px solid var(--line-crystal);font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--crystal-300)">Web</span>
+      </div>
+
+      <div style="padding:16px 16px 0">
+        <div style="position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--ink-900)">
+          <span style="position:absolute;top:8px;left:8px;z-index:2;display:inline-flex;align-items:center;height:16px;padding:0 6px;border-radius:4px;background:rgba(5,7,15,0.72);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:9px;font-weight:600;letter-spacing:0.12em;color:var(--text-tertiary)">AD</span>
+          <div style="height:250px;display:grid;place-items:center;background:radial-gradient(120% 120% at 0% 0%, rgba(31,205,245,0.12), transparent 58%), repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 10px, transparent 10px 22px)"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;color:var(--text-tertiary)">AD SLOT · 320 × 250 RATIO</span></div>
+        </div>
+      </div>
+
+      <div style="position:relative;padding:44px 16px 4px;display:flex;flex-direction:column;align-items:center;text-align:center">
+        <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:400px;height:320px;background:radial-gradient(50% 50% at 50% 44%, rgba(31,205,245,0.4), transparent 72%);filter:blur(4px);pointer-events:none"></div>
+        <img src="assets/hero-logo-characters.png" alt="FFF Skin Tools" style="position:relative;width:100%;max-width:420px;height:auto;filter:drop-shadow(0 14px 46px rgba(31,205,245,0.5)) drop-shadow(0 2px 30px rgba(138,92,255,0.5))">
+        <span style="position:relative;margin-top:10px;font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-tertiary)">Welcome To</span>
+        <h1 style="position:relative;margin:6px 0 0;font-family:var(--font-display);font-size:32px;font-weight:700;letter-spacing:-0.01em;line-height:1.05;color:var(--chrome-100)">FFF Skin Tools</h1>
+        <p style="position:relative;margin:12px 0 0;font-size:14px;line-height:1.55;color:var(--chrome-300);max-width:320px;text-wrap:pretty">Every legendary drop and rare cache in Free Fire, tracked in one arsenal — free, in your browser.</p>
+      </div>
+
+      <div style="padding:34px 16px 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div onClick="{{ noop }}" style="display:flex;flex-direction:column;align-items:center;gap:9px;padding:15px 8px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid rgba(245,184,51,0.34);cursor:pointer" style-hover="border-color:rgba(245,184,51,0.7)">
+          <span style="width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:rgba(245,184,51,0.12);border:1px solid rgba(245,184,51,0.4);color:var(--gold-400)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2 8 12.7 4 8.8 9.5 8Z"></path></svg></span>
+          <span style="font-family:var(--font-display);font-size:11.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--chrome-100);text-align:center">Rate Our App</span>
+        </div>
+        <div onClick="{{ noop }}" style="display:flex;flex-direction:column;align-items:center;gap:9px;padding:15px 8px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid var(--line-crystal);cursor:pointer" style-hover="border-color:rgba(31,205,245,0.75)">
+          <span style="width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:rgba(31,205,245,0.1);border:1px solid var(--line-crystal);color:var(--crystal-400)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg></span>
+          <span style="font-family:var(--font-display);font-size:11.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--chrome-100);text-align:center">Share Our App</span>
+        </div>
+        <div onClick="{{ openPrivacy }}" style="display:flex;flex-direction:column;align-items:center;gap:9px;padding:15px 8px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid rgba(138,92,255,0.34);cursor:pointer" style-hover="border-color:rgba(138,92,255,0.7)">
+          <span style="width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:rgba(138,92,255,0.12);border:1px solid rgba(138,92,255,0.4);color:#C7B4FF"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
+          <span style="font-family:var(--font-display);font-size:11.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--chrome-100);text-align:center">Privacy Policy</span>
+        </div>
+      </div>
+
+      <div style="padding:22px 16px 0">
+        <button onClick="{{ goHome }}" style="width:100%;height:58px;border-radius:16px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 32px rgba(31,205,245,0.34);display:flex;align-items:center;justify-content:center;gap:10px">Get Started<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+      </div>
+
+      <div style="padding:52px 16px 0;display:flex;flex-direction:column;gap:44px">
+        <div style="display:flex;flex-direction:column;gap:13px">
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:5px;height:20px;border-radius:3px;background:linear-gradient(180deg,#4FE3FF,#2B63F5)"></span><h2 style="margin:0;font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-primary)">Top Features</h2></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <sc-for list="{{ features }}" as="f" hint-placeholder-count="6">
+              <div style="display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:14px;background:var(--grad-surface);border:1px solid var(--line)">
+                <span style="width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:{{ f.iconBg }};border:1px solid {{ f.iconBorder }};color:{{ f.accent }}">{{ f.icon }}</span>
+                <span style="font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--chrome-100);line-height:1.2">{{ f.title }}</span>
+                <span style="font-size:12.5px;line-height:1.45;color:var(--text-tertiary)">{{ f.desc }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:13px">
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:5px;height:20px;border-radius:3px;background:linear-gradient(180deg,#8A5CFF,#2B63F5)"></span><h2 style="margin:0;font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-primary)">How To Use</h2></div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+              <div style="display:flex;align-items:flex-start;gap:13px;padding:14px 15px;border-radius:14px;background:var(--grad-surface);border:1px solid var(--line)">
+                <span style="width:30px;height:30px;flex-shrink:0;border-radius:9px;display:grid;place-items:center;background:rgba(31,205,245,0.1);border:1px solid var(--line-crystal);font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--crystal-300)">{{ s.n }}</span>
+                <div style="flex:1;min-width:0"><div style="font-family:var(--font-display);font-size:14.5px;font-weight:600;color:var(--chrome-100);line-height:1.25">{{ s.title }}</div><div style="font-size:12.5px;line-height:1.5;color:var(--text-tertiary);margin-top:3px">{{ s.desc }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:13px">
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:5px;height:20px;border-radius:3px;background:linear-gradient(180deg,#F5B833,#E7A11F)"></span><h2 style="margin:0;font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-primary)">Troubleshooting</h2></div>
+          <div style="padding:16px;border-radius:14px;background:var(--grad-surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:11px">
+            <p style="margin:0;font-size:13.5px;line-height:1.6;color:var(--text-secondary)">If a skin doesn't appear in-game, try the following:</p>
+            <sc-for list="{{ fixes }}" as="t" hint-placeholder-count="6">
+              <div style="display:flex;align-items:flex-start;gap:10px"><span style="width:6px;height:6px;flex-shrink:0;margin-top:7px;border-radius:999px;background:var(--gold-400)"></span><span style="font-size:13.5px;line-height:1.55;color:var(--text-secondary)">{{ t.text }}</span></div>
+            </sc-for>
+            <p style="margin:0;font-size:13.5px;line-height:1.6;color:var(--text-tertiary)">If the skin still doesn't appear, wait a few minutes and try again. Some players report that it works after the third or fourth attempt, or after playing a game or two. We're continuously improving compatibility and appreciate your patience.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:13px">
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:5px;height:20px;border-radius:3px;background:var(--chrome-500)"></span><h2 style="margin:0;font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-primary)">Disclaimer</h2></div>
+          <div style="padding:16px;border-radius:14px;background:var(--ink-900);border:1px dashed var(--line-strong);display:flex;flex-direction:column;gap:10px">
+            <p style="margin:0;font-size:13px;line-height:1.6;color:var(--text-tertiary)">This is not an official Free Fire website and it is not affiliated with, endorsed by, or sponsored by Garena. It provides information about Elite Pass bundles, emotes, gun skins, characters, pets and vehicles.</p>
+            <p style="margin:0;font-size:13px;line-height:1.6;color:var(--text-tertiary)">All content, trademarks and copyrights belong to their respective owners. Images are collected from their rightful owners. If we have inadvertently violated any copyright, please let us know and we will promptly remove the content.</p>
+            <p style="margin:0;font-size:13px;line-height:1.6;color:var(--text-tertiary)">Thank you for supporting FFF Skin Tools.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:44px 16px 40px">
+        <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--ink-900)">
+          <span style="position:absolute;top:10px;left:10px;z-index:2;display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:4px;background:rgba(5,7,15,0.72);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--text-secondary)">AD</span>
+          <div style="height:250px;display:grid;place-items:center;background:radial-gradient(120% 120% at 100% 100%, rgba(138,92,255,0.14), transparent 58%), repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 10px, transparent 10px 22px)"><div style="display:flex;flex-direction:column;align-items:center;gap:8px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--crystal-400)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9l4-6ZM2 9h20M12 3 8 9l4 12 4-12-4-6Z"></path></svg><span style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.08em;color:var(--text-secondary)">AD SLOT · 320 × 250 RATIO</span><span style="font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-tertiary)">Your promotion here</span></div></div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== HOME ==================== -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column">
+      <div style="position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:11px;padding:12px 16px;background:rgba(10,14,27,0.82);backdrop-filter:blur(8px) saturate(1.3);-webkit-backdrop-filter:blur(8px) saturate(1.3);border-bottom:1px solid rgba(255,255,255,0.1)">
+        <img src="assets/app-icon.png" width="32" height="32" alt="" style="border-radius:9px;border:1px solid var(--line-strong)">
+        <div style="flex:1;min-width:0">
+          <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--text-primary);line-height:1.1">FFF Skin Tools</div>
+          <div style="font-size:12px;color:var(--text-tertiary);line-height:1.2">Time to find some drip</div>
+        </div>
+        <button aria-label="Info" onClick="{{ goWelcome }}" style="width:40px;height:40px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);display:grid;place-items:center;cursor:pointer;color:var(--text-secondary)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></button>
+      </div>
+
+      <div style="padding:16px 16px 0">
+        <div style="position:relative;overflow:hidden;border-radius:18px;background:radial-gradient(120% 130% at 100% 0%, rgba(245,184,51,0.18), transparent 62%), linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.018));border:1px solid rgba(245,184,51,0.34);display:flex;flex-direction:column">
+          <div style="padding:18px 18px 20px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <span style="width:52px;height:52px;flex-shrink:0;border-radius:14px;display:grid;place-items:center;background:rgba(245,184,51,0.14);border:1px solid rgba(245,184,51,0.45)"><svg width="30" height="30" viewBox="0 0 512 512"><circle fill="#FFCD52" cx="256" cy="256" r="256"></circle><circle fill="#FFFFFF" opacity="0.3" cx="256" cy="256" r="194.664"></circle><rect x="222.968" y="123.696" fill="#FFFFFF" opacity="0.7" width="66.064" height="264.64"></rect></svg></span>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+              <span style="font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-tertiary)">Entry Coins Balance</span>
+              <span style="font-family:var(--font-mono);font-size:30px;font-weight:700;line-height:1;color:var(--gold-400)">{{ coins }}</span>
+            </div>
+          </div>
+          <button onClick="{{ watchAd }}" style="width:100%;height:52px;border-radius:14px;border:none;background:var(--grad-premium);color:#241a05;font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 26px rgba(245,184,51,0.28);display:flex;align-items:center;justify-content:center;gap:9px"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 8 6 4-6 4V8Z"></path><rect x="2" y="4" width="20" height="16" rx="3"></rect></svg>Watch Ad to Earn Entry Coins</button>
+          <span style="font-size:12px;line-height:1.45;color:var(--text-tertiary);text-align:center">Each short ad adds 10 coins. Coins unlock any category catalogue.</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:14px 16px 0">
+        <div style="position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--ink-900)">
+          <span style="position:absolute;top:8px;left:8px;z-index:2;display:inline-flex;align-items:center;height:16px;padding:0 6px;border-radius:4px;background:rgba(5,7,15,0.72);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:9px;font-weight:600;letter-spacing:0.12em;color:var(--text-tertiary)">AD</span>
+          <div style="height:250px;display:grid;place-items:center;background:radial-gradient(120% 120% at 0% 0%, rgba(31,205,245,0.12), transparent 58%), repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 10px, transparent 10px 22px)"><span style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;color:var(--text-tertiary)">AD SLOT · 320 × 250 RATIO</span></div>
+        </div>
+      </div>
+
+      <div style="padding:22px 16px 0;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:5px;height:22px;border-radius:3px;background:linear-gradient(180deg,#8A5CFF,#2B63F5)"></span><h2 style="margin:0;font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--text-primary)">Browse Categories</h2></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <sc-for list="{{ menuCats }}" as="c" hint-placeholder-count="8">
+          <div onClick="{{ c.onOpen }}" style="position:relative;overflow:hidden;min-height:158px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;padding:14px;border-radius:16px;background:linear-gradient(165deg, rgba(20,28,46,0.92), rgba(9,14,26,0.7));border:1px solid var(--line);cursor:pointer;transition:border-color .18s,transform .18s cubic-bezier(0.16,1,0.3,1)" style-hover="border-color:var(--line-crystal);transform:translateY(-2px)">
+            <div style="position:absolute;left:0;right:0;top:0;height:3px;background:{{ c.accent }}"></div>
+            <div style="position:absolute;inset:0;background:radial-gradient(80% 90% at 100% 0%, {{ c.glow }}, transparent 68%);pointer-events:none"></div>
+            <div style="position:relative;display:flex;flex-direction:column;gap:11px">
+              <span style="width:58px;height:58px;flex-shrink:0;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,0.07);border:1px solid var(--line-strong)">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="{{ c.accent }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <sc-for list="{{ c.iconPaths }}" as="d" hint-placeholder-count="2"><path d="{{ d }}"></path></sc-for>
+                </svg>
+              </span>
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <span style="font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.01em;color:var(--chrome-100);line-height:1.2;text-wrap:pretty">{{ c.name }}</span>
+                <span style="font-family:var(--font-mono);font-size:11px;color:var(--chrome-300)">{{ c.count }}</span>
+              </div>
+            </div>
+            <span style="position:relative;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 10px;border-radius:999px;background:#101728;border:1px solid rgba(255,255,255,0.18)">
+              <span style="font-family:var(--font-display);font-size:8px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.72);white-space:nowrap">Entry Cost</span>
+              <span style="display:inline-flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:12px;font-weight:700;color:#FFE3A3"><svg width="14" height="14" viewBox="0 0 512 512"><circle fill="#FFCD52" cx="256" cy="256" r="256"></circle><circle fill="#FFFFFF" opacity="0.3" cx="256" cy="256" r="194.664"></circle><rect x="222.968" y="123.696" fill="#FFFFFF" opacity="0.7" width="66.064" height="264.64"></rect></svg>10</span>
+            </span>
+            <sc-if value="{{ c.locked }}" hint-placeholder-val="{{ true }}">
+              <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:12px;background:linear-gradient(180deg, rgba(5,7,15,0.45), rgba(5,7,15,0.86));backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)">
+                <span style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border-radius:999px;background:rgba(245,184,51,0.14);border:1px solid rgba(245,184,51,0.5);font-family:var(--font-display);font-size:9.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold-300)"><svg width="14" height="14" viewBox="0 0 512 512"><circle fill="#FFCD52" cx="256" cy="256" r="256"></circle><circle fill="#FFFFFF" opacity="0.3" cx="256" cy="256" r="194.664"></circle><rect x="222.968" y="123.696" fill="#FFFFFF" opacity="0.7" width="66.064" height="264.64"></rect></svg>Unlock · 10 Coins</span>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+        </div>
+      </div>
+
+      <div style="padding:22px 16px 30px">
+        <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--ink-900)">
+          <span style="position:absolute;top:10px;left:10px;z-index:2;display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:4px;background:rgba(5,7,15,0.72);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--text-secondary)">AD</span>
+          <div style="height:250px;display:grid;place-items:center;background:radial-gradient(120% 120% at 0% 0%, rgba(31,205,245,0.13), transparent 58%), repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 10px, transparent 10px 22px)"><div style="display:flex;flex-direction:column;align-items:center;gap:8px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--crystal-400)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9l4-6ZM2 9h20M12 3 8 9l4 12 4-12-4-6Z"></path></svg><span style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.08em;color:var(--text-secondary)">AD SLOT · 320 × 250 RATIO</span><span style="font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-tertiary)">Your promotion here</span></div></div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== CATEGORY ==================== -->
+    <sc-if value="{{ isCategory }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column">
+      <div style="position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:center;height:54px;padding:0 12px;background:rgba(10,14,27,0.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)">
+        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;left:12px;width:38px;height:38px;border-radius:11px;background:var(--ink-800);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--text-secondary)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+        <span style="font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-primary)">{{ catPage.label }}</span>
+      </div>
+      <div style="position:relative;height:190px;overflow:hidden">
+        {{ catPage.heroImgEl }}
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,7,15,0.12) 0%, rgba(5,7,15,0.32) 42%, rgba(5,7,15,0.86) 82%, var(--ink-950) 100%)"></div>
+        <div style="position:absolute;left:16px;right:16px;bottom:14px;display:flex;flex-direction:column;gap:7px">
+          <span style="display:inline-flex;align-self:flex-start;align-items:center;gap:6px;height:22px;padding:0 10px;white-space:nowrap;border-radius:999px;background:{{ catPage.badgeBg }};border:1px solid {{ catPage.badgeBorder }};font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:{{ catPage.badgeColor }}">{{ catPage.badge }}</span>
+          <h2 style="margin:0;font-family:var(--font-display);font-size:26px;font-weight:700;letter-spacing:-0.01em;line-height:1.04;color:var(--chrome-100);text-shadow:0 2px 10px rgba(0,0,0,0.7)">{{ catPage.headline }}</h2>
+          <p style="margin:0;font-size:13px;line-height:1.45;color:var(--chrome-300);max-width:340px;text-wrap:pretty;text-shadow:0 1px 6px rgba(0,0,0,0.6)">{{ catPage.subhead }}</p>
+        </div>
+      </div>
+      <div style="padding:16px 16px 30px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:4px;height:16px;border-radius:2px;background:{{ catPage.bar }}"></span><span style="font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-primary)">{{ catPage.label }}</span></div>
+          <span style="display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:999px;background:var(--ink-800);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);white-space:nowrap">{{ catPage.count }}</span>
+        </div>
+        <sc-for list="{{ catPage.rows }}" as="row" hint-placeholder-count="7">
+          <sc-if value="{{ row.isItem }}" hint-placeholder-val="{{ true }}">
+            <div onClick="{{ row.onOpen }}" style="position:relative;display:flex;align-items:center;gap:13px;padding:11px 13px 11px 11px;background:var(--grad-surface);border:1px solid var(--line);border-radius:15px;cursor:pointer;transition:border-color .18s,transform .18s cubic-bezier(0.16,1,0.3,1)" style-hover="border-color:var(--line-crystal);transform:translateY(-2px)">
+              <span style="position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 3px 3px 0;background:{{ row.accent }}"></span>
+              <div style="position:relative;width:74px;height:74px;flex-shrink:0;border-radius:13px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(120% 100% at 50% 24%, {{ row.glow }}, var(--ink-900) 76%)">{{ row.imgEl }}</div>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
+                <span style="font-family:var(--font-display);font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary)">{{ row.type }}</span>
+                <span style="font-family:var(--font-display);font-size:15.5px;font-weight:700;letter-spacing:-0.01em;color:var(--text-primary);line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ row.name }}</span>
+                <sc-if value="{{ row.showLabel }}" hint-placeholder-val="{{ true }}">
+                  <span style="display:inline-flex;align-self:flex-start;align-items:center;height:18px;padding:0 8px 0 7px;font-family:var(--font-display);font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;line-height:1;color:{{ row.accent }};background:color-mix(in srgb, {{ row.accent }} 15%, transparent);border:1px solid color-mix(in srgb, {{ row.accent }} 52%, transparent);clip-path:polygon(5px 0,100% 0,100% 100%,0 100%,0 5px)">{{ row.label }}</span>
+                </sc-if>
+              </div>
+              <span style="display:inline-flex;align-items:center;gap:6px;flex-shrink:0;height:32px;padding:0 10px 0 13px;border-radius:999px;background:rgba(31,205,245,0.1);border:1px solid var(--line-crystal);font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--crystal-300)">Unlock<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ row.isAd }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;justify-content:center">
+              <div onClick="{{ noop }}" style="position:relative;width:100%;aspect-ratio:3.2 / 1;border-radius:12px;overflow:hidden;background:repeating-linear-gradient(135deg, rgba(255,255,255,0.035) 0 10px, transparent 10px 20px), var(--ink-900);border:1px dashed var(--line-strong);display:grid;place-items:center;cursor:pointer">
+                <span style="position:absolute;top:7px;right:8px;display:inline-flex;align-items:center;height:16px;padding:0 6px;border-radius:4px;background:rgba(31,205,245,0.12);border:1px solid var(--line-crystal);font-family:var(--font-mono);font-size:9px;font-weight:600;letter-spacing:0.12em;color:var(--crystal-300)">AD</span>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.8" cy="9" r="1.6"></circle><path d="m21 15.5-4.7-4.5L5 21"></path></svg>
+                  <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;color:var(--text-tertiary)">AD SLOT · 320 × 100 RATIO</span>
+                  <span style="font-family:var(--font-display);font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary);opacity:0.75">Your promotion here</span>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+        </sc-for>
+        <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--ink-900);margin-top:4px">
+          <span style="position:absolute;top:10px;left:10px;z-index:2;display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:4px;background:rgba(5,7,15,0.72);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--text-secondary)">AD</span>
+          <div style="height:250px;display:grid;place-items:center;background:radial-gradient(120% 120% at 100% 0%, rgba(31,205,245,0.14), transparent 58%), repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 10px, transparent 10px 22px)"><span style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.08em;color:var(--text-secondary)">AD SLOT · 320 × 250 RATIO</span></div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== DETAIL (LIGHT) ==================== -->
+    <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);background-size:34px 34px">
+      <div style="position:relative;height:320px;overflow:hidden">
+        <div style="position:absolute;inset:0;background:radial-gradient(96% 70% at 50% 32%, {{ item.glow }}, transparent 66%), var(--ink-950)"></div>
+        <div style="position:absolute;inset:0;display:grid;place-items:center;padding:56px 48px 56px">{{ item.heroEl }}</div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:130px;background:linear-gradient(180deg, transparent, var(--ink-950) 88%)"></div>
+        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);backdrop-filter:blur(8px);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--chrome-100)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+      </div>
+      <div style="padding:0 16px 30px;margin-top:-24px;position:relative;z-index:2;display:flex;flex-direction:column;gap:18px">
+        <sc-if value="{{ item.showLabel }}" hint-placeholder-val="{{ true }}">
+          <div><span style="display:inline-flex;align-items:center;gap:7px;height:26px;padding:0 13px 0 11px;font-family:var(--font-display);font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;line-height:1;color:{{ item.accent }};background:color-mix(in srgb, {{ item.accent }} 15%, transparent);border:1px solid color-mix(in srgb, {{ item.accent }} 55%, transparent);clip-path:polygon(8px 0,100% 0,100% 100%,0 100%,0 8px)">{{ item.label }} Grade</span></div>
+        </sc-if>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <h1 style="margin:0;font-family:var(--font-display);font-weight:700;font-size:28px;letter-spacing:-0.01em;line-height:1.06;color:var(--chrome-100)">{{ item.name }}</h1>
+          <span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-secondary)">{{ item.type }} · {{ item.catLabel }}</span>
+        </div>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:var(--text-secondary)">{{ item.desc }}</p>
+        <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--ink-900)">
+          <span style="position:absolute;top:10px;left:10px;z-index:2;display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:4px;background:rgba(5,7,15,0.72);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--text-secondary)">AD</span>
+          <div style="height:250px;display:grid;place-items:center;background:radial-gradient(120% 120% at 80% 0%, rgba(245,184,51,0.16), transparent 60%), repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 12px, transparent 12px 24px)"><span style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.06em;color:var(--text-tertiary)">AD SLOT · 320 × 250 RATIO</span></div>
+        </div>
+        <div style="padding:24px 18px;background:radial-gradient(120% 130% at 50% 0%, rgba(31,205,245,0.14), transparent 62%), linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid var(--line-crystal);border-radius:20px;display:flex;flex-direction:column;align-items:center;gap:16px">
+          <span style="font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--chrome-100);line-height:1.15;text-align:center">Initialize Injection Protocol</span>
+          <button onClick="{{ goFlow }}" style="width:100%;height:54px;border-radius:14px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 26px rgba(31,205,245,0.32);display:flex;align-items:center;justify-content:center;gap:9px"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5v14"></path></svg>Add to Game for Free</button>
+          <span style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--success)"><span style="width:5px;height:5px;border-radius:999px;background:var(--success);box-shadow:0 0 6px var(--success)"></span>Status: Secure &amp; Ready to Deploy</span>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== FLOW 1: UPLINK ==================== -->
+    <sc-if value="{{ isFlowTerminal }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;background:radial-gradient(110% 40% at 50% 0%, rgba(52,211,153,0.10), transparent 60%), var(--bg-canvas)">
+      <div style="position:relative;padding:18px 16px 12px">
+        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--chrome-100)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+        <h1 style="margin:34px 0 0;text-align:center;font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--chrome-100)">Establishing Uplink</h1>
+      </div>
+      <div style="padding:8px 16px 30px;display:flex;flex-direction:column;gap:16px;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);background-size:34px 34px">
+        <div style="display:flex;align-items:center;gap:16px;padding:16px;border-radius:20px;background:radial-gradient(130% 130% at 0% 0%, rgba(52,211,153,0.14), transparent 62%), linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid rgba(52,211,153,0.3)">
+          <div style="position:relative;width:88px;height:88px;flex-shrink:0;border-radius:18px;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%, rgba(52,211,153,0.2), transparent 70%);border:1px solid rgba(52,211,153,0.4);overflow:hidden">{{ item.avatarEl }}</div>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:5px"><span style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--success)"><span style="width:6px;height:6px;border-radius:999px;background:var(--success);box-shadow:0 0 7px var(--success)"></span>Connection Secured</span><span style="font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:var(--chrome-100);line-height:1.05">{{ item.name }}</span><span style="font-size:12.5px;color:var(--text-tertiary)">Package routing to your account</span></div>
+        </div>
+        <div style="padding:18px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid rgba(52,211,153,0.28);display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:14px"><div style="flex:1;min-width:0"><div style="font-family:var(--font-display);font-size:9px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-tertiary)">Data Channel</div><div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--chrome-100)">Rebuilding Asset Package</div></div><span style="font-family:var(--font-mono);font-size:24px;font-weight:700;color:var(--success)">94%</span></div>
+          <div style="height:8px;border-radius:999px;background:var(--ink-950);overflow:hidden;border:1px solid var(--line)"><div style="width:94%;height:100%;border-radius:999px;background:linear-gradient(90deg,#1FE0A6,#12C7E8);box-shadow:0 0 12px rgba(31,224,166,0.6)"></div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:4px;height:15px;border-radius:2px;background:var(--success)"></span><span style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-primary)">Transfer Log</span></div>
+          <div style="display:flex;flex-direction:column;padding-left:4px">
+            <sc-for list="{{ sysProtocols }}" as="p" hint-placeholder-count="4">
+              <div style="display:flex;align-items:stretch;gap:14px"><div style="display:flex;flex-direction:column;align-items:center;width:26px;flex-shrink:0"><span style="width:26px;height:26px;flex-shrink:0;border-radius:999px;display:grid;place-items:center;background:{{ p.iconBg }};color:{{ p.iconColor }};border:1px solid {{ p.border }}">{{ p.icon }}</span><span style="flex:1;width:2px;background:var(--line);border-radius:2px;min-height:14px"></span></div><div style="flex:1;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:14px;padding-top:2px"><span style="font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:{{ p.labelColor }}">{{ p.label }}</span><span style="font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:{{ p.metaColor }}">{{ p.meta }}</span></div></div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--ink-900)">
+          <span style="position:absolute;top:10px;left:10px;z-index:2;display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:4px;background:rgba(5,7,15,0.72);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--text-secondary)">AD</span>
+          <div style="height:250px;display:grid;place-items:center;background:radial-gradient(120% 120% at 0% 100%, rgba(138,92,255,0.14), transparent 58%), repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 10px, transparent 10px 22px)"><span style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.08em;color:var(--text-secondary)">AD SLOT · 320 × 250 RATIO</span></div>
+        </div>
+        <div style="padding:26px 20px 24px;border-radius:20px;background:radial-gradient(120% 120% at 50% 0%, rgba(52,211,153,0.14), transparent 64%), linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid rgba(52,211,153,0.3);display:flex;flex-direction:column;align-items:center;gap:14px">
+          <div style="width:76px;height:76px;border-radius:999px;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%, rgba(52,211,153,0.22), transparent 70%);border:1px solid rgba(52,211,153,0.4)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z"></path></svg></div>
+          <span style="font-family:var(--font-display);font-size:21px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:var(--chrome-100);text-align:center">Cleared For Injection</span>
+          <p style="margin:0;text-align:center;font-size:13px;line-height:1.55;color:var(--text-tertiary);max-width:290px">Channel is secure and the package checks out. Ready to push it into your account?</p>
+          <button onClick="{{ startExec }}" style="width:100%;height:56px;margin-top:4px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3)">Begin Injection</button>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== FLOW 2: ACCOUNT SYNC ==================== -->
+    <sc-if value="{{ isFlowVerify }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;background:radial-gradient(120% 40% at 50% 0%, rgba(31,205,245,0.12), transparent 58%), var(--bg-canvas)">
+      <div style="position:relative;padding:18px 16px 12px">
+        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-crystal);display:grid;place-items:center;cursor:pointer;color:var(--crystal-300)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+        <h1 style="margin:34px 0 0;text-align:center;font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--chrome-100)">Account Sync</h1>
+      </div>
+      <div style="padding:8px 16px 30px;display:flex;flex-direction:column;gap:16px;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);background-size:34px 34px">
+        <div style="display:flex;align-items:center;gap:15px;padding:16px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid rgba(52,211,153,0.28)">
+          <div style="position:relative;width:76px;height:76px;flex-shrink:0;border-radius:999px;display:grid;place-items:center;background:var(--ink-950);border:2px solid rgba(52,211,153,0.5);overflow:hidden">{{ item.avatarEl }}</div>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px"><span style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--success)"><span style="width:6px;height:6px;border-radius:999px;background:var(--success);box-shadow:0 0 7px var(--success)"></span>Asset Locked In</span><span style="font-family:var(--font-display);font-size:18px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:var(--chrome-100);line-height:1.1">{{ item.name }}</span><span style="font-size:13px;color:var(--text-tertiary)">Awaiting your Game ID</span></div>
+        </div>
+        <div style="padding:20px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid var(--line-crystal);display:flex;flex-direction:column;gap:16px">
+          <div><div style="font-family:var(--font-display);font-size:19px;font-weight:700;letter-spacing:0.01em;text-transform:uppercase;color:var(--chrome-100)">Link Your Account</div><div style="font-size:13px;color:var(--text-tertiary);margin-top:3px">Connect your Free Fire ID to receive the drop</div></div>
+          <div style="display:flex;align-items:center;gap:11px;height:56px;padding:0 16px;border-radius:12px;background:var(--ink-950);border:1px solid var(--line-strong)"><span style="font-family:var(--font-mono);font-size:18px;color:var(--crystal-400)">#</span><input value="{{ uid }}" onInput="{{ setUid }}" placeholder="ENTER YOUR GAME UID" inputMode="numeric" style="flex:1;min-width:0;background:transparent;border:none;outline:none;font-family:var(--font-mono);font-size:15px;letter-spacing:0.08em;color:var(--chrome-100)"></div>
+          <div onClick="{{ openRegion }}" style="display:flex;align-items:center;gap:11px;height:52px;padding:0 16px;border-radius:12px;background:var(--ink-950);border:1px solid var(--line-strong);cursor:pointer"><span style="flex:1;font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary)">Region</span><span style="font-family:var(--font-mono);font-size:13px;color:var(--chrome-100)">{{ region }}</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+          <div style="display:flex;align-items:flex-start;gap:9px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--crystal-400)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg><span style="font-size:12px;line-height:1.5;color:var(--text-tertiary)">We use your Game UID to deliver the skin straight to your account.</span></div>
+        </div>
+        <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--ink-900)">
+          <span style="position:absolute;top:10px;left:10px;z-index:2;display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:4px;background:rgba(5,7,15,0.72);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--text-secondary)">AD</span>
+          <div style="height:250px;display:grid;place-items:center;background:radial-gradient(120% 120% at 80% 0%, rgba(245,184,51,0.16), transparent 60%), repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 12px, transparent 12px 24px)"><span style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.06em;color:var(--text-tertiary)">AD SLOT · 320 × 250 RATIO</span></div>
+        </div>
+        <button onClick="{{ syncUplink }}" style="width:100%;height:56px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3)">Link Account</button>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== FLOW 3: MODE ==================== -->
+    <sc-if value="{{ isFlowTier }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;background:radial-gradient(120% 40% at 50% 0%, rgba(245,184,51,0.12), transparent 56%), var(--bg-canvas)">
+      <div style="position:relative;padding:18px 16px 12px">
+        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--gold-400)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+        <h1 style="margin:34px 0 0;text-align:center;font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--chrome-100)">Mode Selection</h1>
+      </div>
+      <div style="padding:8px 16px 30px;display:flex;flex-direction:column;gap:12px;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);background-size:34px 34px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:4px;height:15px;border-radius:2px;background:var(--gold-500)"></span><span style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-primary)">Select Game Mode</span></div>
+        <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="4">
+          <button onClick="{{ t.onPick }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;width:100%;padding:18px 16px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ t.border }};cursor:pointer;text-align:left;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%)"><div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:{{ t.accent }}"></div><div style="position:absolute;top:0;right:0;width:60%;height:100%;background:radial-gradient(120% 92% at 100% 26%, {{ t.tint }}, transparent 72%);pointer-events:none"></div><div style="position:relative;width:62px;height:62px;flex-shrink:0;border-radius:16px;display:grid;place-items:center;background:{{ t.iconBg }};border:1px solid {{ t.border }};color:{{ t.accent }}">{{ t.icon }}</div><div style="position:relative;flex:1;min-width:0"><div style="font-family:var(--font-display);font-size:18px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:var(--chrome-100)">{{ t.name }}</div><div style="margin-top:4px;font-size:13px;color:var(--text-tertiary)">{{ t.desc }}</div></div><div style="position:relative;width:36px;height:36px;flex-shrink:0;border-radius:999px;display:grid;place-items:center;background:{{ t.iconBg }};border:1px solid {{ t.border }};color:{{ t.accent }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></div></button>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== FLOW 4: LEVEL ==================== -->
+    <sc-if value="{{ isFlowLevel }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;background:radial-gradient(120% 40% at 50% 0%, rgba(31,205,245,0.12), transparent 56%), var(--bg-canvas)">
+      <div style="position:relative;padding:18px 16px 12px">
+        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-crystal);display:grid;place-items:center;cursor:pointer;color:var(--crystal-300)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+        <h1 style="margin:34px 0 0;text-align:center;font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--chrome-100)">Progression Level</h1>
+      </div>
+      <div style="padding:8px 16px 30px;display:flex;flex-direction:column;gap:12px;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);background-size:34px 34px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:4px;height:15px;border-radius:2px;background:var(--crystal-500)"></span><span style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-primary)">Select Your Account Level</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <sc-for list="{{ levels }}" as="l" hint-placeholder-count="5">
+            <button onClick="{{ l.onPick }}" style="position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:22px 12px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ l.border }};cursor:pointer"><div style="position:absolute;inset:0;background:radial-gradient(90% 120% at 50% 0%, {{ l.tint }}, transparent 70%);pointer-events:none"></div><span style="position:relative;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--chrome-100)">{{ l.name }}</span></button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== FLOW 5: RANK ==================== -->
+    <sc-if value="{{ isFlowLeague }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;background:radial-gradient(120% 40% at 50% 0%, rgba(52,211,153,0.10), transparent 56%), var(--bg-canvas)">
+      <div style="position:relative;padding:18px 16px 12px">
+        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--chrome-100)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+        <h1 style="margin:34px 0 0;text-align:center;font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--chrome-100)">Rank Selection</h1>
+      </div>
+      <div style="padding:8px 16px 30px;display:grid;grid-template-columns:1fr 1fr;gap:12px;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);background-size:34px 34px">
+        <sc-for list="{{ leagues }}" as="l" hint-placeholder-count="7">
+          <button onClick="{{ l.onPick }}" style="position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 12px 16px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ l.border }};cursor:pointer"><div style="position:absolute;inset:0;background:radial-gradient(80% 60% at 50% 20%, {{ l.tint }}, transparent 72%);pointer-events:none"></div>{{ l.imgEl }}<span style="position:relative;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--chrome-100)">{{ l.name }}</span></button>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== FLOW 6: COMPLETE ==================== -->
+    <sc-if value="{{ isFlowDone }}" hint-placeholder-val="{{ false }}">
+    <div style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:20px;padding:40px 20px;background:radial-gradient(120% 45% at 50% 0%, rgba(52,211,153,0.14), transparent 58%), var(--bg-canvas)">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:18px;padding:34px 22px;border-radius:22px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid rgba(52,211,153,0.34)">
+        <div style="width:96px;height:96px;border-radius:999px;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%, rgba(52,211,153,0.24), transparent 70%);border:1px solid rgba(52,211,153,0.45);color:var(--success)"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></div>
+        <span style="font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--chrome-100);text-align:center">Handshake Complete</span>
+        <p style="margin:0;text-align:center;font-size:13.5px;line-height:1.6;color:var(--text-tertiary);max-width:300px">{{ item.name }} has been queued for delivery to UID {{ uidLabel }}. Restart Free Fire and check your vault — first sync can take a few minutes.</p>
+        <div style="width:100%;display:flex;flex-direction:column;gap:10px;margin-top:4px">
+          <button onClick="{{ goHome }}" style="width:100%;height:54px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Back to Catalog</button>
+          <button onClick="{{ openTroubleshoot }}" style="width:100%;height:48px;border-radius:14px;background:var(--ink-800);border:1px solid var(--line-strong);color:var(--chrome-100);font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Skin not showing?</button>
+        </div>
+      </div>
+      <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--ink-900)">
+        <span style="position:absolute;top:10px;left:10px;z-index:2;display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:4px;background:rgba(5,7,15,0.72);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--text-secondary)">AD</span>
+        <div style="height:250px;display:grid;place-items:center;background:radial-gradient(120% 120% at 0% 0%, rgba(31,205,245,0.13), transparent 58%), repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 10px, transparent 10px 22px)"><span style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.08em;color:var(--text-secondary)">AD SLOT · 320 × 250 RATIO</span></div>
+      </div>
+    </div>
+    </sc-if>
+  </div>
+
+  <!-- ==================== INTERSTITIAL AD ==================== -->
+  <sc-if value="{{ adOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:80;background:#0B0F1A;display:flex;justify-content:center">
+    <div style="position:relative;width:100%;max-width:var(--web-col);display:flex;flex-direction:column;background:var(--ink-950);border-left:1px solid var(--line-strong);border-right:1px solid var(--line-strong)">
+      <div style="display:flex;align-items:center;gap:10px;height:46px;padding:0 12px;border-bottom:1px solid var(--line);flex-shrink:0">
+        <span style="display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:4px;background:rgba(255,255,255,0.08);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--text-secondary)">AD</span>
+        <span style="flex:1;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--text-tertiary)">Google Interstitial · Full screen</span>
+        <button aria-label="Close ad" onClick="{{ closeAd }}" style="width:32px;height:32px;border-radius:999px;background:rgba(255,255,255,0.08);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--chrome-100)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+      </div>
+      <div style="flex:1;display:grid;place-items:center;background:radial-gradient(120% 80% at 50% 0%, rgba(31,205,245,0.12), transparent 60%), repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 12px, transparent 12px 26px)">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:24px;text-align:center">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--crystal-400)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9l4-6ZM2 9h20M12 3 8 9l4 12 4-12-4-6Z"></path></svg>
+          <span style="font-family:var(--font-mono);font-size:13px;letter-spacing:0.08em;color:var(--text-secondary)">FULL-PAGE AD CREATIVE</span>
+          <span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-tertiary)">Close the ad to collect +10 coins</span>
+        </div>
+      </div>
+      <div style="padding:16px;border-top:1px solid var(--line);flex-shrink:0">
+        <button onClick="{{ closeAd }}" style="width:100%;height:50px;border-radius:14px;border:none;background:var(--grad-premium);color:#241a05;font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Close &amp; Collect +10 Coins</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ==================== DIALOG: INSUFFICIENT COINS ==================== -->
+  <div onClick="{{ closeShort }}" style="position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:24px;background:rgba(5,7,15,0.7);backdrop-filter:blur(3px);transition:opacity .2s;opacity:{{ shortOpaque }};pointer-events:{{ shortPE }}">
+    <div style="width:100%;max-width:320px;padding:24px 20px;border-radius:20px;background:radial-gradient(120% 120% at 50% 0%, rgba(245,184,51,0.16), transparent 62%), var(--ink-850);border:1px solid rgba(245,184,51,0.4);display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 24px 60px rgba(0,0,0,0.6)">
+      <span style="width:52px;height:52px;border-radius:999px;display:grid;place-items:center;background:rgba(245,184,51,0.14);border:1px solid rgba(245,184,51,0.45)"><svg width="30" height="30" viewBox="0 0 512 512"><circle fill="#FFCD52" cx="256" cy="256" r="256"></circle><circle fill="#FFFFFF" opacity="0.3" cx="256" cy="256" r="194.664"></circle><rect x="222.968" y="123.696" fill="#FFFFFF" opacity="0.7" width="66.064" height="264.64"></rect></svg></span>
+      <span style="font-family:var(--font-display);font-size:17px;font-weight:700;letter-spacing:0.02em;color:var(--chrome-100);text-align:center;line-height:1.25">Insufficient Entry Coins. Watch ads to unlock</span>
+      <span style="font-family:var(--font-mono);font-size:12px;color:var(--text-tertiary)">Balance: {{ coins }} · Needed: 10</span>
+      <button onClick="{{ watchAd }}" style="width:100%;height:48px;border-radius:13px;border:none;background:var(--grad-premium);color:#241a05;font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Watch Ad · +10 Coins</button>
+      <button onClick="{{ closeShort }}" style="width:100%;height:42px;border-radius:13px;background:var(--ink-800);border:1px solid var(--line-strong);color:var(--chrome-100);font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer">Not Now</button>
+    </div>
+  </div>
+
+  <!-- ==================== SHEET: REGION ==================== -->
+  <div onClick="{{ closeRegion }}" style="position:fixed;inset:0;z-index:60;background:rgba(5,7,15,0.62);backdrop-filter:blur(3px);transition:opacity .25s;opacity:{{ regionOpaque }};pointer-events:{{ regionPE }}"></div>
+  <div style="position:fixed;left:50%;bottom:0;transform:translateX(-50%) {{ regionTransform }};width:100%;max-width:var(--web-col);z-index:61;max-height:80vh;display:flex;flex-direction:column;background:var(--ink-850);border:1px solid var(--line-strong);border-radius:24px 24px 0 0;transition:transform .28s cubic-bezier(0.16,1,0.3,1);pointer-events:{{ regionPE }};box-sizing:border-box">
+    <div style="padding:10px 16px 4px;display:flex;flex-direction:column;align-items:center;gap:12px"><span style="width:38px;height:4px;border-radius:999px;background:var(--line-strong)"></span><span style="font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--chrome-100)">Select Region</span></div>
+    <div style="flex:1;min-height:0;overflow:auto;padding:12px 16px 24px;display:flex;flex-direction:column;gap:8px">
+      <sc-for list="{{ regions }}" as="r" hint-placeholder-count="8">
+        <div onClick="{{ r.onPick }}" style="display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:12px;background:var(--grad-surface);border:1px solid var(--line);cursor:pointer" style-hover="border-color:var(--line-crystal)"><span style="flex:1;font-family:var(--font-display);font-size:14px;font-weight:600;color:var(--chrome-100)">{{ r.name }}</span>{{ r.checkEl }}</div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ==================== SHEET: INFO ==================== -->
+  <div onClick="{{ closeInfo }}" style="position:fixed;inset:0;z-index:62;background:rgba(5,7,15,0.62);backdrop-filter:blur(3px);transition:opacity .25s;opacity:{{ infoOpaque }};pointer-events:{{ infoPE }}"></div>
+  <div style="position:fixed;left:50%;bottom:0;transform:translateX(-50%) {{ infoTransform }};width:100%;max-width:var(--web-col);z-index:63;max-height:84vh;display:flex;flex-direction:column;overflow:hidden;background:var(--ink-850);border:1px solid var(--line-strong);border-radius:24px 24px 0 0;transition:transform .28s cubic-bezier(0.16,1,0.3,1);pointer-events:{{ infoPE }};box-sizing:border-box">
+    <div style="position:relative;height:132px;flex-shrink:0;overflow:hidden">{{ infoImgEl }}<div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,7,15,0.2), var(--ink-850))"></div><span style="position:absolute;left:18px;right:18px;bottom:14px;font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:0.01em;color:var(--chrome-100)">{{ infoTitle }}</span></div>
+    <div style="flex:1;min-height:0;overflow:auto;padding:16px 18px 26px;display:flex;flex-direction:column;gap:11px">
+      <sc-for list="{{ infoParas }}" as="p" hint-placeholder-count="4">
+        <div style="display:flex;align-items:flex-start;gap:10px">{{ p.dotEl }}<span style="font-size:13.5px;line-height:1.6;color:var(--text-secondary)">{{ p.text }}</span></div>
+      </sc-for>
+      <button onClick="{{ closeInfo }}" style="margin-top:6px;height:46px;border-radius:12px;background:var(--ink-800);border:1px solid var(--line-strong);color:var(--chrome-100);font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer">Close</button>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;screen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;splash&quot;,&quot;welcome&quot;,&quot;home&quot;,&quot;category&quot;,&quot;detail&quot;,&quot;flowTerminal&quot;,&quot;flowVerify&quot;,&quot;flowTier&quot;,&quot;flowLevel&quot;,&quot;flowLeague&quot;,&quot;flowDone&quot;],&quot;default&quot;:&quot;splash&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { route: 'splash', history: [], catKey: 'characters', itemIdx: 0, uid: '', region: 'India', regionOpen: false, infoKey: null, coins: 0, unlocked: [], adOpen: false, shortOpen: false, pendingCat: null };
+
+  openCategory(key) {
+    this.setState(st => {
+      if (st.coins >= 10) {
+        window.scrollTo(0, 0);
+        return { coins: st.coins - 10, route: 'category', catKey: key, history: [...st.history, st.route], regionOpen: false, infoKey: null, shortOpen: false, pendingCat: null };
+      }
+      return { shortOpen: true, pendingCat: key };
+    });
+  }
+
+  componentDidMount() {
+    const p = this.props.screen;
+    if (p && p !== 'splash') this.setState({ route: p });
+    else this._t = setTimeout(() => this.setState(s => s.route === 'splash' ? { route: 'welcome' } : null), 2200);
+  }
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  go(route, extra) {
+    clearTimeout(this._t);
+    this.setState(st => ({ route, history: [...st.history, st.route], regionOpen: false, infoKey: null, ...(extra || {}) }));
+    window.scrollTo(0, 0);
+  }
+  back() {
+    this.setState(st => { const h = st.history.slice(); const prev = h.pop(); return { route: prev || 'home', history: h, regionOpen: false, infoKey: null }; });
+    window.scrollTo(0, 0);
+  }
+
+  renderVals() {
+    const noop = () => {};
+    const route = this.state.route;
+    const RR = {
+      mythic: { accent: 'var(--rarity-mythic)', glow: 'rgba(255,77,106,0.30)', label: 'Mythic' },
+      legendary: { accent: 'var(--rarity-legendary)', glow: 'rgba(245,184,51,0.28)', label: 'Legendary' },
+      epic: { accent: 'var(--rarity-epic)', glow: 'rgba(138,92,255,0.30)', label: 'Epic' },
+      rare: { accent: 'var(--rarity-rare)', glow: 'rgba(59,130,246,0.30)', label: 'Rare' },
+      uncommon: { accent: '#7C8AA8', glow: 'rgba(124,138,168,0.26)', label: 'Uncommon' },
+    };
+    const img = (src, style) => React.createElement('img', { src, alt: '', style });
+    const realImg = (src, pad) => img(src, { width: '100%', height: '100%', objectFit: 'contain', padding: pad || '9px', boxSizing: 'border-box', filter: 'drop-shadow(0 6px 14px rgba(0,0,0,0.45))' });
+    const ICONS = {
+      crown: ['M3 7l4.5 3.2L12 4l4.5 6.2L21 7l-2 11H5L3 7z', 'M5 20.5h14'],
+      shirt: ['M20.4 3.5 16 2a4 4 0 0 1-8 0L3.6 3.5a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z'],
+      gift: ['M20 12v9H4v-9', 'M2 7h20v5H2z', 'M12 22V7', 'M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z', 'M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z'],
+      board: ['M4.5 19.5 19.5 4.5', 'M7.6 16.4 4.8 19.2a2.4 2.4 0 0 1-3.4-3.4l2.8-2.8', 'M16.4 7.6l2.8-2.8a2.4 2.4 0 0 1 3.4 3.4l-2.8 2.8', 'M9 15l6-6'],
+      backpack: ['M6 8a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8Z', 'M9.5 4V3a2.5 2.5 0 0 1 5 0v1', 'M9 12h6v4H9z'],
+    };
+    const strokeIcon = (key, accent, size) => React.createElement('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: accent, strokeWidth: 1.5, strokeLinecap: 'round', strokeLinejoin: 'round' }, ICONS[key].map((d, i) => React.createElement('path', { d, key: i })));
+    const pawIcon = (accent, size) => React.createElement('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: accent, stroke: 'none' }, [
+      React.createElement('circle', { cx: 5.5, cy: 11, r: 1.9, key: 'a' }),
+      React.createElement('circle', { cx: 9.6, cy: 7.4, r: 2.1, key: 'b' }),
+      React.createElement('circle', { cx: 14.4, cy: 7.4, r: 2.1, key: 'c' }),
+      React.createElement('circle', { cx: 18.5, cy: 11, r: 1.9, key: 'd' }),
+      React.createElement('path', { d: 'M12 12.4c-2.7 0-4.9 1.9-4.9 4.3 0 1.6 1.3 2.8 3 2.8.9 0 1.4-.35 1.9-.35s1 .35 1.9.35c1.7 0 3-1.2 3-2.8 0-2.4-2.2-4.3-4.9-4.3z', key: 'e' }),
+    ]);
+    const phIcon = (key, accent, size) => key === 'paw' ? pawIcon(accent, size) : strokeIcon(key, accent, size);
+    const THEMES = {
+      crystal: { bg: 'rgba(31,205,245,0.14)', border: 'rgba(31,205,245,0.45)', color: 'var(--crystal-300)', bar: 'var(--grad-crystal)' },
+      magenta: { bg: 'rgba(192,38,169,0.18)', border: 'rgba(192,38,169,0.5)', color: '#ECABFF', bar: 'linear-gradient(90deg,#C026A9,#8A5CFF)' },
+      azure: { bg: 'rgba(59,130,246,0.18)', border: 'rgba(59,130,246,0.5)', color: '#93C5FD', bar: 'linear-gradient(90deg,#3B82F6,#2B63F5)' },
+      violet: { bg: 'rgba(138,92,255,0.18)', border: 'rgba(138,92,255,0.5)', color: '#C7B4FF', bar: 'linear-gradient(90deg,#8A5CFF,#4A5BF0)' },
+      gold: { bg: 'rgba(245,184,51,0.16)', border: 'rgba(245,184,51,0.45)', color: 'var(--gold-300)', bar: 'var(--grad-premium)' },
+      crystalDeep: { bg: 'rgba(31,205,245,0.14)', border: 'rgba(31,205,245,0.45)', color: 'var(--crystal-300)', bar: 'linear-gradient(90deg,#4FE3FF,#2B63F5)' },
+      sky: { bg: 'rgba(125,225,255,0.16)', border: 'rgba(125,225,255,0.45)', color: '#B9EEFF', bar: 'linear-gradient(90deg,#7DE1FF,#8A5CFF)' },
+      amber: { bg: 'rgba(255,176,92,0.16)', border: 'rgba(255,176,92,0.45)', color: '#FFCF9E', bar: 'linear-gradient(90deg,#FFB05C,#C026A9)' },
+    };
+    const rawCats = [
+      { key: 'characters', label: 'Elite Characters', count: '51 items', theme: 'crystal', kind: 'real', icon: 'crown',
+        badge: 'Season 52 · Roster', headline: 'Elite Characters', subhead: 'Every playable operator in the roster, with the active and passive skills each one brings to a match.',
+        img: 'assets/catalog-header-alt-b.png', pos: '50% 30%', menuImg: 'assets/cat-characters.png', accent: 'var(--crystal-500)', glow: 'rgba(31,205,245,0.32)',
+        items: [
+          ['A-Patroa', '', 'Character', 'assets/characters/a-patroa.png', 'A fearless leader who never backs down from a challenge. A-Patroa’s Biker’s Spirit marks enemies after the player drives a vehicle, helping locate nearby opponents.'],
+          ['A124', '', 'Character', 'assets/characters/a124.png', 'A combat android built with advanced technology. A124’s Thrill of Battle instantly converts EP into HP, improving survivability in combat.'],
+          ['Alok', '', 'Character', 'assets/characters/alok.png', 'A world-renowned DJ who brings energy to every battlefield. Alok’s Drop the Beat creates an aura that restores HP and increases movement speed for nearby teammates.'],
+          ['Alvaro', '', 'Character', 'assets/characters/alvaro.png', 'A demolition expert who loves making things go boom. Alvaro’s Art of Demolition increases grenade damage and explosion range.'],
+          ['Andrew', '', 'Character', 'assets/characters/andrew.png', 'A former police officer who always protects his allies. Andrew’s Armor Specialist reduces armor durability loss during combat.'],
+          ['Antonio', '', 'Character', 'assets/characters/antonio.png', 'A respected gangster with unmatched resilience. Antonio’s Gangster’s Spirit grants additional HP at the beginning of every match.'],
+          ['Caroline', '', 'Character', 'assets/characters/caroline.png', 'A popular student admired wherever she goes. Caroline’s Agility increases movement speed while carrying shotguns.'],
+          ['Chrono', '', 'Character', 'assets/characters/chrono.png', 'A bounty hunter from another universe who can manipulate time. Chrono’s Time Turner creates a force field that blocks damage while increasing movement speed.'],
+          ['Clu', '', 'Character', 'assets/characters/clu.png', 'A skilled private detective with exceptional investigative instincts. Clu’s Tracing Steps reveals the positions of enemies who are not crouching or prone within range.'],
+          ['D-Bee', '', 'Character', 'assets/characters/d-bee.png', 'A music lover who never stops moving. D-Bee’s Bullet Beats increases movement speed and accuracy while firing on the move.'],
+          ['Dasha', '', 'Character', 'assets/characters/dasha.png', 'A fun-loving prankster who thrives under pressure. Dasha’s Partying On reduces fall damage and recovery time while improving movement and accuracy after landing.'],
+          ['Dimitri', '', 'Character', 'assets/characters/dimitri.png', 'A music producer determined to protect those around him. Dimitri’s Healing Heartbeat creates a healing zone where knocked teammates can recover themselves.'],
+          ['Ford', '', 'Character', 'assets/characters/ford.png', 'A former navy officer with exceptional endurance. Ford’s Iron Will reduces damage taken outside the safe zone.'],
+          ['Hayato', '', 'Character', 'assets/characters/hayato.png', 'A legendary samurai committed to honor and discipline. Hayato’s Bushido increases armor penetration as his maximum HP decreases.'],
+          ['Ignis', '', 'Character', 'assets/characters/ignis.png', 'A gifted street artist who fights with blazing determination. Ignis’ Flame Mirage unleashes a moving wall of fire that damages enemies and destroys Gloo Walls in its path.'],
+          ['Jai', '', 'Character', 'assets/characters/jai.png', 'A fearless special forces officer who never backs down. Jai’s Raging Reload automatically reloads part of the magazine after knocking down an enemy.'],
+          ['Joseph', '', 'Character', 'assets/characters/joseph.png', 'A renowned physicist who refuses to give up. Joseph’s Nutty Movement temporarily increases movement speed after taking damage.'],
+          ['Jota', '', 'Character', 'assets/characters/jota.png', 'A parkour enthusiast who excels in close-range combat. Jota’s Sustained Raids restores HP after knocking down or eliminating enemies with firearms.'],
+          ['K', '', 'Character', 'assets/characters/k.png', 'A mysterious professor and master of the mind. K’s Master of All increases EP capacity and allows players to switch between different EP-related modes.'],
+          ['Kapella', '', 'Character', 'assets/characters/kapella.png', 'A pop star whose music inspires her teammates. Kapella’s Healing Song enhances healing effects and reduces HP loss for knocked teammates.'],
+          ['Kelly', '', 'Character', 'assets/characters/kelly.png', 'The fastest sprinter at her high school. Kelly’s Dash permanently increases sprinting speed, making her one of the fastest characters in Free Fire.'],
+          ['Kenta', '', 'Character', 'assets/characters/kenta.png', 'A disciplined swordsman with an unwavering sense of honor. Kenta’s Swordsman’s Wrath creates a frontal shield that reduces damage taken while limiting offensive actions.'],
+          ['Kla', '', 'Character', 'assets/characters/kla.png', 'A Muay Thai champion who believes fists are the ultimate weapon. Kla’s Muay Thai significantly increases fist damage in combat.'],
+          ['Laura', '', 'Character', 'assets/characters/laura.png', 'A skilled special forces sharpshooter with exceptional precision. Laura’s Sharp Shooter increases accuracy while scoped in.'],
+          ['Leon', '', 'Character', 'assets/characters/leon.png', 'A gifted basketball player known for his endurance. Leon’s Buzzer Beater restores HP after surviving combat encounters.'],
+          ['Luqueta', '', 'Character', 'assets/characters/luqueta.png', 'A rising football star who never stops pushing forward. Luqueta’s Hat Trick permanently increases maximum HP after each elimination, up to a limit.'],
+          ['Maro', '', 'Character', 'assets/characters/maro.png', 'A veteran falconer and expert marksman. Maro’s Falcon Fervor increases damage dealt at longer distances and against marked enemies.'],
+          ['Maxim', '', 'Character', 'assets/characters/maxim.png', 'A competitive gamer with an incredible appetite. Maxim’s Gluttony reduces the time required to consume Med Kits and mushrooms.'],
+          ['Miguel', '', 'Character', 'assets/characters/miguel.png', 'A determined special forces soldier who thrives in battle. Miguel’s Crazy Slayer restores EP after eliminating enemies.'],
+          ['Misha', '', 'Character', 'assets/characters/misha.png', 'A talented racer who feels at home behind the wheel. Misha’s Afterburner increases driving speed and reduces damage taken while inside vehicles.'],
+          ['Moco', '', 'Character', 'assets/characters/moco.png', 'A legendary hacker capable of breaking through any security system. Moco’s Hacker’s Eye marks enemies that she hits, revealing their location to her team for a short duration.'],
+          ['Nikita', '', 'Character', 'assets/characters/nikita.png', 'A professional bodyguard with exceptional firearm skills. Nikita’s Firearms Expert increases SMG reload speed, allowing for faster engagements.'],
+          ['Notora', '', 'Character', 'assets/characters/notora.png', 'The leader of a fearless motorcycle gang. Notora’s Racer’s Blessing restores HP to teammates while they are travelling in vehicles.'],
+          ['Nulla', '', 'Character', 'assets/characters/nulla.png', 'A mysterious fighter with extraordinary resilience. Nulla’s Limit Break gains energy from damage received and converts it into protective benefits during combat.'],
+          ['Olivia', '', 'Character', 'assets/characters/olivia.png', 'A compassionate nurse who always puts others first. Olivia’s Healing Touch revives teammates with additional HP.'],
+          ['Orion', '', 'Character', 'assets/characters/orion.png', 'A powerful warrior driven by an unknown force. Orion’s Crimson Crush consumes Crimson Energy to absorb damage and drain HP from nearby enemies.'],
+          ['Otho', '', 'Character', 'assets/characters/otho.png', 'A brilliant scientist fascinated by the unknown. Otho’s Memory Mist reveals the location of nearby enemies after securing an elimination.'],
+          ['Paloma', '', 'Character', 'assets/characters/paloma.png', 'An arms dealer who knows every weapon inside out. Paloma’s Arms-Dealing increases the carrying capacity for AR ammunition without using additional backpack space.'],
+          ['Primis', '', 'Character', 'assets/characters/primis.png', 'A rookie survivor eager to prove himself. Primis has no unique character skill and serves as one of the default playable characters.'],
+          ['Rafael', '', 'Character', 'assets/characters/rafael.png', 'A cold and calculated assassin who never misses his target. Rafael’s Dead Silent suppresses sniper and marksman rifle shots while causing enemies to lose HP faster when knocked down.'],
+          ['Ryden', '', 'Character', 'assets/characters/ryden.png', 'A brilliant inventor with a passion for robotics. Ryden’s Spider Trap deploys a robotic spider that slows nearby enemies and gradually drains their HP.'],
+          ['Santino', '', 'Character', 'assets/characters/santino.png', 'A gifted artist who blurs the line between illusion and reality. Santino’s Shape Splitter creates a controllable mannequin that can be used for tactical repositioning.'],
+          ['Shani', '', 'Character', 'assets/characters/shani.png', 'A talented engineer who never lets good equipment go to waste. Shani’s Gear Recycle restores armor durability after eliminating enemies.'],
+          ['Shirou', '', 'Character', 'assets/characters/shirou.png', 'A determined courier driven by revenge. Shirou’s Damage Delivered marks the attacker after taking damage and empowers the next shot with increased armor penetration.'],
+          ['Skyler', '', 'Character', 'assets/characters/skyler.png', 'A superstar who inspires millions with his music. Skyler’s Riptide Rhythm destroys nearby Gloo Walls and restores HP when Gloo Walls are deployed.'],
+          ['Steffie', '', 'Character', 'assets/characters/steffie.png', 'A creative graffiti artist who stands up for her friends. Steffie’s Painted Refuge creates a graffiti zone that reduces explosive damage and bullet damage from outside the area.'],
+          ['Tatsuya', '', 'Character', 'assets/characters/tatsuya.png', 'A hot-headed fighter who charges fearlessly into battle. Tatsuya’s Rebel Rush performs a rapid forward dash that can be used multiple times.'],
+          ['Thiva', '', 'Character', 'assets/characters/thiva.png', 'A talented musician who always supports his teammates. Thiva’s Vital Vibes increases rescue speed and helps revived teammates recover more quickly.'],
+          ['Wolfrahh', '', 'Character', 'assets/characters/wolfrahh.png', 'A popular streamer loved by millions of fans. Wolfrahh’s Limelight reduces headshot damage received while increasing damage dealt to enemies’ limbs.'],
+          ['Wukong', '', 'Character', 'assets/characters/wukong.png', 'The legendary Monkey King with unmatched trickery. Wukong’s Camouflage transforms him into a bush, making it easier to ambush opponents.'],
+          ['Xayne', '', 'Character', 'assets/characters/xayne.png', 'An extreme sports enthusiast who lives for adrenaline. Xayne’s Xtreme Encounter temporarily increases HP and deals additional damage to Gloo Walls and shields.']] },
+      { key: 'fashion', label: 'Fashion', count: '29 items', theme: 'magenta', kind: 'real', icon: 'shirt',
+        badge: 'Season 52 · Wardrobe', headline: 'Fashion & Outfits', subhead: 'Tops, jackets and joggers pulled from Elite Pass runs and limited events.',
+        img: 'assets/catalog-fashion-header.png', pos: '40% 42%', accent: '#C026A9', glow: 'rgba(192,38,169,0.32)',
+        items: [
+          ['Angelical Jogger', 'epic', 'Bottom', 'assets/fashion/angelical-jogger.png', 'Cheers! An Angelical pants item obtainable with event tokens from the Carnival Paradise event, which ran from October 14 to October 21, 2021.'],
+          ['Angelical Sprinter', 'epic', 'Bottom', 'assets/fashion/angelical-sprinter.png', 'Cheers! An Angelical pants item obtainable with event tokens from the Carnival Paradise event, which ran from October 14 to October 21, 2021.'],
+          ['Lunaris T-Shirt', 'uncommon', 'Top', 'assets/fashion/lunaris-t-shirt.png', 'Milky way too shimmery. A T-shirt reward from the Mesmerizing Nights Elite Pass, which ran from October 1 to October 31, 2021.'],
+          ['Serpentine Shok T-Shirt', 'uncommon', 'Top', 'assets/fashion/serpentine-shok-t-shirt.png', 'Hiss... Top cosmetic released as part of the Quantic Unknown Elite Pass.'],
+          ['Tale of Eclipse Jacket (Boys)', 'rare', 'Top', 'assets/fashion/tale-of-eclipse-jacket-boys.png', 'Thief by night. Reward from the Mesmerizing Nights Elite Pass.'],
+          ['Tale of Eclipse Jacket (Girls)', 'rare', 'Top', 'assets/fashion/tale-of-eclipse-jacket-girls.png', 'Raider by dawn. Reward from the Mesmerizing Nights Elite Pass.'],
+          ['Underground Terrestrial Jacket', 'rare', 'Top', 'assets/fashion/underground-terrestrial-jacket.png', 'Limited-time jacket released through a special event.'],
+          ['Underground Terrestrial T-Shirt', 'rare', 'Top', 'assets/fashion/underground-terrestrial-t-shirt.png', 'Limited-time T-shirt cosmetic released during a special event.'],
+          ['Amplified Bassrock Bundle', 'epic', 'Bundle', 'assets/bundles/amplified-bassrock-bundle.png', 'Can you keep up with my tempo? A music-themed bundle distributed free during the limited Free Fire 4th Anniversary celebrations in August 2021.'],
+          ['Chrome Swordmaven Bundle', 'epic', 'Bundle', 'assets/bundles/chrome-swordmaven-bundle.png', 'A stealth-themed outfit described as dark, silent, and invisible in daylight. It was sold for Diamonds during the limited Shopping Spree event from January 21 to January 30, 2022.'],
+          ['Chrono Top Scorer Bundle', 'epic', 'Bundle', 'assets/bundles/chrono-top-scorer-bundle.png', 'Release that formidable power in you. A football-themed CR7 collaboration bundle released through limited Operation Chrono Step Up and crate events in December 2020.'],
+          ['Green Criminal Bundle', 'epic', 'Bundle', 'assets/bundles/green-criminal-bundle.png', 'A green variant of the highly sought-after Criminal outfit. It was originally redeemed with Lucky Stars and later returned through limited diamond-based events.'],
+          ['Metallic Swordmaster Bundle', 'epic', 'Bundle', 'assets/bundles/metallic-swordmaster-bundle.png', 'No prints left behind. A limited-time fashion bundle released through a Special Event.'],
+          ['Rapper Angel Bundle', 'epic', 'Bundle', 'assets/bundles/rapper-angel-bundle.png', 'Angel wings, street style. Released through Token Tower and later featured in limited-time Special Events.'],
+          ['Red Criminal Bundle', 'epic', 'Bundle', 'assets/bundles/red-criminal-bundle.png', 'Top Criminal Bundle. One of the most iconic and sought-after bundles in Free Fire, originally released through the Incubator.'],
+          ['Regal Malik Bundle', 'epic', 'Bundle', 'assets/bundles/regal-malik-bundle.png', 'This is the greatest dynasty of all. Born to rule this kingdom. Available through the Store using FF Tokens according to the current official wiki listing.'],
+          ['Snappy Bundle', 'epic', 'Bundle', 'assets/bundles/snappy-bundle.png', 'Yum yum, human meat. Originally obtainable through Diamond Royale using Diamond Royale Vouchers.'],
+          ['Sultan of Lapis Bundle', 'epic', 'Bundle', 'assets/bundles/sultan-of-lapis-bundle.png', 'What\u2019s the blue mist from this lamp? Released as part of the Mesmerizing Nights Elite Pass.'],
+          ['Sultanah of Cerulea Bundle', 'epic', 'Bundle', 'assets/bundles/sultanah-of-cerulea-bundle.png', 'A queen worthy of the royal palace. Released as part of the Mesmerizing Nights Elite Pass.'],
+          ['Valiant Skorpina Bundle', 'epic', 'Bundle', 'assets/bundles/valiant-skorpina-bundle.png', 'Creeping up on you. Released through the Quantic Unknown Elite Pass as an exclusive reward.'],
+          ['Venomous Skorpios Bundle', 'epic', 'Bundle', 'assets/bundles/venomous-skorpios-bundle.png', 'Slithering behind you. Released through the Quantic Unknown Elite Pass as an exclusive reward.'],
+          ['McLaren Racing Overalls Bundle', 'rare', 'Bundle', 'assets/bundles/mclaren-racing-overalls-bundle.png', 'The best racing suit, only for the fastest. Released during the Free Fire \u00d7 McLaren collaboration through the Ace Play Event.'],
+          ['Airspeed Ace Bundle', 'epic', 'Bundle', 'assets/bundles/airspeed-ace-bundle.png', 'Swift and light, it feels like the wind. The bundle debuted in the limited Fever Spin event from April 19 to April 25, 2021, using Diamonds and is not permanently obtainable.'],
+          ['Glare of Death Bundle', 'epic', 'Bundle', 'assets/bundles/glare-of-death-bundle.png', 'An outfit featuring red hair, a masked face, a half cloak, reinforced clothing, and black sneakers. It has been offered through the Rank Token Redemption Store.'],
+          ['Hiphop Angel Bundle', 'epic', 'Bundle', 'assets/bundles/hiphop-angel-bundle.png', 'Angel wings, street style. An epic outfit released through limited Token Tower and special events using Diamonds.'],
+          ['Imperial Malikah Bundle', 'epic', 'Bundle', 'assets/bundles/imperial-malikah-bundle.png', 'This is the greatest dynasty of all. A royal-themed outfit released as the Gold Royale grand prize from August 4 to September 6, 2021.'],
+          ['Keyboard Warrior Bundle', 'epic', 'Bundle', 'assets/bundles/keyboard-warrior-bundle.png', 'Keyboard Warrior to the rescue! A keyboard-themed outfit released as the Gold Royale grand prize in June 2021 before being replaced in August 2021.'],
+          ['MC Funk Bundle', 'epic', 'Bundle', 'assets/bundles/mc-funk-bundle.png', 'King of the street. Originally released through a limited-time Special Event and obtainable with Diamonds.'],
+          ['Moody Lavisher Bundle', 'epic', 'Bundle', 'assets/bundles/moody-lavisher-bundle.png', 'Limited-time fashion bundle. Detailed release information is currently unavailable from reliable sources.']] },
+      { key: 'pets', label: 'Battle Pets', count: '15 items', theme: 'azure', kind: 'real', icon: 'paw',
+        badge: 'Season 52 · Companions', headline: 'Battle Pets', subhead: 'Loyal companions with active skills — every rarity, ranked by pick-rate and updated weekly.',
+        img: 'assets/catalog-pets-header.png', pos: '50% 38%', menuImg: 'assets/cat-pets.png', accent: 'var(--azure-500)', glow: 'rgba(43,99,245,0.32)',
+        items: [
+          ['Beaston', '', 'Pet', 'assets/pets/beaston.png', 'The mighty beast never backs down from a fight. Beaston’s Helping Hand ability increases the throwing distance of grenades and throwable utilities.'],
+          ['Detective Panda', '', 'Pet', 'assets/pets/detective-panda.png', 'I will protect the world! Detective Panda’s Panda’s Blessings restores HP after eliminating an enemy.'],
+          ['Dr. Beanie', '', 'Pet', 'assets/pets/dr-beanie.png', 'He insists on everyone calling him Dr. He is not one though. Dr. Beanie’s Dashy Duckwalk increases movement speed while crouching.'],
+          ['Dreki', '', 'Pet', 'assets/pets/dreki.png', 'A curious little dragon with exceptional senses. Dreki’s Dragon Glare marks enemies using medkits within range.'],
+          ['Falco', '', 'Pet', 'assets/pets/falco.png', 'When it spreads its wings and soars, sky and land merges at the horizon. Falco’s Skyline Spree increases gliding and diving speed after jumping from the plane.'],
+          ['Kitty', '', 'Pet', 'assets/pets/kitty.png', 'A playful feline that loves being around people. Kitty’s Kitty’s Mood restores EP to nearby teammates over time.'],
+          ['Moony', '', 'Pet', 'assets/pets/moony.png', 'Although not from this world, he loves everything about us. Moony’s Paranormal Protection reduces damage taken while using medkits or other interaction actions.'],
+          ['Mr. Waggor', '', 'Pet', 'assets/pets/mr-waggor.png', 'Once a guinea pig in the lab, Mr. Waggor was brought to life. Mr. Waggor’s Smooth Gloo generates Gloo Wall grenades during matches.'],
+          ['Night Panther', '', 'Pet', 'assets/pets/night-panther.png', 'A stealthy hunter that never loses sight of its prey. Night Panther’s Weight Training increases the owner’s inventory capacity.'],
+          ['Ottero', '', 'Pet', 'assets/pets/ottero.png', 'A cheerful otter that always looks after its owner. Ottero’s Double Blubber restores EP whenever the player uses treatment items.'],
+          ['Robo', '', 'Pet', 'assets/pets/robo.png', 'The latest generation defense robot. Robo’s Wall Enforcement increases the durability of placed Gloo Walls.'],
+          ['Rockie', '', 'Pet', 'assets/pets/rockie.png', 'A loyal companion that’s always ready for action. Rockie’s Stay Chill reduces the cooldown time of active character skills.'],
+          ['Sensei Tig', '', 'Pet', 'assets/pets/sensei-tig.png', 'A disciplined martial arts master with unmatched focus. Sensei Tig’s Nimble Ninja reduces the manning time of equipped firearms after eliminating an enemy.'],
+          ['Shiba', '', 'Pet', 'assets/pets/shiba.png', 'A clever companion with an excellent sense of direction. Shiba’s Mushroom Sense marks nearby mushrooms on the minimap.'],
+          ['Spirit Fox', '', 'Pet', 'assets/pets/spirit-fox.png', 'A mystical fox that watches over its allies. Spirit Fox’s Well Fed restores additional HP when using Med Kits.']] },
+      { key: 'bundles', label: 'Legendary Bundles', count: '8 items', theme: 'violet', kind: 'real', icon: 'gift',
+        badge: 'Season 52 · Vault', headline: 'Legendary Bundles', subhead: 'Complete themed sets — matched outfits, effects and collab drops in one package.',
+        img: 'assets/catalog-bundles-header.png', pos: '50% 46%', accent: 'var(--violet-500)', glow: 'rgba(138,92,255,0.34)',
+        items: [
+          ['Cobra Rage Bundle', 'mythic', 'Bundle', 'assets/bundles/cobra-rage-bundle.png', 'A customizable Project Cobra outfit with four color modes unlocked through rank progression and a shoulder Cobra companion. It debuted through Cobra Ascension from February 26 to March 4, 2021, and later returned in limited events.'],
+          ['Amber Megacypher Bundle', 'legendary', 'Bundle', 'assets/bundles/amber-megacypher-bundle.png', 'A cybernetic espionage-themed outfit with damaged and self-repairing details. It appeared in a limited Faded Wheel from September 25 to October 1, 2021, using Diamonds and is not permanently obtainable.'],
+          ['Enharmonic Treblerock Bundle', 'legendary', 'Bundle', 'assets/bundles/enharmonic-treblerock-bundle.png', 'Conquer the universe with music. A legendary music-themed bundle released through Token Tower from August 26 to September 2, 2021, during Free Fire\u2019s 4th Anniversary celebrations.'],
+          ['Frost Sabertooth Bundle', 'legendary', 'Bundle', 'assets/bundles/frost-sabertooth-bundle.png', 'I command all of the world\u2019s power. Rajah\u2019s White Tiger-themed outfit from Rampage: New Dawn was released through Faded Wheel from June 18 to June 24, 2021.'],
+          ['Lush Clubber Bundle', 'legendary', 'Bundle', 'assets/bundles/lush-clubber-bundle.png', 'A green-themed entry in the Clubber outfit series. It first appeared through Faded Wheel and later returned through limited events such as Hacker\u2019s Store from May 24 to May 31, 2021.'],
+          ['Saitama\u2019s Pajamas Bundle', 'legendary', 'Bundle', 'assets/bundles/saitamas-pajamas-bundle.png', 'One punch is all it takes to win the game! Released during the Free Fire \u00d7 One-Punch Man collaboration through Luck Royale.'],
+          ['Shadow Earthshaker Bundle', 'legendary', 'Bundle', 'assets/bundles/shadow-earthshaker-bundle.png', 'I control the earth and all of the land. Released during the Rampage: New Dawn event and obtainable for free by completing event missions and exchanging Might of Mythos Tokens.'],
+          ['Wildfire Vagabond Bundle', 'legendary', 'Bundle', 'assets/bundles/wildfire-vagabond-bundle.png', 'Free and Wild. An ever burning fire at the end of the coat. Originally obtainable through Diamond Royale using Diamond Royale Vouchers.']] },
+      { key: 'weapons', label: 'Pro Weapons', count: '12 items', theme: 'gold', kind: 'real',
+        badge: 'Season 52 · Armory', headline: 'Pro Weapons', subhead: 'Every legendary and mythic gun skin, ranked by popularity and updated weekly.',
+        img: 'assets/catalog-weapons-header.png', pos: '42% 58%', menuImg: 'assets/cat-weapons.png', accent: 'var(--gold-500)', glow: 'rgba(245,184,51,0.30)',
+        items: [
+          ['MP40 - Predatory Cobra', 'mythic', 'SMG', 'assets/weapons/mp40-predatory-cobra.png', 'An MP40 Evolution skin with increased damage and rate of fire but reduced reload speed. It debuted in the Predatory Cobra Faded Wheel from February 18 to March 14, 2021, and has returned through later limited reruns.'],
+          ['XM8 - Destiny Guardian', 'mythic', 'Assault Rifle', 'assets/weapons/xm8-destiny-guardian.png', 'An XM8 Evolution skin with increased damage and rate of fire but reduced reload speed. It debuted in the Destiny Guardian Faded Wheel from August 6 to August 30, 2021, and has returned in later limited reruns.'],
+          ['Grenade - Malevolent Sting', 'legendary', 'Throwable', 'assets/weapons/grenade-malevolent-sting.png', 'Scorpion-bitten corpses on the battlefield. A grenade skin obtained through the Quantic Unknown Elite Pass, which ran from September 1 to September 30, 2021.'],
+          ['M4A1 - Genos', 'legendary', 'Assault Rifle', 'assets/weapons/m4a1-genos.png', 'A Genos-themed M4A1 from the Free Fire and One-Punch Man collaboration, with increased damage and rate of fire but reduced magazine capacity. Released through Weapon Royale in January 2021.'],
+          ['Kord - Killspark Shinobi', 'epic', 'LMG', 'assets/weapons/kord-killspark-shinobi.png', 'Strike like a ninja. A Kord skin with increased damage and range but reduced reload speed, released through Weapon Royale from July 21 to August 11, 2021.'],
+          ['M14 - Egg Hunter', 'epic', 'Marksman Rifle', 'assets/weapons/m14-egg-hunter.png', 'Let the hunt begin! An M14 skin with increased damage and range but reduced reload speed, debuting through the limited Egg Hunter Weapon Royale in March 2021.'],
+          ['UMP - Booyah Day', 'epic', 'SMG', 'assets/weapons/ump-booyah-day.png', 'A UMP Evolution skin with increased damage and reload speed but reduced accuracy. Originally given free during Booyah Day in October 2020 and later returned through limited events.'],
+          ['AUG - Quantic Unknown', 'rare', 'Assault Rifle', 'assets/weapons/aug-quantic-unknown.png', 'These bullets seep into the pores of your skin. An AUG weapon skin rewarded through the Quantic Unknown Elite Pass, September 2021.'],
+          ['M1873 - Quantic Unknown', 'rare', 'Shotgun', 'assets/weapons/m1873-quantic-unknown.png', 'An M1873 weapon skin rewarded through the Quantic Unknown Elite Pass, which ran from September 1 to September 30, 2021.'],
+          ['M249 - Mesmerizing Nights', 'rare', 'LMG', 'assets/weapons/m249-mesmerizing-nights.png', 'Conqueror of the sand. An M249 weapon skin unlocked at 125 badges in the Mesmerizing Nights Elite Pass, October 2021.'],
+          ['SPAS12 - Mesmerizing Nights', 'rare', 'Shotgun', 'assets/weapons/spas12-mesmerizing-nights.png', 'The Sultan’s bodyguard. A SPAS12 weapon skin unlocked at 80 badges in the Mesmerizing Nights Elite Pass, October 2021.'],
+          ['Parang - Dashing Blade', 'rare', 'Melee', 'assets/weapons/parang-dashing-blade.png', 'What a handsome weapon! A rare Parang skin sold for Diamonds when stocked in the in-game store or featured in a limited event.']] },
+      { key: 'vehicles', label: 'Battle Vehicles', count: '15 items', theme: 'crystalDeep', kind: 'real',
+        badge: 'Season 52 · Garage', headline: 'Battle Vehicles', subhead: 'Supercars and bikes wrapped in mythic finishes — the fastest way to make an entrance.',
+        img: 'assets/catalog-vehicles-header.png', pos: '50% 55%', menuImg: 'assets/cat-vehicles.png', menuFocus: 'center 50%', accent: 'var(--crystal-600)', glow: 'rgba(15,166,212,0.32)',
+        items: [
+          ['MCL-FF Final Lap', 'mythic', 'Sports Car', 'assets/vehicles/mcl-ff-final-lap.png', 'Unleash the power of McLaren Racing and immerse yourself in the thrill of Free Fire. A mythic MCL-FF skin released through a diamond-based special event during the 2021 Free Fire and McLaren Racing collaboration. It is not permanently obtainable.'],
+          ['McLaren P1™ - Gold Spark', 'mythic', 'Sports Car', 'assets/vehicles/mclaren-p1-gold-spark.png', 'Make winning a habit. A mythic McLaren P1™ skin distributed free through the limited Winning Tower event during the 2021 Free Fire and McLaren collaboration. It is not permanently obtainable.'],
+          ['MCL-FF Cyber Neon', 'legendary', 'Sports Car', 'assets/vehicles/mcl-ff-cyber-neon.png', 'Unleash the power of McLaren Racing and immerse yourself in the thrill of Free Fire. A legendary MCL-FF skin released through a limited top-up event during the 2021 collaboration. It is not permanently obtainable.'],
+          ['MCL-FF Deep Dive', 'legendary', 'Sports Car', 'assets/vehicles/mcl-ff-deep-dive.png', 'Unleash the power of McLaren Racing and immerse yourself in the thrill of Free Fire. A legendary MCL-FF skin released through a diamond-based special event during the 2021 collaboration. It is not permanently obtainable.'],
+          ['McLaren P1™ - Helios', 'legendary', 'Sports Car', 'assets/vehicles/mclaren-p1-helios.png', 'Make winning a habit. A legendary McLaren P1™ skin released through a top-up event beginning June 8, 2021, as part of the Free Fire and McLaren collaboration.'],
+          ['McLaren P1™ - Kyanos', 'legendary', 'Sports Car', 'assets/vehicles/mclaren-p1-kyanos.png', 'Make winning a habit. A legendary McLaren P1™ skin obtained with Diamonds through the limited Winning Tower event during the 2021 collaboration.'],
+          ['McLaren P1™ - Mantis', 'legendary', 'Sports Car', 'assets/vehicles/mclaren-p1-mantis.png', 'Make winning a habit. A legendary McLaren P1™ skin distributed free through the limited Ace Play Event during the 2021 collaboration.'],
+          ['Motor Bike - Cobra', 'legendary', 'Motorbike', 'assets/vehicles/motor-bike-cobra.png', 'The perfect union of technology and nature. A legendary motor bike skin released through a diamond-based special event during Project Cobra in February 2021.'],
+          ['MCL-FF Winning Spirit', 'epic', 'Sports Car', 'assets/vehicles/mcl-ff-winning-spirit.png', 'Unleash the power of McLaren Racing and immerse yourself in the thrill of Free Fire. An epic MCL-FF skin distributed free through the limited 2nd Ace Play Event during the 2021 McLaren collaboration.'],
+          ['Sport Car - Cobra', 'epic', 'Sports Car', 'assets/vehicles/sport-car-cobra.png', 'Quick as a snake. An epic sports car skin released through a diamond-based special event during Project Cobra in February 2021.'],
+          ['Jeep - Quantic Unknown', 'rare', 'Jeep', 'assets/vehicles/jeep-quantic-unknown.png', 'Buckle up for a bumpy ride. A Jeep skin rewarded at the start of the Quantic Unknown Elite Pass, which ran from September 1 to September 30, 2021.'],
+          ['Motor Bike - Mesmerizing Nights', 'rare', 'Motorbike', 'assets/vehicles/motor-bike-mesmerizing-nights.png', 'Ride with your significant other into a whole new world. A motor bike skin rewarded at the start of the Mesmerizing Nights Elite Pass, October 2021.'],
+          ['Pickup Truck - Wildland Walkers', 'rare', 'Pickup Truck', 'assets/vehicles/pickup-truck-wildland-walkers.png', 'This truck can do more than farming. A pickup truck skin rewarded at the start of the Wildland Walkers Elite Pass, August 2021.'],
+          ['Venom Motorbike', 'rare', 'Motorbike', 'assets/vehicles/venom-motorbike.png', 'Created in collaboration with Venom: Let There Be Carnage. Distributed free during the limited Free Fire and Venom event in October 2021.'],
+          ['Tuk Tuk', '', 'Tuk Tuk', 'assets/vehicles/tuk-tuk.png', 'Shotgun go “chook chuk”. Vehicle go “tuk tuk”.']] },
+      { key: 'skyboards', label: 'Skyboards', count: '4 items', theme: 'magenta', kind: 'real', icon: 'board',
+        badge: 'Season 52 · Descent', headline: 'Skyboards', subhead: 'Ride the drop in style — limited-event skyboards pulled from Elite Pass and collab runs.',
+        img: 'assets/catalog-skyboards-header.png', pos: '50% 46%', accent: '#C026A9', glow: 'rgba(192,38,169,0.32)',
+        items: [
+          ['Destiny Guardian Skyboard', 'epic', 'Skyboard', 'assets/skyboards/destiny-guardian-skyboard.png', 'A Destiny Guardian themed skyboard from the limited event run of the same collection.'],
+          ['Magic Carpet Skyboard', 'epic', 'Skyboard', 'assets/skyboards/magic-carpet-skyboard.png', 'A woven flying carpet reimagined as a skyboard, released through a limited seasonal event.'],
+          ['Razor Blades Skyboard', 'epic', 'Skyboard', 'assets/skyboards/razor-blades-skyboard.png', 'A bladed skyboard released through a limited event run.'],
+          ['Razor Fangs Skyboard', 'epic', 'Skyboard', 'assets/skyboards/razor-fangs-skyboard.png', 'A fanged variant of the Razor skyboard line, released through a limited event run.']] },
+      { key: 'backpacks', label: 'Backpacks', count: '4 items', theme: 'azure', kind: 'real', icon: 'backpack',
+        badge: 'Season 52 · Loadout', headline: 'Backpacks', subhead: 'Carry the whole squad\u2019s loot in something worth looking at.',
+        img: 'assets/catalog-backpacks-header.png', pos: '50% 52%', accent: 'var(--azure-500)', glow: 'rgba(43,99,245,0.32)',
+        items: [
+          ['Cobra Guardian', 'epic', 'Backpack', 'assets/backpacks/cobra-guardian.png', 'A Project Cobra themed backpack released alongside the Cobra collection in February 2021.'],
+          ['Genie Summoner’s Sack', 'epic', 'Backpack', 'assets/backpacks/genie-summoners-sack.png', 'A lamp-and-smoke themed backpack released as part of the Mesmerizing Nights collection.'],
+          ['Malevolent Sting Backpack', 'epic', 'Backpack', 'assets/backpacks/malevolent-sting-backpack.png', 'A scorpion themed backpack obtained through the Quantic Unknown Elite Pass, September 2021.'],
+          ['Quantic Unknown Backpack', 'rare', 'Backpack', 'assets/backpacks/quantic-unknown-backpack.png', 'A backpack rewarded through the Quantic Unknown Elite Pass, which ran from September 1 to September 30, 2021.']] },
+    ];
+
+    const makeFill = (src, focus) => img(src, { position: 'absolute', top: 0, right: 0, height: '100%', width: '62%', objectFit: 'cover', objectPosition: focus || 'center 22%', WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, #000 58%)', maskImage: 'linear-gradient(90deg, transparent 0%, #000 58%)' });
+    const catIcons = {
+      characters: ['M5 20h14', 'M4 6l4 4 4-6 4 6 4-4-2 11H6L4 6Z'],
+      fashion: ['M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23Z'],
+      pets: ['M7 6.4a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4', 'M17 6.4a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4', 'M4.4 12.4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3', 'M19.6 12.4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3', 'M12 10.5c2.5 0 4.5 2.2 4.5 4.6 0 2-1.6 3.4-4.5 3.4s-4.5-1.4-4.5-3.4c0-2.4 2-4.6 4.5-4.6Z'],
+      bundles: ['M20 12v10H4V12', 'M2 7h20v5H2z', 'M12 22V7', 'M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7Z', 'M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7Z'],
+      weapons: ['M14.5 17.5 3 6V3h3l11.5 11.5', 'M13 19l6-6', 'M16 16l4 4', 'M19 21l2-2'],
+      vehicles: ['M4 16.5V12l2.2-5A2 2 0 0 1 8 6h8a2 2 0 0 1 1.8 1l2.2 5v4.5', 'M3.5 13h17', 'M4 16.5h16', 'M7.5 19.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3', 'M16.5 19.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3'],
+      skyboards: ['M2.8 14.4c3.2-5.6 15.4-8.8 18.5-4.6 3.1 4.2-15.3 10-18.5 4.6Z', 'M9 15.5l1.5 4', 'M15 13l1.5 4'],
+      backpacks: ['M6 21V9.5A4.5 4.5 0 0 1 10.5 5h3A4.5 4.5 0 0 1 18 9.5V21H6Z', 'M9.2 5V4.2a2.8 2.8 0 0 1 5.6 0V5', 'M9 13h6', 'M9 21v-4.2h6V21']
+    };
+    const menuCats = rawCats.map(c => ({ name: c.headline, count: c.count, accent: c.accent, glow: c.glow, iconPaths: catIcons[c.key] || catIcons.bundles, locked: this.state.coins < 10, onOpen: () => this.openCategory(c.key) }));
+
+    const cur = rawCats.find(c => c.key === this.state.catKey) || rawCats[0];
+    const t = THEMES[cur.theme];
+    const catAds = [
+      { headline: 'Boost your gaming style', sub: 'Latest skin-unlock tips, delivered every day.' },
+      { headline: 'Daily 1000 + 1000 free', sub: 'Spin the wheel and claim bonus diamonds.' },
+    ];
+    const plain = cur.key === 'characters' || cur.key === 'pets';
+    const rows = [];
+    let ai = 0;
+    cur.items.forEach((it, i) => {
+      const rr = RR[it[1]] || { accent: cur.accent, glow: cur.glow, label: '' };
+      rows.push({ isItem: true, name: it[0], type: it[2], accent: plain ? cur.accent : rr.accent, glow: plain ? cur.glow : rr.glow, label: rr.label, showLabel: !plain && !!RR[it[1]],
+        imgEl: cur.kind === 'real' ? realImg(it[3]) : phIcon(cur.icon, plain ? cur.accent : rr.accent, cur.icon === 'paw' ? 42 : 40),
+        onOpen: () => this.go('detail', { itemIdx: i }) });
+      if ((i + 1) % 3 === 0 && i < cur.items.length - 1) { const a = catAds[ai % catAds.length]; ai++; rows.push({ isAd: true, headline: a.headline, sub: a.sub }); }
+    });
+    const noRarity = plain;
+    const catPage = { label: cur.label, count: cur.count, badge: cur.badge, headline: cur.headline, subhead: cur.subhead, bar: t.bar, badgeBg: t.bg, badgeBorder: t.border, badgeColor: t.color, rows,
+      heroImgEl: img(cur.img, { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: cur.pos }) };
+
+    // ---------- current item (detail + flow) ----------
+    const it = cur.items[Math.min(this.state.itemIdx, cur.items.length - 1)] || cur.items[0];
+    const rr = RR[it[1]] || { accent: cur.accent, glow: cur.glow, label: '' };
+    const heroEl = cur.kind === 'real'
+      ? img(it[3], { width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 16px 34px rgba(0,0,0,0.6))' })
+      : phIcon(cur.icon, plain ? cur.accent : rr.accent, 150);
+    const avatarEl = cur.kind === 'real' ? realImg(it[3], '6px') : phIcon(cur.icon, plain ? cur.accent : rr.accent, 44);
+    const vowel = /^[aeiou]/i.test(it[2]);
+    const item = {
+      name: it[0], type: it[2], catLabel: cur.label,
+      accent: noRarity ? cur.accent : rr.accent, glow: noRarity ? cur.glow : rr.glow, label: rr.label, heroEl, avatarEl,
+      showLabel: !noRarity && !!RR[it[1]],
+      desc: it[4] ? it[4] : noRarity
+        ? (vowel ? 'An ' : 'A ') + it[2].toLowerCase() + ' from the ' + cur.headline + ' catalog. Deployed straight to your account — no diamonds, no purchase, no waiting for a rerun.'
+        : 'A ' + rr.label.toLowerCase() + '-grade ' + it[2].toLowerCase() + ' from the ' + cur.headline + ' catalog. Deployed straight to your account — no diamonds, no purchase, no waiting for a rerun.',
+    };
+
+    // ---------- welcome content ----------
+    const fIcon = (paths, sw) => React.createElement('svg', { width: 17, height: 17, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: sw || 1.9, strokeLinecap: 'round', strokeLinejoin: 'round' }, (Array.isArray(paths) ? paths : [paths]).map((d, i) => React.createElement('path', { d, key: i })));
+    const features = [
+      { title: 'Full Skin Catalog', desc: 'Characters, outfits, pets, bundles, weapons and vehicles in one place.', accent: 'var(--crystal-400)', iconBg: 'rgba(31,205,245,0.1)', iconBorder: 'var(--line-crystal)', icon: fIcon(['M3 7l4.5 3.2L12 4l4.5 6.2L21 7l-2 11H5L3 7z', 'M5 20.5h14']) },
+      { title: 'Free Unlocks', desc: 'Every drop is added to your account at no cost.', accent: 'var(--gold-400)', iconBg: 'rgba(245,184,51,0.12)', iconBorder: 'rgba(245,184,51,0.4)', icon: fIcon(['M5 11h14v10H5z', 'M8 11V7a4 4 0 0 1 8 0']) },
+      { title: 'Weekly Updates', desc: 'Fresh legendary and mythic drops as each season rotates.', accent: '#C7B4FF', iconBg: 'rgba(138,92,255,0.12)', iconBorder: 'rgba(138,92,255,0.4)', icon: fIcon(['M21 2v6h-6', 'M3 12a9 9 0 0 1 15-6.7L21 8']) },
+      { title: 'No Install Needed', desc: 'Runs in your mobile or desktop browser.', accent: 'var(--success)', iconBg: 'rgba(52,211,153,0.12)', iconBorder: 'rgba(52,211,153,0.4)', icon: fIcon(['M2 12a10 10 0 1 0 20 0 10 10 0 0 0-20 0Z', 'M2 12h20', 'M12 2a15 15 0 0 1 0 20a15 15 0 0 1 0-20Z']) },
+      { title: 'Region Support', desc: 'Delivery tuned to your server region, from India to LATAM.', accent: '#93C5FD', iconBg: 'rgba(59,130,246,0.14)', iconBorder: 'rgba(59,130,246,0.45)', icon: fIcon(['M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z']) },
+      { title: 'Help Centre', desc: 'Step-by-step guidance if a skin does not show up.', accent: 'var(--crystal-400)', iconBg: 'rgba(31,205,245,0.1)', iconBorder: 'var(--line-crystal)', icon: fIcon(['M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 3.5', 'M12 17h.01', 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z']) },
+    ];
+    const steps = [
+      { n: '01', title: 'Collect Entry Coins For Free', desc: 'Once you are inside, tap Watch Ad to Earn Entry Coins. Each short ad adds 10 coins to your balance, and coins unlock anything and everything across the catalogue.' },
+      { n: '02', title: 'Pick a category', desc: 'Spend 10 coins to open characters, outfits, pets, bundles, weapons or vehicles.' },
+      { n: '03', title: 'Select your skin', desc: 'Open any item to see its rarity and details, then tap Add to Game for Free.' },
+      { n: '04', title: 'Link your account', desc: 'Enter your Free Fire UID and confirm your region so the drop routes correctly.' },
+      { n: '05', title: 'Restart Free Fire', desc: 'Close the game completely, reopen it and check your vault for the new skin.' },
+    ];
+    const fixes = [
+      { text: 'Make sure you entered the correct Free Fire UID.' },
+      { text: 'Check that you have a stable internet connection.' },
+      { text: 'Open this site immediately after leaving Free Fire.' },
+      { text: "Don't deploy while you're in the middle of a match." },
+      { text: 'Ensure the correct region is selected during account sync.' },
+      { text: "If you've been playing for a long session, close the game completely before trying again." },
+    ];
+
+    // ---------- flow ----------
+    const chk = React.createElement('svg', { width: 15, height: 15, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2.4, strokeLinecap: 'round', strokeLinejoin: 'round' }, React.createElement('path', { d: 'M20 6 9 17l-5-5' }));
+    const spin = React.createElement('svg', { width: 14, height: 14, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' }, React.createElement('path', { d: 'M21 12a9 9 0 1 1-6.2-8.5' }));
+    const sysProtocols = [
+      { label: 'Security Bypass', meta: '124ms', done: true },
+      { label: 'Payload Staged', meta: '89ms', done: true },
+      { label: 'Channel Open', meta: '245ms', done: true },
+      { label: 'Finalizing Sync', meta: 'Pending', done: false },
+    ].map(p => ({ ...p, icon: p.done ? chk : spin, iconBg: p.done ? 'rgba(52,211,153,0.14)' : 'var(--ink-800)', iconColor: p.done ? 'var(--success)' : 'var(--text-tertiary)', border: p.done ? 'rgba(52,211,153,0.24)' : 'var(--line)', labelColor: p.done ? 'var(--chrome-100)' : 'var(--text-tertiary)', metaColor: p.done ? 'var(--success)' : 'var(--text-tertiary)' }));
+    const svgIcon = (d, sw) => React.createElement('svg', { width: 30, height: 30, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: sw || 1.7, strokeLinecap: 'round', strokeLinejoin: 'round' }, (Array.isArray(d) ? d : [d]).map((p, i) => React.createElement('path', { d: p, key: i })));
+    const modeIcons = {
+      shuffle: svgIcon(['M16 3h5v5', 'M4 20 21 3', 'M21 16v5h-5', 'M15 15l6 6', 'M4 4l5 5']),
+      crosshair: React.createElement('svg', { width: 30, height: 30, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round', strokeLinejoin: 'round' }, [React.createElement('circle', { cx: 12, cy: 12, r: 9, key: 'c' }), React.createElement('circle', { cx: 12, cy: 12, r: 3.5, key: 'c2' }), React.createElement('path', { d: 'M12 2v3M12 19v3M2 12h3M19 12h3', key: 'p' })]),
+      flame: svgIcon('M12 3s5 3.5 5 9a5 5 0 0 1-10 0c0-1.8 1-3 1-3s0 1.8 2 1.8c1.6 0 1-2.8 1-4.8 0-2 1-3 1-3Z'),
+      gamepad: svgIcon(['M7 12h4M9 10v4', 'M15.5 11h.01M18 13h.01', 'M17.5 6h-11A4.5 4.5 0 0 0 2 10.5v3A4.5 4.5 0 0 0 6.5 18c1.4 0 2.4-.9 3.3-1.8l.4-.4h3.6l.4.4c.9.9 1.9 1.8 3.3 1.8a4.5 4.5 0 0 0 4.5-4.5v-3A4.5 4.5 0 0 0 17.5 6Z']),
+    };
+    const tiers = [
+      { name: 'No Preference', desc: 'Auto-select the best available mode', iconKey: 'shuffle', accent: '#CE9A52' },
+      { name: 'BR-Ranked', desc: 'Battle Royale ranked ladder', iconKey: 'crosshair', accent: 'var(--crystal-400)' },
+      { name: 'CS-Ranked', desc: 'Clash Squad ranked ladder', iconKey: 'flame', accent: '#FF4D6A' },
+      { name: 'Casual Modes', desc: 'Unranked practice lobbies', iconKey: 'gamepad', accent: '#8A5CFF' },
+    ].map(x => ({ ...x, icon: modeIcons[x.iconKey], iconBg: 'color-mix(in srgb, ' + x.accent + ' 14%, transparent)', tint: 'color-mix(in srgb, ' + x.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + x.accent + ' 40%, transparent)', onPick: () => this.go('flowLevel') }));
+    const levels = [
+      { name: 'Level 0-25', accent: 'var(--success)' },
+      { name: 'Level 26-40', accent: 'var(--crystal-400)' },
+      { name: 'Level 41-60', accent: '#FF4D6A' },
+      { name: 'Level 61-90', accent: 'var(--gold-500)' },
+      { name: 'Level 90+', accent: '#8A5CFF' },
+    ].map(l => ({ ...l, tint: 'color-mix(in srgb, ' + l.accent + ' 12%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 38%, transparent)', onPick: () => this.go('flowLeague') }));
+    const leagues = [
+      { name: 'Bronze', src: 'assets/ranks/bronze.png', accent: '#B77F35' },
+      { name: 'Silver', src: 'assets/ranks/silver.png', accent: '#9AAABE' },
+      { name: 'Gold', src: 'assets/ranks/gold.png', accent: '#E7A11F' },
+      { name: 'Platinum', src: 'assets/ranks/platinum.png', accent: '#9089CF' },
+      { name: 'Diamond', src: 'assets/ranks/diamond.png', accent: '#C026A9' },
+      { name: 'Heroic', src: 'assets/ranks/heroic.png', accent: '#E2481E' },
+      { name: 'Master', src: 'assets/ranks/master.png', accent: '#F5A417' },
+    ].map(l => ({ ...l, imgEl: img(l.src, { position: 'relative', width: '76px', height: '76px', objectFit: 'contain', filter: 'drop-shadow(0 5px 11px rgba(0,0,0,0.55))' }), tint: 'color-mix(in srgb, ' + l.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 46%, transparent)', onPick: () => this.go('flowDone') }));
+
+    // ---------- region ----------
+    const check = React.createElement('svg', { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'var(--crystal-400)', strokeWidth: 2.4, strokeLinecap: 'round', strokeLinejoin: 'round' }, React.createElement('path', { d: 'M20 6 9 17l-5-5' }));
+    const regions = ['India', 'Bangladesh', 'Pakistan', 'Indonesia', 'Thailand', 'Vietnam', 'Singapore', 'Taiwan', 'Middle East (MENA)', 'Europe (EU)', 'CIS', 'Brazil', 'North America', 'South America', 'Africa']
+      .map(name => ({ name, checkEl: this.state.region === name ? check : null, onPick: () => this.setState({ region: name, regionOpen: false }) }));
+
+    // ---------- info sheets ----------
+    const infoData = {
+      privacy: {
+        title: 'Privacy Policy', src: 'assets/home-header.png',
+        body: [
+          ['p', 'FFF Skin Tools is free to use and collects the minimum information needed to deliver a skin.'],
+          ['li', 'We store your Free Fire UID and selected region only for the duration of a delivery.'],
+          ['li', 'We do not ask for your password, email or payment details at any point.'],
+          ['li', 'Anonymous usage statistics help us understand which categories are popular.'],
+          ['li', 'Advertising partners may set cookies to measure ad performance.'],
+          ['p', 'This site is not affiliated with Garena. All game content and trademarks belong to their respective owners.'],
+        ],
+      },
+      troubleshoot: {
+        title: 'Skins not showing in-game?', src: 'assets/troubleshoot-header.png',
+        body: [
+          ['p', "If a skin doesn't appear in-game, try the following:"],
+          ['li', 'Make sure you entered the correct Free Fire UID.'],
+          ['li', 'Check that you have a stable internet connection.'],
+          ['li', 'Open this site immediately after leaving Free Fire.'],
+          ['li', "Don't deploy while you're in the middle of a match."],
+          ['li', 'Ensure the correct region is selected during account sync.'],
+          ['p', 'If the skin still doesn\u2019t appear, wait a few minutes and try again. Some players report that it works after the third or fourth attempt.'],
+        ],
+      },
+    };
+    const info = infoData[this.state.infoKey] || null;
+    const dot = React.createElement('span', { style: { width: '6px', height: '6px', flexShrink: 0, marginTop: '7px', borderRadius: '999px', background: 'var(--crystal-400)' } });
+    const infoParas = info ? info.body.map(([tp, text]) => ({ text, dotEl: tp === 'li' ? dot : null })) : [];
+
+    return {
+      noop, item, catPage, menuCats, features, steps, fixes, sysProtocols, tiers, levels, leagues, regions,
+      isSplash: route === 'splash', isWelcome: route === 'welcome', isHome: route === 'home', notHome: route !== 'home',
+      isCategory: route === 'category', isDetail: route === 'detail',
+      isFlowTerminal: route === 'flowTerminal', isFlowVerify: route === 'flowVerify', isFlowTier: route === 'flowTier',
+      isFlowLevel: route === 'flowLevel', isFlowLeague: route === 'flowLeague', isFlowDone: route === 'flowDone',
+      goWelcome: () => this.go('welcome'), goHome: () => this.go('home'), back: () => this.back(),
+      coins: this.state.coins, adOpen: this.state.adOpen,
+      watchAd: () => this.setState({ adOpen: true, shortOpen: false }),
+      closeAd: () => this.setState(st => ({ adOpen: false, coins: st.coins + 10 })),
+      shortOpaque: this.state.shortOpen ? 1 : 0, shortPE: this.state.shortOpen ? 'auto' : 'none',
+      closeShort: () => this.setState({ shortOpen: false, pendingCat: null }),
+      goFlow: () => this.go('flowTerminal'), startExec: () => this.go('flowVerify'), syncUplink: () => this.go('flowTier'),
+      uid: this.state.uid, uidLabel: this.state.uid || '—', setUid: e => this.setState({ uid: e.target.value }),
+      region: this.state.region,
+      openRegion: () => this.setState({ regionOpen: true }), closeRegion: () => this.setState({ regionOpen: false }),
+      regionTransform: this.state.regionOpen ? 'translateY(0)' : 'translateY(112%)',
+      regionOpaque: this.state.regionOpen ? 1 : 0, regionPE: this.state.regionOpen ? 'auto' : 'none',
+      openPrivacy: () => this.setState({ infoKey: 'privacy' }), openTroubleshoot: () => this.setState({ infoKey: 'troubleshoot' }), closeInfo: () => this.setState({ infoKey: null }),
+      infoTitle: info ? info.title : '', infoParas,
+      infoImgEl: info ? img(info.src, { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 35%' }) : null,
+      infoTransform: this.state.infoKey ? 'translateY(0)' : 'translateY(112%)',
+      infoOpaque: this.state.infoKey ? 1 : 0, infoPE: this.state.infoKey ? 'auto' : 'none',
+    };
+  }
+}
+</script>
+</body>
+</html>
