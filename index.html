@@ -527,7 +527,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;screen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;splash&quot;,&quot;welcome&quot;,&quot;home&quot;,&quot;category&quot;,&quot;detail&quot;,&quot;flowTerminal&quot;,&quot;flowVerify&quot;,&quot;flowTier&quot;,&quot;flowLevel&quot;,&quot;flowLeague&quot;,&quot;flowDone&quot;],&quot;default&quot;:&quot;splash&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
-  state = { route: 'splash', history: [], catKey: 'characters', itemIdx: 0, uid: '', region: 'India', regionOpen: false, infoKey: null, coins: 0, unlocked: [], adOpen: false, shortOpen: false, pendingCat: null };
+  state = { route: 'welcome', history: [], catKey: 'characters', itemIdx: 0, uid: '', region: 'India', regionOpen: false, infoKey: null, coins: 0, unlocked: [], adOpen: false, shortOpen: false, pendingCat: null };
 
   openCategory(key) {
     this.setState(st => {
