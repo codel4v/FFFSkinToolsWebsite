@@ -9,6 +9,9 @@
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FFF Skin Tools</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/fonts.css">
 <link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/colors.css">
 <link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/typography.css">
@@ -46,7 +49,7 @@
 
     <!-- ==================== LAUNCH / SPLASH ==================== -->
     <sc-if value="{{ isSplash }}" hint-placeholder-val="{{ true }}">
-    <div onClick="{{ goWelcome }}" style="position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow:hidden;cursor:pointer;background:radial-gradient(120% 70% at 50% 26%, rgba(31,205,245,0.16), transparent 62%), var(--bg-canvas)">
+    <a href="#/welcome" style="position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow:hidden;cursor:pointer;background:radial-gradient(120% 70% at 50% 26%, rgba(31,205,245,0.16), transparent 62%), var(--bg-canvas);text-decoration:none">
       <img src="assets/splash-bg.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;opacity:0.55">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,7,15,0.5) 0%, rgba(5,7,15,0.82) 58%, var(--ink-950) 100%)"></div>
       <div style="position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:96px 32px 56px;min-height:100vh;box-sizing:border-box">
@@ -63,7 +66,7 @@
           <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--text-tertiary)">Web 0.1.0 · Season 52</span>
         </div>
       </div>
-    </div>
+    </a>
     </sc-if>
 
     <!-- ==================== WELCOME ==================== -->
@@ -109,7 +112,7 @@
       </div>
 
       <div style="padding:22px 16px 0">
-        <button onClick="{{ goHome }}" style="width:100%;height:58px;border-radius:16px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 32px rgba(31,205,245,0.34);display:flex;align-items:center;justify-content:center;gap:10px">Get Started<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+        <a href="#/home" style="width:100%;height:58px;border-radius:16px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 32px rgba(31,205,245,0.34);display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;box-sizing:border-box">Get Started<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
       </div>
 
       <div style="padding:52px 16px 0;display:flex;flex-direction:column;gap:44px">
@@ -177,14 +180,14 @@
           <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--text-primary);line-height:1.1">FFF Skin Tools</div>
           <div style="font-size:12px;color:var(--text-tertiary);line-height:1.2">Time to find some drip</div>
         </div>
-        <button aria-label="Info" onClick="{{ goWelcome }}" style="width:40px;height:40px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);display:grid;place-items:center;cursor:pointer;color:var(--text-secondary)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></button>
+        <a aria-label="Info" href="#/welcome" style="width:40px;height:40px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);display:grid;place-items:center;cursor:pointer;color:var(--text-secondary);text-decoration:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></a>
       </div>
 
       <div style="padding:16px 16px 0">
         <div style="position:relative;overflow:hidden;border-radius:18px;background:radial-gradient(120% 130% at 100% 0%, rgba(245,184,51,0.18), transparent 62%), linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.018));border:1px solid rgba(245,184,51,0.34);display:flex;flex-direction:column">
           <div style="padding:18px 18px 20px;display:flex;flex-direction:column;gap:16px">
           <div style="display:flex;align-items:center;gap:14px">
-            <span style="width:52px;height:52px;flex-shrink:0;border-radius:14px;display:grid;place-items:center;background:rgba(245,184,51,0.14);border:1px solid rgba(245,184,51,0.45)"><svg width="30" height="30" viewBox="0 0 512 512"><circle fill="#FFCD52" cx="256" cy="256" r="256"></circle><circle fill="#FFFFFF" opacity="0.3" cx="256" cy="256" r="194.664"></circle><rect x="222.968" y="123.696" fill="#FFFFFF" opacity="0.7" width="66.064" height="264.64"></rect></svg></span>
+            <span style="width:52px;height:52px;flex-shrink:0;border-radius:14px;display:grid;place-items:center;background:rgba(245,184,51,0.14);border:1px solid rgba(245,184,51,0.45)"><svg width="30" height="30" viewBox="0 0 800 800"><path fill="#ffcd52" fill-rule="evenodd" d="M400,0C179.1,0,0,179.1,0,400s179.1,400,400,400,400-179.1,400-400S620.9,0,400,0ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/><path fill="#a88538" fill-rule="evenodd" d="M400,95.8c-168,0-304.2,136.2-304.2,304.2s136.2,304.2,304.2,304.2,304.2-136.2,304.2-304.2S568,95.8,400,95.8ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/></svg></span>
             <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
               <span style="font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-tertiary)">Entry Coins Balance</span>
               <span style="font-family:var(--font-mono);font-size:30px;font-weight:700;line-height:1;color:var(--gold-400)">{{ coins }}</span>
@@ -207,7 +210,7 @@
         <div style="display:flex;align-items:center;gap:10px"><span style="width:5px;height:22px;border-radius:3px;background:linear-gradient(180deg,#8A5CFF,#2B63F5)"></span><h2 style="margin:0;font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--text-primary)">Browse Categories</h2></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <sc-for list="{{ menuCats }}" as="c" hint-placeholder-count="8">
-          <div onClick="{{ c.onOpen }}" style="position:relative;overflow:hidden;min-height:158px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;padding:14px;border-radius:16px;background:linear-gradient(165deg, rgba(20,28,46,0.92), rgba(9,14,26,0.7));border:1px solid var(--line);cursor:pointer;transition:border-color .18s,transform .18s cubic-bezier(0.16,1,0.3,1)" style-hover="border-color:var(--line-crystal);transform:translateY(-2px)">
+          <a href="{{ c.href }}" onClick="{{ c.onOpen }}" style="position:relative;overflow:hidden;min-height:158px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;padding:14px;border-radius:16px;background:linear-gradient(165deg, rgba(20,28,46,0.92), rgba(9,14,26,0.7));border:1px solid var(--line);cursor:pointer;transition:border-color .18s,transform .18s cubic-bezier(0.16,1,0.3,1);text-decoration:none;box-sizing:border-box" style-hover="border-color:var(--line-crystal);transform:translateY(-2px)">
             <div style="position:absolute;left:0;right:0;top:0;height:3px;background:{{ c.accent }}"></div>
             <div style="position:absolute;inset:0;background:radial-gradient(80% 90% at 100% 0%, {{ c.glow }}, transparent 68%);pointer-events:none"></div>
             <div style="position:relative;display:flex;flex-direction:column;gap:11px">
@@ -223,14 +226,14 @@
             </div>
             <span style="position:relative;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 10px;border-radius:999px;background:#101728;border:1px solid rgba(255,255,255,0.18)">
               <span style="font-family:var(--font-display);font-size:8px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.72);white-space:nowrap">Entry Cost</span>
-              <span style="display:inline-flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:12px;font-weight:700;color:#FFE3A3"><svg width="14" height="14" viewBox="0 0 512 512"><circle fill="#FFCD52" cx="256" cy="256" r="256"></circle><circle fill="#FFFFFF" opacity="0.3" cx="256" cy="256" r="194.664"></circle><rect x="222.968" y="123.696" fill="#FFFFFF" opacity="0.7" width="66.064" height="264.64"></rect></svg>10</span>
+              <span style="display:inline-flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:12px;font-weight:700;color:#FFE3A3"><svg width="14" height="14" viewBox="0 0 800 800"><path fill="#ffcd52" fill-rule="evenodd" d="M400,0C179.1,0,0,179.1,0,400s179.1,400,400,400,400-179.1,400-400S620.9,0,400,0ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/><path fill="#a88538" fill-rule="evenodd" d="M400,95.8c-168,0-304.2,136.2-304.2,304.2s136.2,304.2,304.2,304.2,304.2-136.2,304.2-304.2S568,95.8,400,95.8ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/></svg>10</span>
             </span>
             <sc-if value="{{ c.locked }}" hint-placeholder-val="{{ true }}">
               <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:12px;background:linear-gradient(180deg, rgba(5,7,15,0.45), rgba(5,7,15,0.86));backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)">
-                <span style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border-radius:999px;background:rgba(245,184,51,0.14);border:1px solid rgba(245,184,51,0.5);font-family:var(--font-display);font-size:9.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold-300)"><svg width="14" height="14" viewBox="0 0 512 512"><circle fill="#FFCD52" cx="256" cy="256" r="256"></circle><circle fill="#FFFFFF" opacity="0.3" cx="256" cy="256" r="194.664"></circle><rect x="222.968" y="123.696" fill="#FFFFFF" opacity="0.7" width="66.064" height="264.64"></rect></svg>Unlock · 10 Coins</span>
+                <span style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border-radius:999px;background:rgba(245,184,51,0.14);border:1px solid rgba(245,184,51,0.5);font-family:var(--font-display);font-size:9.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold-300)"><svg width="14" height="14" viewBox="0 0 800 800"><path fill="#ffcd52" fill-rule="evenodd" d="M400,0C179.1,0,0,179.1,0,400s179.1,400,400,400,400-179.1,400-400S620.9,0,400,0ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/><path fill="#a88538" fill-rule="evenodd" d="M400,95.8c-168,0-304.2,136.2-304.2,304.2s136.2,304.2,304.2,304.2,304.2-136.2,304.2-304.2S568,95.8,400,95.8ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/></svg>Unlock · 10 Coins</span>
               </div>
             </sc-if>
-          </div>
+          </a>
         </sc-for>
         </div>
       </div>
@@ -248,7 +251,7 @@
     <sc-if value="{{ isCategory }}" hint-placeholder-val="{{ false }}">
     <div style="display:flex;flex-direction:column">
       <div style="position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:center;height:54px;padding:0 12px;background:rgba(10,14,27,0.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)">
-        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;left:12px;width:38px;height:38px;border-radius:11px;background:var(--ink-800);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--text-secondary)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+        <a aria-label="Back" href="{{ backHref }}" style="position:absolute;left:12px;width:38px;height:38px;border-radius:11px;background:var(--ink-800);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--text-secondary)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></a>
         <span style="font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-primary)">{{ catPage.label }}</span>
       </div>
       <div style="position:relative;height:190px;overflow:hidden">
@@ -267,7 +270,7 @@
         </div>
         <sc-for list="{{ catPage.rows }}" as="row" hint-placeholder-count="7">
           <sc-if value="{{ row.isItem }}" hint-placeholder-val="{{ true }}">
-            <div onClick="{{ row.onOpen }}" style="position:relative;display:flex;align-items:center;gap:13px;padding:11px 13px 11px 11px;background:var(--grad-surface);border:1px solid var(--line);border-radius:15px;cursor:pointer;transition:border-color .18s,transform .18s cubic-bezier(0.16,1,0.3,1)" style-hover="border-color:var(--line-crystal);transform:translateY(-2px)">
+            <a href="{{ row.href }}" style="position:relative;display:flex;align-items:center;gap:13px;padding:11px 13px 11px 11px;background:var(--grad-surface);border:1px solid var(--line);border-radius:15px;cursor:pointer;transition:border-color .18s,transform .18s cubic-bezier(0.16,1,0.3,1);text-decoration:none;box-sizing:border-box" style-hover="border-color:var(--line-crystal);transform:translateY(-2px)">
               <span style="position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 3px 3px 0;background:{{ row.accent }}"></span>
               <div style="position:relative;width:74px;height:74px;flex-shrink:0;border-radius:13px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(120% 100% at 50% 24%, {{ row.glow }}, var(--ink-900) 76%)">{{ row.imgEl }}</div>
               <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
@@ -278,7 +281,7 @@
                 </sc-if>
               </div>
               <span style="display:inline-flex;align-items:center;gap:6px;flex-shrink:0;height:32px;padding:0 10px 0 13px;border-radius:999px;background:rgba(31,205,245,0.1);border:1px solid var(--line-crystal);font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--crystal-300)">Unlock<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
-            </div>
+            </a>
           </sc-if>
           <sc-if value="{{ row.isAd }}" hint-placeholder-val="{{ false }}">
             <div style="display:flex;justify-content:center">
@@ -308,7 +311,7 @@
         <div style="position:absolute;inset:0;background:radial-gradient(96% 70% at 50% 32%, {{ item.glow }}, transparent 66%), var(--ink-950)"></div>
         <div style="position:absolute;inset:0;display:grid;place-items:center;padding:56px 48px 56px">{{ item.heroEl }}</div>
         <div style="position:absolute;left:0;right:0;bottom:0;height:130px;background:linear-gradient(180deg, transparent, var(--ink-950) 88%)"></div>
-        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);backdrop-filter:blur(8px);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--chrome-100)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+        <a aria-label="Back" href="{{ backHref }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);backdrop-filter:blur(8px);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--chrome-100)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></a>
       </div>
       <div style="padding:0 16px 30px;margin-top:-24px;position:relative;z-index:2;display:flex;flex-direction:column;gap:18px">
         <sc-if value="{{ item.showLabel }}" hint-placeholder-val="{{ true }}">
@@ -325,7 +328,7 @@
         </div>
         <div style="padding:24px 18px;background:radial-gradient(120% 130% at 50% 0%, rgba(31,205,245,0.14), transparent 62%), linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid var(--line-crystal);border-radius:20px;display:flex;flex-direction:column;align-items:center;gap:16px">
           <span style="font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--chrome-100);line-height:1.15;text-align:center">Initialize Injection Protocol</span>
-          <button onClick="{{ goFlow }}" style="width:100%;height:54px;border-radius:14px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 26px rgba(31,205,245,0.32);display:flex;align-items:center;justify-content:center;gap:9px"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5v14"></path></svg>Add to Game for Free</button>
+          <a href="#/flowTerminal" style="width:100%;height:54px;border-radius:14px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 26px rgba(31,205,245,0.32);display:flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;box-sizing:border-box"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5v14"></path></svg>Add to Game for Free</a>
           <span style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--success)"><span style="width:5px;height:5px;border-radius:999px;background:var(--success);box-shadow:0 0 6px var(--success)"></span>Status: Secure &amp; Ready to Deploy</span>
         </div>
       </div>
@@ -336,7 +339,7 @@
     <sc-if value="{{ isFlowTerminal }}" hint-placeholder-val="{{ false }}">
     <div style="display:flex;flex-direction:column;background:radial-gradient(110% 40% at 50% 0%, rgba(52,211,153,0.10), transparent 60%), var(--bg-canvas)">
       <div style="position:relative;padding:18px 16px 12px">
-        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--chrome-100)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+        <a aria-label="Back" href="{{ backHref }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--chrome-100)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></a>
         <h1 style="margin:34px 0 0;text-align:center;font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--chrome-100)">Establishing Uplink</h1>
       </div>
       <div style="padding:8px 16px 30px;display:flex;flex-direction:column;gap:16px;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);background-size:34px 34px">
@@ -364,7 +367,7 @@
           <div style="width:76px;height:76px;border-radius:999px;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%, rgba(52,211,153,0.22), transparent 70%);border:1px solid rgba(52,211,153,0.4)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z"></path></svg></div>
           <span style="font-family:var(--font-display);font-size:21px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:var(--chrome-100);text-align:center">Cleared For Injection</span>
           <p style="margin:0;text-align:center;font-size:13px;line-height:1.55;color:var(--text-tertiary);max-width:290px">Channel is secure and the package checks out. Ready to push it into your account?</p>
-          <button onClick="{{ startExec }}" style="width:100%;height:56px;margin-top:4px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3)">Begin Injection</button>
+          <a href="#/flowVerify" style="width:100%;height:56px;margin-top:4px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3);text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Begin Injection</a>
         </div>
       </div>
     </div>
@@ -374,7 +377,7 @@
     <sc-if value="{{ isFlowVerify }}" hint-placeholder-val="{{ false }}">
     <div style="display:flex;flex-direction:column;background:radial-gradient(120% 40% at 50% 0%, rgba(31,205,245,0.12), transparent 58%), var(--bg-canvas)">
       <div style="position:relative;padding:18px 16px 12px">
-        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-crystal);display:grid;place-items:center;cursor:pointer;color:var(--crystal-300)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+        <a aria-label="Back" href="{{ backHref }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-crystal);display:grid;place-items:center;cursor:pointer;color:var(--crystal-300)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></a>
         <h1 style="margin:34px 0 0;text-align:center;font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--chrome-100)">Account Sync</h1>
       </div>
       <div style="padding:8px 16px 30px;display:flex;flex-direction:column;gap:16px;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);background-size:34px 34px">
@@ -392,7 +395,7 @@
           <span style="position:absolute;top:10px;left:10px;z-index:2;display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:4px;background:rgba(5,7,15,0.72);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--text-secondary)">AD</span>
           <div style="height:250px;display:grid;place-items:center;background:radial-gradient(120% 120% at 80% 0%, rgba(245,184,51,0.16), transparent 60%), repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 12px, transparent 12px 24px)"><span style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.06em;color:var(--text-tertiary)">AD SLOT · 320 × 250 RATIO</span></div>
         </div>
-        <button onClick="{{ syncUplink }}" style="width:100%;height:56px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3)">Link Account</button>
+        <a href="#/flowTier" style="width:100%;height:56px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3);text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Link Account</a>
       </div>
     </div>
     </sc-if>
@@ -401,13 +404,13 @@
     <sc-if value="{{ isFlowTier }}" hint-placeholder-val="{{ false }}">
     <div style="display:flex;flex-direction:column;background:radial-gradient(120% 40% at 50% 0%, rgba(245,184,51,0.12), transparent 56%), var(--bg-canvas)">
       <div style="position:relative;padding:18px 16px 12px">
-        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--gold-400)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+        <a aria-label="Back" href="{{ backHref }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--gold-400)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></a>
         <h1 style="margin:34px 0 0;text-align:center;font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--chrome-100)">Mode Selection</h1>
       </div>
       <div style="padding:8px 16px 30px;display:flex;flex-direction:column;gap:12px;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);background-size:34px 34px">
         <div style="display:flex;align-items:center;gap:10px"><span style="width:4px;height:15px;border-radius:2px;background:var(--gold-500)"></span><span style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-primary)">Select Game Mode</span></div>
         <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="4">
-          <button onClick="{{ t.onPick }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;width:100%;padding:18px 16px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ t.border }};cursor:pointer;text-align:left;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%)"><div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:{{ t.accent }}"></div><div style="position:absolute;top:0;right:0;width:60%;height:100%;background:radial-gradient(120% 92% at 100% 26%, {{ t.tint }}, transparent 72%);pointer-events:none"></div><div style="position:relative;width:62px;height:62px;flex-shrink:0;border-radius:16px;display:grid;place-items:center;background:{{ t.iconBg }};border:1px solid {{ t.border }};color:{{ t.accent }}">{{ t.icon }}</div><div style="position:relative;flex:1;min-width:0"><div style="font-family:var(--font-display);font-size:18px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:var(--chrome-100)">{{ t.name }}</div><div style="margin-top:4px;font-size:13px;color:var(--text-tertiary)">{{ t.desc }}</div></div><div style="position:relative;width:36px;height:36px;flex-shrink:0;border-radius:999px;display:grid;place-items:center;background:{{ t.iconBg }};border:1px solid {{ t.border }};color:{{ t.accent }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></div></button>
+          <a href="{{ t.href }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;width:100%;padding:18px 16px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ t.border }};cursor:pointer;text-align:left;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%);text-decoration:none;box-sizing:border-box"><div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:{{ t.accent }}"></div><div style="position:absolute;top:0;right:0;width:60%;height:100%;background:radial-gradient(120% 92% at 100% 26%, {{ t.tint }}, transparent 72%);pointer-events:none"></div><div style="position:relative;width:62px;height:62px;flex-shrink:0;border-radius:16px;display:grid;place-items:center;background:{{ t.iconBg }};border:1px solid {{ t.border }};color:{{ t.accent }}">{{ t.icon }}</div><div style="position:relative;flex:1;min-width:0"><div style="font-family:var(--font-display);font-size:18px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:var(--chrome-100)">{{ t.name }}</div><div style="margin-top:4px;font-size:13px;color:var(--text-tertiary)">{{ t.desc }}</div></div><div style="position:relative;width:36px;height:36px;flex-shrink:0;border-radius:999px;display:grid;place-items:center;background:{{ t.iconBg }};border:1px solid {{ t.border }};color:{{ t.accent }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></div></a>
         </sc-for>
       </div>
     </div>
@@ -417,14 +420,14 @@
     <sc-if value="{{ isFlowLevel }}" hint-placeholder-val="{{ false }}">
     <div style="display:flex;flex-direction:column;background:radial-gradient(120% 40% at 50% 0%, rgba(31,205,245,0.12), transparent 56%), var(--bg-canvas)">
       <div style="position:relative;padding:18px 16px 12px">
-        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-crystal);display:grid;place-items:center;cursor:pointer;color:var(--crystal-300)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+        <a aria-label="Back" href="{{ backHref }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-crystal);display:grid;place-items:center;cursor:pointer;color:var(--crystal-300)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></a>
         <h1 style="margin:34px 0 0;text-align:center;font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--chrome-100)">Progression Level</h1>
       </div>
       <div style="padding:8px 16px 30px;display:flex;flex-direction:column;gap:12px;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);background-size:34px 34px">
         <div style="display:flex;align-items:center;gap:10px"><span style="width:4px;height:15px;border-radius:2px;background:var(--crystal-500)"></span><span style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-primary)">Select Your Account Level</span></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
           <sc-for list="{{ levels }}" as="l" hint-placeholder-count="5">
-            <button onClick="{{ l.onPick }}" style="position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:22px 12px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ l.border }};cursor:pointer"><div style="position:absolute;inset:0;background:radial-gradient(90% 120% at 50% 0%, {{ l.tint }}, transparent 70%);pointer-events:none"></div><span style="position:relative;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--chrome-100)">{{ l.name }}</span></button>
+            <a href="{{ l.href }}" style="position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:22px 12px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ l.border }};cursor:pointer;text-decoration:none;box-sizing:border-box"><div style="position:absolute;inset:0;background:radial-gradient(90% 120% at 50% 0%, {{ l.tint }}, transparent 70%);pointer-events:none"></div><span style="position:relative;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--chrome-100)">{{ l.name }}</span></a>
           </sc-for>
         </div>
       </div>
@@ -435,12 +438,12 @@
     <sc-if value="{{ isFlowLeague }}" hint-placeholder-val="{{ false }}">
     <div style="display:flex;flex-direction:column;background:radial-gradient(120% 40% at 50% 0%, rgba(52,211,153,0.10), transparent 56%), var(--bg-canvas)">
       <div style="position:relative;padding:18px 16px 12px">
-        <button aria-label="Back" onClick="{{ back }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--chrome-100)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+        <a aria-label="Back" href="{{ backHref }}" style="position:absolute;top:14px;left:14px;width:40px;height:40px;border-radius:12px;background:rgba(5,7,15,0.5);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--chrome-100)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></a>
         <h1 style="margin:34px 0 0;text-align:center;font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--chrome-100)">Rank Selection</h1>
       </div>
       <div style="padding:8px 16px 30px;display:grid;grid-template-columns:1fr 1fr;gap:12px;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);background-size:34px 34px">
         <sc-for list="{{ leagues }}" as="l" hint-placeholder-count="7">
-          <button onClick="{{ l.onPick }}" style="position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 12px 16px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ l.border }};cursor:pointer"><div style="position:absolute;inset:0;background:radial-gradient(80% 60% at 50% 20%, {{ l.tint }}, transparent 72%);pointer-events:none"></div>{{ l.imgEl }}<span style="position:relative;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--chrome-100)">{{ l.name }}</span></button>
+          <a href="{{ l.href }}" style="position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 12px 16px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ l.border }};cursor:pointer;text-decoration:none;box-sizing:border-box"><div style="position:absolute;inset:0;background:radial-gradient(80% 60% at 50% 20%, {{ l.tint }}, transparent 72%);pointer-events:none"></div>{{ l.imgEl }}<span style="position:relative;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--chrome-100)">{{ l.name }}</span></a>
         </sc-for>
       </div>
     </div>
@@ -454,7 +457,7 @@
         <span style="font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--chrome-100);text-align:center">Handshake Complete</span>
         <p style="margin:0;text-align:center;font-size:13.5px;line-height:1.6;color:var(--text-tertiary);max-width:300px">{{ item.name }} has been queued for delivery to UID {{ uidLabel }}. Restart Free Fire and check your vault — first sync can take a few minutes.</p>
         <div style="width:100%;display:flex;flex-direction:column;gap:10px;margin-top:4px">
-          <button onClick="{{ goHome }}" style="width:100%;height:54px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Back to Catalog</button>
+          <a href="#/home" style="width:100%;height:54px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Back to Catalog</a>
           <button onClick="{{ openTroubleshoot }}" style="width:100%;height:48px;border-radius:14px;background:var(--ink-800);border:1px solid var(--line-strong);color:var(--chrome-100);font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Skin not showing?</button>
         </div>
       </div>
@@ -492,7 +495,7 @@
   <!-- ==================== DIALOG: INSUFFICIENT COINS ==================== -->
   <div onClick="{{ closeShort }}" style="position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:24px;background:rgba(5,7,15,0.7);backdrop-filter:blur(3px);transition:opacity .2s;opacity:{{ shortOpaque }};pointer-events:{{ shortPE }}">
     <div style="width:100%;max-width:320px;padding:24px 20px;border-radius:20px;background:radial-gradient(120% 120% at 50% 0%, rgba(245,184,51,0.16), transparent 62%), var(--ink-850);border:1px solid rgba(245,184,51,0.4);display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 24px 60px rgba(0,0,0,0.6)">
-      <span style="width:52px;height:52px;border-radius:999px;display:grid;place-items:center;background:rgba(245,184,51,0.14);border:1px solid rgba(245,184,51,0.45)"><svg width="30" height="30" viewBox="0 0 512 512"><circle fill="#FFCD52" cx="256" cy="256" r="256"></circle><circle fill="#FFFFFF" opacity="0.3" cx="256" cy="256" r="194.664"></circle><rect x="222.968" y="123.696" fill="#FFFFFF" opacity="0.7" width="66.064" height="264.64"></rect></svg></span>
+      <span style="width:52px;height:52px;border-radius:999px;display:grid;place-items:center;background:rgba(245,184,51,0.14);border:1px solid rgba(245,184,51,0.45)"><svg width="30" height="30" viewBox="0 0 800 800"><path fill="#ffcd52" fill-rule="evenodd" d="M400,0C179.1,0,0,179.1,0,400s179.1,400,400,400,400-179.1,400-400S620.9,0,400,0ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/><path fill="#a88538" fill-rule="evenodd" d="M400,95.8c-168,0-304.2,136.2-304.2,304.2s136.2,304.2,304.2,304.2,304.2-136.2,304.2-304.2S568,95.8,400,95.8ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/></svg></span>
       <span style="font-family:var(--font-display);font-size:17px;font-weight:700;letter-spacing:0.02em;color:var(--chrome-100);text-align:center;line-height:1.25">Insufficient Entry Coins. Watch ads to unlock</span>
       <span style="font-family:var(--font-mono);font-size:12px;color:var(--text-tertiary)">Balance: {{ coins }} · Needed: 10</span>
       <button onClick="{{ watchAd }}" style="width:100%;height:48px;border-radius:13px;border:none;background:var(--grad-premium);color:#241a05;font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Watch Ad · +10 Coins</button>
@@ -529,31 +532,113 @@
 class Component extends DCLogic {
   state = { route: 'welcome', history: [], catKey: 'characters', itemIdx: 0, uid: '', region: 'India', regionOpen: false, infoKey: null, coins: 0, unlocked: [], adOpen: false, shortOpen: false, pendingCat: null };
 
-  openCategory(key) {
-    this.setState(st => {
-      if (st.coins >= 10) {
-        window.scrollTo(0, 0);
-        return { coins: st.coins - 10, route: 'category', catKey: key, history: [...st.history, st.route], regionOpen: false, infoKey: null, shortOpen: false, pendingCat: null };
-      }
-      return { shortOpen: true, pendingCat: key };
-    });
+  openCategory(key, e) {
+    if (this.state.coins >= 10) {
+      this.setState(st => ({ coins: st.coins - 10 }));
+      return; // sufficient coins: deduct now, let the real <a href> navigation proceed
+    }
+    if (e) e.preventDefault();
+    this.setState({ shortOpen: true, pendingCat: key });
+  }
+
+  routeHash(route, extra) {
+    const e = extra || {};
+    const catKey = e.catKey != null ? e.catKey : this.state.catKey;
+    const itemIdx = e.itemIdx != null ? e.itemIdx : this.state.itemIdx;
+    if (route === 'category') return '#/category/' + catKey;
+    if (route === 'detail') return '#/detail/' + catKey + '/' + itemIdx;
+    return '#/' + route;
+  }
+  parseHash() {
+    const raw = location.hash.replace(/^#\/?/, '');
+    const parts = raw.split('/').filter(Boolean);
+    if (!parts.length) return null;
+    const route = parts[0];
+    if (route === 'category') return { route, catKey: parts[1] || this.state.catKey };
+    if (route === 'detail') return { route, catKey: parts[1] || this.state.catKey, itemIdx: parts[2] != null ? parseInt(parts[2], 10) : this.state.itemIdx };
+    return { route };
+  }
+  _syncHash(route, extra) {
+    const h = this.routeHash(route, extra);
+    if (location.hash !== h) { this._suppressHash = true; location.hash = h; }
+  }
+  backHref() {
+    const h = this.state.history;
+    const prev = h[h.length - 1] || 'home';
+    return this.routeHash(prev, { catKey: this.state.catKey, itemIdx: this.state.itemIdx });
   }
 
   componentDidMount() {
-    const p = this.props.screen;
-    if (p && p !== 'splash') this.setState({ route: p });
-    else this._t = setTimeout(() => this.setState(s => s.route === 'splash' ? { route: 'welcome' } : null), 2200);
+    const initialHash = this.parseHash();
+    if (initialHash) {
+      this.setState(st => ({ route: initialHash.route, catKey: initialHash.catKey != null ? initialHash.catKey : st.catKey, itemIdx: initialHash.itemIdx != null ? initialHash.itemIdx : st.itemIdx }));
+    } else {
+      const p = this.props.screen;
+      if (p && p !== 'splash') { this.setState({ route: p }); this._syncHash(p); }
+      else this._t = setTimeout(() => {
+        if (this.state.route === 'splash') { this.setState({ route: 'welcome' }); this._syncHash('welcome'); }
+      }, 2200);
+    }
+    this.updateTitle();
+
+    this._onHashChange = () => {
+      if (this._suppressHash) { this._suppressHash = false; return; }
+      const parsed = this.parseHash();
+      if (!parsed) return;
+      clearTimeout(this._t);
+      this.setState(st => ({
+        route: parsed.route,
+        catKey: parsed.catKey != null ? parsed.catKey : st.catKey,
+        itemIdx: parsed.itemIdx != null ? parsed.itemIdx : st.itemIdx,
+        history: [...st.history, st.route], regionOpen: false, infoKey: null,
+      }));
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('hashchange', this._onHashChange);
   }
-  componentWillUnmount() { clearTimeout(this._t); }
+  componentWillUnmount() {
+    clearTimeout(this._t);
+    if (this._onHashChange) window.removeEventListener('hashchange', this._onHashChange);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.route !== this.state.route || prevState.catKey !== this.state.catKey || prevState.itemIdx !== this.state.itemIdx) {
+      this.updateTitle();
+    }
+  }
+  updateTitle() {
+    const base = 'FFF Skin Tools';
+    const titles = {
+      splash: base,
+      welcome: `${base} — Free Fire Skins Catalog`,
+      home: `Home — ${base}`,
+      category: () => {
+        const cat = (this._rawCats || []).find(c => c.key === this.state.catKey);
+        return cat ? `${cat.headline} — ${base}` : `Catalog — ${base}`;
+      },
+      detail: () => {
+        const cat = (this._rawCats || []).find(c => c.key === this.state.catKey);
+        const item = cat && cat.items[this.state.itemIdx];
+        return item ? `${item[0]} — ${base}` : `Details — ${base}`;
+      },
+      flowTerminal: `Redeem — ${base}`, flowVerify: `Verify — ${base}`, flowTier: `Select Tier — ${base}`,
+      flowLevel: `Select Level — ${base}`, flowLeague: `Select League — ${base}`, flowDone: `All Set — ${base}`,
+    };
+    const t = titles[this.state.route];
+    document.title = typeof t === 'function' ? t() : (t || base);
+  }
 
   go(route, extra) {
     clearTimeout(this._t);
     this.setState(st => ({ route, history: [...st.history, st.route], regionOpen: false, infoKey: null, ...(extra || {}) }));
     window.scrollTo(0, 0);
+    this._syncHash(route, extra);
   }
   back() {
-    this.setState(st => { const h = st.history.slice(); const prev = h.pop(); return { route: prev || 'home', history: h, regionOpen: false, infoKey: null }; });
+    const h = this.state.history.slice();
+    const prev = h.pop() || 'home';
+    this.setState({ route: prev, history: h, regionOpen: false, infoKey: null });
     window.scrollTo(0, 0);
+    this._syncHash(prev);
   }
 
   renderVals() {
@@ -766,6 +851,7 @@ class Component extends DCLogic {
           ['Malevolent Sting Backpack', 'epic', 'Backpack', 'assets/backpacks/malevolent-sting-backpack.png', 'A scorpion themed backpack obtained through the Quantic Unknown Elite Pass, September 2021.'],
           ['Quantic Unknown Backpack', 'rare', 'Backpack', 'assets/backpacks/quantic-unknown-backpack.png', 'A backpack rewarded through the Quantic Unknown Elite Pass, which ran from September 1 to September 30, 2021.']] },
     ];
+    this._rawCats = rawCats;
 
     const makeFill = (src, focus) => img(src, { position: 'absolute', top: 0, right: 0, height: '100%', width: '62%', objectFit: 'cover', objectPosition: focus || 'center 22%', WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, #000 58%)', maskImage: 'linear-gradient(90deg, transparent 0%, #000 58%)' });
     const catIcons = {
@@ -778,7 +864,7 @@ class Component extends DCLogic {
       skyboards: ['M2.8 14.4c3.2-5.6 15.4-8.8 18.5-4.6 3.1 4.2-15.3 10-18.5 4.6Z', 'M9 15.5l1.5 4', 'M15 13l1.5 4'],
       backpacks: ['M6 21V9.5A4.5 4.5 0 0 1 10.5 5h3A4.5 4.5 0 0 1 18 9.5V21H6Z', 'M9.2 5V4.2a2.8 2.8 0 0 1 5.6 0V5', 'M9 13h6', 'M9 21v-4.2h6V21']
     };
-    const menuCats = rawCats.map(c => ({ name: c.headline, count: c.count, accent: c.accent, glow: c.glow, iconPaths: catIcons[c.key] || catIcons.bundles, locked: this.state.coins < 10, onOpen: () => this.openCategory(c.key) }));
+    const menuCats = rawCats.map(c => ({ name: c.headline, count: c.count, accent: c.accent, glow: c.glow, iconPaths: catIcons[c.key] || catIcons.bundles, locked: this.state.coins < 10, href: '#/category/' + c.key, onOpen: e => this.openCategory(c.key, e) }));
 
     const cur = rawCats.find(c => c.key === this.state.catKey) || rawCats[0];
     const t = THEMES[cur.theme];
@@ -793,7 +879,7 @@ class Component extends DCLogic {
       const rr = RR[it[1]] || { accent: cur.accent, glow: cur.glow, label: '' };
       rows.push({ isItem: true, name: it[0], type: it[2], accent: plain ? cur.accent : rr.accent, glow: plain ? cur.glow : rr.glow, label: rr.label, showLabel: !plain && !!RR[it[1]],
         imgEl: cur.kind === 'real' ? realImg(it[3]) : phIcon(cur.icon, plain ? cur.accent : rr.accent, cur.icon === 'paw' ? 42 : 40),
-        onOpen: () => this.go('detail', { itemIdx: i }) });
+        onOpen: () => this.go('detail', { itemIdx: i }), href: '#/detail/' + cur.key + '/' + i });
       if ((i + 1) % 3 === 0 && i < cur.items.length - 1) { const a = catAds[ai % catAds.length]; ai++; rows.push({ isAd: true, headline: a.headline, sub: a.sub }); }
     });
     const noRarity = plain;
@@ -864,14 +950,14 @@ class Component extends DCLogic {
       { name: 'BR-Ranked', desc: 'Battle Royale ranked ladder', iconKey: 'crosshair', accent: 'var(--crystal-400)' },
       { name: 'CS-Ranked', desc: 'Clash Squad ranked ladder', iconKey: 'flame', accent: '#FF4D6A' },
       { name: 'Casual Modes', desc: 'Unranked practice lobbies', iconKey: 'gamepad', accent: '#8A5CFF' },
-    ].map(x => ({ ...x, icon: modeIcons[x.iconKey], iconBg: 'color-mix(in srgb, ' + x.accent + ' 14%, transparent)', tint: 'color-mix(in srgb, ' + x.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + x.accent + ' 40%, transparent)', onPick: () => this.go('flowLevel') }));
+    ].map(x => ({ ...x, icon: modeIcons[x.iconKey], iconBg: 'color-mix(in srgb, ' + x.accent + ' 14%, transparent)', tint: 'color-mix(in srgb, ' + x.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + x.accent + ' 40%, transparent)', href: '#/flowLevel', onPick: () => this.go('flowLevel') }));
     const levels = [
       { name: 'Level 0-25', accent: 'var(--success)' },
       { name: 'Level 26-40', accent: 'var(--crystal-400)' },
       { name: 'Level 41-60', accent: '#FF4D6A' },
       { name: 'Level 61-90', accent: 'var(--gold-500)' },
       { name: 'Level 90+', accent: '#8A5CFF' },
-    ].map(l => ({ ...l, tint: 'color-mix(in srgb, ' + l.accent + ' 12%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 38%, transparent)', onPick: () => this.go('flowLeague') }));
+    ].map(l => ({ ...l, tint: 'color-mix(in srgb, ' + l.accent + ' 12%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 38%, transparent)', href: '#/flowLeague', onPick: () => this.go('flowLeague') }));
     const leagues = [
       { name: 'Bronze', src: 'assets/ranks/bronze.png', accent: '#B77F35' },
       { name: 'Silver', src: 'assets/ranks/silver.png', accent: '#9AAABE' },
@@ -880,7 +966,7 @@ class Component extends DCLogic {
       { name: 'Diamond', src: 'assets/ranks/diamond.png', accent: '#C026A9' },
       { name: 'Heroic', src: 'assets/ranks/heroic.png', accent: '#E2481E' },
       { name: 'Master', src: 'assets/ranks/master.png', accent: '#F5A417' },
-    ].map(l => ({ ...l, imgEl: img(l.src, { position: 'relative', width: '76px', height: '76px', objectFit: 'contain', filter: 'drop-shadow(0 5px 11px rgba(0,0,0,0.55))' }), tint: 'color-mix(in srgb, ' + l.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 46%, transparent)', onPick: () => this.go('flowDone') }));
+    ].map(l => ({ ...l, imgEl: img(l.src, { position: 'relative', width: '76px', height: '76px', objectFit: 'contain', filter: 'drop-shadow(0 5px 11px rgba(0,0,0,0.55))' }), tint: 'color-mix(in srgb, ' + l.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 46%, transparent)', href: '#/flowDone', onPick: () => this.go('flowDone') }));
 
     // ---------- region ----------
     const check = React.createElement('svg', { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'var(--crystal-400)', strokeWidth: 2.4, strokeLinecap: 'round', strokeLinejoin: 'round' }, React.createElement('path', { d: 'M20 6 9 17l-5-5' }));
@@ -924,6 +1010,7 @@ class Component extends DCLogic {
       isFlowTerminal: route === 'flowTerminal', isFlowVerify: route === 'flowVerify', isFlowTier: route === 'flowTier',
       isFlowLevel: route === 'flowLevel', isFlowLeague: route === 'flowLeague', isFlowDone: route === 'flowDone',
       goWelcome: () => this.go('welcome'), goHome: () => this.go('home'), back: () => this.back(),
+      backHref: this.backHref(),
       coins: this.state.coins, adOpen: this.state.adOpen,
       watchAd: () => this.setState({ adOpen: true, shortOpen: false }),
       closeAd: () => this.setState(st => ({ adOpen: false, coins: st.coins + 10 })),
