@@ -691,6 +691,19 @@ class Component extends DCLogic {
     }
   }
   fillAds() {
+    // Screens that are no longer active sometimes leave their old <ins> tags behind in the
+    // DOM instead of being removed (confirmed via console testing: a previous screen's ad
+    // slots were still present, invisible, while viewing the current one). AdSense has no
+    // concept of our SPA "screens" — it just sees one real, ever-growing page — and appears to
+    // cap/ignore further requests once too many <ins> tags have piled up. That lines up
+    // exactly with "works right after a refresh, breaks down the more you navigate around."
+    // Prune anything no longer actually visible before requesting anything new.
+    try {
+      document.querySelectorAll('ins.adsbygoogle').forEach(el => {
+        if (el.offsetParent === null) el.remove();
+      });
+    } catch (e) { /* ignore */ }
+
     // Each screen change mounts its own <ins class="adsbygoogle"> tags. AdSense needs one
     // push({}) call per not-yet-filled tag to actually request/render an ad into it.
     const requestFill = (el) => {
@@ -710,11 +723,10 @@ class Component extends DCLogic {
     try {
       document.querySelectorAll('ins.adsbygoogle').forEach(el => {
         if (el.getAttribute('data-adsbygoogle-status') || el.getAttribute('data-ad-status')) {
-          // This node is already marked as processed by a previous fill — AdSense won't
-          // re-fill it. If the underlying DOM node got reused across screens/visits (rather
-          // than being freshly created) instead of just skipping it, swap in a clean clone
-          // with the same ad config but none of the "already done" markers, so revisiting a
-          // screen actually gets a fresh ad request instead of a permanently stuck empty slot.
+          // Still processed and still visible (the prune above only removes invisible ones) —
+          // this would be a genuinely current, on-screen slot that's already done. Swap in a
+          // clean clone with the same ad config but none of the "already done" markers, so it
+          // can be requested again rather than staying permanently stuck.
           const fresh = el.cloneNode(false);
           fresh.removeAttribute('data-adsbygoogle-status');
           fresh.removeAttribute('data-ad-status');

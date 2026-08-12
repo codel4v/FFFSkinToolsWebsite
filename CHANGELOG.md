@@ -2,6 +2,16 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.7 — Prune leftover ad slots from previous screens (2026-08-12)
+- Root cause found via direct console/network inspection: navigating away from a screen was
+  NOT removing its <ins class="adsbygoogle"> tags from the DOM — they stayed behind, invisible.
+  AdSense has no concept of our SPA screens and treats every ins it has ever seen as living on
+  one single, ever-growing real page, and appears to cap/ignore further requests once too many
+  accumulate — matching "works after a refresh, breaks down the more you navigate" exactly.
+- fillAds() now actively deletes any ins.adsbygoogle that is no longer visible (offsetParent is
+  null) before requesting anything new, keeping the real DOM ad-slot count bounded to just the
+  current screen instead of growing for the entire session.
+
 ## v1.6 — Ad fill retry on first push (2026-08-12)
 - fillAds() now retries once, after 800ms, if a push() call never got acknowledged by
   AdSense at all (no data-adsbygoogle-status appeared) — most likely caused by the AdSense
