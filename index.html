@@ -12,7 +12,11 @@
 <title>FFF Skin Tools</title>
 <link rel="icon" type="image/svg+xml" href="Favicon.svg">
 <link rel="icon" type="image/png" href="Favicon.png">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8356035806330431" crossorigin="anonymous"></script>
+<script async data-adbreak-test="on" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8356035806330431" crossorigin="anonymous"></script>
+<script>
+  window.adsbygoogle = window.adsbygoogle || [];
+  window.adBreak = window.adConfig = function(o) { window.adsbygoogle.push(o); };
+</script>
 <link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/fonts.css">
 <link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/colors.css">
 <link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/typography.css">
@@ -470,24 +474,38 @@
     </sc-if>
   </div>
 
-  <!-- ==================== INTERSTITIAL AD ==================== -->
+  <!-- ==================== REWARDED AD ==================== -->
   <sc-if value="{{ adOpen }}" hint-placeholder-val="{{ false }}">
   <div style="position:fixed;inset:0;z-index:80;background:#0B0F1A;display:flex;justify-content:center">
     <div style="position:relative;width:100%;max-width:var(--web-col);display:flex;flex-direction:column;background:var(--ink-950);border-left:1px solid var(--line-strong);border-right:1px solid var(--line-strong)">
       <div style="display:flex;align-items:center;gap:10px;height:46px;padding:0 12px;border-bottom:1px solid var(--line);flex-shrink:0">
         <span style="display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:4px;background:rgba(255,255,255,0.08);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--text-secondary)">AD</span>
-        <span style="flex:1;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--text-tertiary)">Google Interstitial · Full screen</span>
-        <button aria-label="Close ad" onClick="{{ closeAd }}" style="width:32px;height:32px;border-radius:999px;background:rgba(255,255,255,0.08);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--chrome-100)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+        <span style="flex:1;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--text-tertiary)">Rewarded Ad</span>
+        <button aria-label="Close" onClick="{{ closeAd }}" style="width:32px;height:32px;border-radius:999px;background:rgba(255,255,255,0.08);border:1px solid var(--line-strong);display:grid;place-items:center;cursor:pointer;color:var(--chrome-100)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
       </div>
       <div style="flex:1;display:grid;place-items:center;background:radial-gradient(120% 80% at 50% 0%, rgba(31,205,245,0.12), transparent 60%), repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 12px, transparent 12px 26px)">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:24px;text-align:center">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--crystal-400)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9l4-6ZM2 9h20M12 3 8 9l4 12 4-12-4-6Z"></path></svg>
-          <span style="font-family:var(--font-mono);font-size:13px;letter-spacing:0.08em;color:var(--text-secondary)">FULL-PAGE AD CREATIVE</span>
-          <span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-tertiary)">Close the ad to collect +10 coins</span>
-        </div>
+        <sc-if value="{{ rewardReady }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:24px;text-align:center">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+            <span style="font-family:var(--font-mono);font-size:13px;letter-spacing:0.08em;color:var(--text-secondary)">AD READY</span>
+            <span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-tertiary)">Watch it fully to collect +10 coins</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ rewardChecking }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:24px;text-align:center">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--crystal-400)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.2-8.5"></path></svg>
+            <span style="font-family:var(--font-mono);font-size:13px;letter-spacing:0.08em;color:var(--text-secondary)">FINDING AN AD</span>
+            <span style="font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-tertiary)">One moment…</span>
+          </div>
+        </sc-if>
       </div>
       <div style="padding:16px;border-top:1px solid var(--line);flex-shrink:0">
-        <button onClick="{{ closeAd }}" style="width:100%;height:50px;border-radius:14px;border:none;background:var(--grad-premium);color:#241a05;font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Close &amp; Collect +10 Coins</button>
+        <sc-if value="{{ rewardReady }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ confirmWatchAd }}" style="width:100%;height:50px;border-radius:14px;border:none;background:var(--grad-premium);color:#241a05;font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Watch Now</button>
+        </sc-if>
+        <sc-if value="{{ rewardChecking }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ closeAd }}" style="width:100%;height:50px;border-radius:14px;background:var(--ink-800);border:1px solid var(--line-strong);color:var(--chrome-100);font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Cancel</button>
+        </sc-if>
       </div>
     </div>
   </div>
@@ -531,7 +549,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;screen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;splash&quot;,&quot;welcome&quot;,&quot;home&quot;,&quot;category&quot;,&quot;detail&quot;,&quot;flowTerminal&quot;,&quot;flowVerify&quot;,&quot;flowTier&quot;,&quot;flowLevel&quot;,&quot;flowLeague&quot;,&quot;flowDone&quot;],&quot;default&quot;:&quot;splash&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
-  state = { route: 'welcome', catKey: 'characters', itemIdx: 0, uid: '', region: 'India', regionOpen: false, infoKey: null, coins: 0, unlocked: [], adOpen: false, shortOpen: false, pendingCat: null };
+  state = { route: 'welcome', catKey: 'characters', itemIdx: 0, uid: '', region: 'India', regionOpen: false, infoKey: null, coins: 0, unlocked: [], adOpen: false, rewardReady: false, shortOpen: false, pendingCat: null };
 
   openCategory(key, e) {
     if (this.state.coins >= 10) {
@@ -540,6 +558,37 @@ class Component extends DCLogic {
     }
     if (e) e.preventDefault();
     this.setState({ shortOpen: true, pendingCat: key });
+  }
+
+  watchAd() {
+    this.setState({ adOpen: true, rewardReady: false, shortOpen: false });
+    if (typeof adBreak !== 'function') return;
+    adBreak({
+      type: 'reward',
+      name: 'watch-ad-for-coins',
+      // Fires once a real ad is actually available. We can't call showAdFn() here directly —
+      // it must be triggered by its own direct user click — so we reveal a "Watch Now" button instead.
+      beforeReward: (showAdFn) => {
+        this._showRewardedAd = showAdFn;
+        this.setState({ rewardReady: true });
+      },
+      beforeAd: () => { this.setState({ adOpen: false }); }, // real ad is about to take over the screen — hide our own UI
+      adDismissed: () => { this.setState({ adOpen: false, rewardReady: false }); }, // user backed out before finishing
+      adViewed: () => { this.setState(st => ({ adOpen: false, rewardReady: false, coins: st.coins + 10 })); }, // reward only granted here
+      adBreakDone: () => {
+        // Fires in every case, including when no ad was available at all. If we never got as far as
+        // showing a real ad, just close our modal quietly.
+        this.setState(st => st.adOpen || st.rewardReady ? { adOpen: false, rewardReady: false } : null);
+      },
+    });
+  }
+  confirmWatchAd() {
+    if (this._showRewardedAd) this._showRewardedAd();
+  }
+  closeAd() {
+    // Only reachable before a real ad starts (during the "finding an ad" / "ad ready" stages) —
+    // once a real ad is actually playing, beforeAd already hid this modal.
+    this.setState({ adOpen: false, rewardReady: false });
   }
 
   routeHash(route, extra) {
@@ -569,6 +618,7 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
+    if (typeof adConfig === 'function') adConfig({ sound: 'off' });
     const initialHash = this.parseHash();
     if (initialHash) {
       this.setState(st => ({ route: initialHash.route, catKey: initialHash.catKey != null ? initialHash.catKey : st.catKey, itemIdx: initialHash.itemIdx != null ? initialHash.itemIdx : st.itemIdx }));
@@ -592,6 +642,12 @@ class Component extends DCLogic {
       const parsed = this.parseHash();
       if (!parsed) return;
       clearTimeout(this._t);
+      // Every real navigation (any link click, or browser back/forward) is an interstitial
+      // opportunity. Google's own frequency cap (min. 1/min, default 1/10min) decides whether
+      // an ad actually shows each time — this call doesn't force one on every single click.
+      if (typeof adBreak === 'function') {
+        adBreak({ type: 'next', name: 'page-nav' });
+      }
       this.setState(st => ({
         route: parsed.route,
         catKey: parsed.catKey != null ? parsed.catKey : st.catKey,
@@ -1039,9 +1095,10 @@ class Component extends DCLogic {
       isFlowTerminal: route === 'flowTerminal', isFlowVerify: route === 'flowVerify', isFlowTier: route === 'flowTier',
       isFlowLevel: route === 'flowLevel', isFlowLeague: route === 'flowLeague', isFlowDone: route === 'flowDone',
       goWelcome: () => this.go('welcome'), goHome: () => this.go('home'), back: e => this.back(e),
-      coins: this.state.coins, adOpen: this.state.adOpen,
-      watchAd: () => this.setState({ adOpen: true, shortOpen: false }),
-      closeAd: () => this.setState(st => ({ adOpen: false, coins: st.coins + 10 })),
+      coins: this.state.coins, adOpen: this.state.adOpen, rewardReady: this.state.rewardReady, rewardChecking: this.state.adOpen && !this.state.rewardReady,
+      watchAd: () => this.watchAd(),
+      confirmWatchAd: () => this.confirmWatchAd(),
+      closeAd: () => this.closeAd(),
       shortOpaque: this.state.shortOpen ? 1 : 0, shortPE: this.state.shortOpen ? 'auto' : 'none',
       closeShort: () => this.setState({ shortOpen: false, pendingCat: null }),
       goFlow: () => this.go('flowTerminal'), startExec: () => this.go('flowVerify'), syncUplink: () => this.go('flowTier'),
