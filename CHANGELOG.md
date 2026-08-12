@@ -2,6 +2,13 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v2.21 — Fix: test mode flags had reappeared (2026-08-12)
+- v1.2 was built on a stale base and silently re-included data-ad-test="on" on all 10 display
+  slots plus data-adbreak-test="on" on the loader script, despite the commit message — the
+  rewarded interstitial showing "Rewarded ad example" after go-live was this, not a deployment issue
+- Re-removed both flags for real this time (verified directly against the file, not assumed)
+- Spinner animation from v1.2 carried over correctly, no change needed there
+
 ## v1.2 — Go live: test mode removed (2026-08-12)
 - Removed data-ad-test="on" from all 10 AdSense display slots
 - Removed data-adbreak-test="on" from the AdSense loader script (interstitial/rewarded)
@@ -44,6 +51,13 @@ All notable changes to the FFF Skin Tools website, newest first.
 - Replaced all 9 existing 320×250 placeholder ad slots site-wide with real AdSense `<ins>` units (2 slot IDs: Top/Bottom)
 - Reordered Home screen: ad slot now appears before the "Entry Coins Balance" card
 - Added `fillAds()` — required in this SPA since AdSense needs one fill call per newly-mounted `<ins>` tag on route change
+
+## v2.21 — Fix: test mode flags had reappeared (2026-08-12)
+- v1.2 was built on a stale base and silently re-included data-ad-test="on" /
+  data-adbreak-test="on" on all 11 ad units, despite the commit message — the rewarded
+  interstitial showing "Rewarded ad example" after go-live was this, not a deployment issue
+- Re-removed both flags for real this time (verified directly against the file, not assumed)
+- Spinner animation from v1.2 carried over correctly, no change needed there
 
 ## v1.21 — Lazyload Implementation + Minor bug fixes (2026-08-12)
 - Added `loading="lazy"` to category-grid item thumbnails (up to 51 images in some categories); left hero/detail images eager
