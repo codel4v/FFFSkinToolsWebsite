@@ -2,6 +2,16 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.8 — Cleaned up ad fill logic (2026-08-12)
+- Removed the retry-with-delay from v1.6 — redundant on top of the pruning fix, and firing
+  extra unnecessary requests is exactly the kind of noisy pattern worth avoiding
+- Fixed a real bug in clone-and-replace: it would swap out and re-request ANY already-processed
+  slot, including one already showing a real, successfully filled ad (data-ad-status="filled")
+  — discarding a working ad to ask for one it didn't need. Now explicitly skips filled slots and
+  only retries genuinely unfilled/stuck ones.
+- Kept the core fix from v1.7 (pruning invisible leftover <ins> tags) and the load-timing gate
+  from v2.3 — this is meant to be the same theory, tested clean, not a new one
+
 ## v1.7 — Prune leftover ad slots from previous screens (2026-08-12)
 - Root cause found via direct console/network inspection: navigating away from a screen was
   NOT removing its <ins class="adsbygoogle"> tags from the DOM — they stayed behind, invisible.

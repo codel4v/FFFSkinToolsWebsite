@@ -706,35 +706,25 @@ class Component extends DCLogic {
 
     // Each screen change mounts its own <ins class="adsbygoogle"> tags. AdSense needs one
     // push({}) call per not-yet-filled tag to actually request/render an ad into it.
-    const requestFill = (el) => {
-      el.setAttribute('data-ad-fill-requested', '1');
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-      // Retry once, but only if the push never got acknowledged at all (no
-      // data-adsbygoogle-status appeared) — most likely because the AdSense script hadn't
-      // finished loading/initializing yet when we called push(). If Google's script DID
-      // process the request (filled or genuinely unfilled), we leave it alone — AdSense
-      // won't re-fill an <ins> it has already responded to, so retrying that case is pointless.
-      setTimeout(() => {
-        if (!el.getAttribute('data-adsbygoogle-status') && el.isConnected) {
-          try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
-        }
-      }, 800);
-    };
     try {
       document.querySelectorAll('ins.adsbygoogle').forEach(el => {
-        if (el.getAttribute('data-adsbygoogle-status') || el.getAttribute('data-ad-status')) {
-          // Still processed and still visible (the prune above only removes invisible ones) —
-          // this would be a genuinely current, on-screen slot that's already done. Swap in a
-          // clean clone with the same ad config but none of the "already done" markers, so it
-          // can be requested again rather than staying permanently stuck.
+        const status = el.getAttribute('data-ad-status');
+        if (status === 'filled') return; // already showing a real ad — never touch this one
+        if (el.getAttribute('data-adsbygoogle-status')) {
+          // Processed (genuinely unfilled, or done with no explicit status) and still visible
+          // — a currently-active slot, not a stale leftover (those were already pruned above).
+          // Swap in a clean clone with the same ad config but none of the "already done"
+          // markers, so it can be requested again instead of staying permanently stuck.
           const fresh = el.cloneNode(false);
           fresh.removeAttribute('data-adsbygoogle-status');
           fresh.removeAttribute('data-ad-status');
           fresh.removeAttribute('data-ad-fill-requested');
           el.parentNode.replaceChild(fresh, el);
-          requestFill(fresh);
+          fresh.setAttribute('data-ad-fill-requested', '1');
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
         } else if (!el.getAttribute('data-ad-fill-requested')) {
-          requestFill(el);
+          el.setAttribute('data-ad-fill-requested', '1');
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
         }
       });
     } catch (e) { /* AdSense script not loaded yet, or blocked (e.g. ad blocker) — fail silently */ }
