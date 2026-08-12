@@ -233,12 +233,14 @@
                 <span style="font-family:var(--font-mono);font-size:11px;color:var(--chrome-300)">{{ c.count }}</span>
               </div>
             </div>
-            <span style="position:relative;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 10px;border-radius:999px;background:#101728;border:1px solid rgba(255,255,255,0.18)">
-              <span style="font-family:var(--font-display);font-size:8px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.72);white-space:nowrap">Entry Cost</span>
-              <span style="display:inline-flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:12px;font-weight:700;color:#FFE3A3"><svg width="14" height="14" viewBox="0 0 800 800"><path fill="#ffcd52" fill-rule="evenodd" d="M400,0C179.1,0,0,179.1,0,400s179.1,400,400,400,400-179.1,400-400S620.9,0,400,0ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/><path fill="#a88538" fill-rule="evenodd" d="M400,95.8c-168,0-304.2,136.2-304.2,304.2s136.2,304.2,304.2,304.2,304.2-136.2,304.2-304.2S568,95.8,400,95.8ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/></svg>10</span>
-            </span>
+            <sc-if value="{{ c.showEntryCost }}" hint-placeholder-val="{{ true }}">
+              <span style="position:relative;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 10px;border-radius:999px;background:#101728;border:1px solid rgba(255,255,255,0.18)">
+                <span style="font-family:var(--font-display);font-size:8px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.72);white-space:nowrap">Entry Cost</span>
+                <span style="display:inline-flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:12px;font-weight:700;color:#FFE3A3"><svg width="14" height="14" viewBox="0 0 800 800"><path fill="#ffcd52" fill-rule="evenodd" d="M400,0C179.1,0,0,179.1,0,400s179.1,400,400,400,400-179.1,400-400S620.9,0,400,0ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/><path fill="#a88538" fill-rule="evenodd" d="M400,95.8c-168,0-304.2,136.2-304.2,304.2s136.2,304.2,304.2,304.2,304.2-136.2,304.2-304.2S568,95.8,400,95.8ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/></svg>10</span>
+              </span>
+            </sc-if>
             <sc-if value="{{ c.locked }}" hint-placeholder-val="{{ true }}">
-              <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:12px;background:linear-gradient(180deg, rgba(5,7,15,0.45), rgba(5,7,15,0.86));backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)">
+              <div style="position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;padding:12px;background:linear-gradient(180deg, transparent, rgba(5,7,15,0.9) 55%);backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px)">
                 <span style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border-radius:999px;background:rgba(245,184,51,0.14);border:1px solid rgba(245,184,51,0.5);font-family:var(--font-display);font-size:9.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold-300)"><svg width="14" height="14" viewBox="0 0 800 800"><path fill="#ffcd52" fill-rule="evenodd" d="M400,0C179.1,0,0,179.1,0,400s179.1,400,400,400,400-179.1,400-400S620.9,0,400,0ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/><path fill="#a88538" fill-rule="evenodd" d="M400,95.8c-168,0-304.2,136.2-304.2,304.2s136.2,304.2,304.2,304.2,304.2-136.2,304.2-304.2S568,95.8,400,95.8ZM451.6,606.8h-103.2V193.3h103.2v413.5Z"/></svg>Unlock · 10 Coins</span>
               </div>
             </sc-if>
@@ -790,6 +792,72 @@ class Component extends DCLogic {
       amber: { bg: 'rgba(255,176,92,0.16)', border: 'rgba(255,176,92,0.45)', color: '#FFCF9E', bar: 'linear-gradient(90deg,#FFB05C,#C026A9)' },
     };
     const rawCats = [
+      { key: 'weapons', label: 'Pro Weapons', count: '12 items', theme: 'gold', kind: 'real',
+        badge: 'Season 52 · Armory', headline: 'Pro Weapons', subhead: 'Every legendary and mythic gun skin, ranked by popularity and updated weekly.',
+        img: 'assets/catalog-weapons-header.png', pos: '42% 58%', menuImg: 'assets/cat-weapons.png', accent: 'var(--gold-500)', glow: 'rgba(245,184,51,0.30)',
+        items: [
+          ['MP40 - Predatory Cobra', 'mythic', 'SMG', 'assets/weapons/mp40-predatory-cobra.png', 'An MP40 Evolution skin with increased damage and rate of fire but reduced reload speed. It debuted in the Predatory Cobra Faded Wheel from February 18 to March 14, 2021, and has returned through later limited reruns.'],
+          ['XM8 - Destiny Guardian', 'mythic', 'Assault Rifle', 'assets/weapons/xm8-destiny-guardian.png', 'An XM8 Evolution skin with increased damage and rate of fire but reduced reload speed. It debuted in the Destiny Guardian Faded Wheel from August 6 to August 30, 2021, and has returned in later limited reruns.'],
+          ['Grenade - Malevolent Sting', 'legendary', 'Throwable', 'assets/weapons/grenade-malevolent-sting.png', 'Scorpion-bitten corpses on the battlefield. A grenade skin obtained through the Quantic Unknown Elite Pass, which ran from September 1 to September 30, 2021.'],
+          ['M4A1 - Genos', 'legendary', 'Assault Rifle', 'assets/weapons/m4a1-genos.png', 'A Genos-themed M4A1 from the Free Fire and One-Punch Man collaboration, with increased damage and rate of fire but reduced magazine capacity. Released through Weapon Royale in January 2021.'],
+          ['Kord - Killspark Shinobi', 'epic', 'LMG', 'assets/weapons/kord-killspark-shinobi.png', 'Strike like a ninja. A Kord skin with increased damage and range but reduced reload speed, released through Weapon Royale from July 21 to August 11, 2021.'],
+          ['M14 - Egg Hunter', 'epic', 'Marksman Rifle', 'assets/weapons/m14-egg-hunter.png', 'Let the hunt begin! An M14 skin with increased damage and range but reduced reload speed, debuting through the limited Egg Hunter Weapon Royale in March 2021.'],
+          ['UMP - Booyah Day', 'epic', 'SMG', 'assets/weapons/ump-booyah-day.png', 'A UMP Evolution skin with increased damage and reload speed but reduced accuracy. Originally given free during Booyah Day in October 2020 and later returned through limited events.'],
+          ['AUG - Quantic Unknown', 'rare', 'Assault Rifle', 'assets/weapons/aug-quantic-unknown.png', 'These bullets seep into the pores of your skin. An AUG weapon skin rewarded through the Quantic Unknown Elite Pass, September 2021.'],
+          ['M1873 - Quantic Unknown', 'rare', 'Shotgun', 'assets/weapons/m1873-quantic-unknown.png', 'An M1873 weapon skin rewarded through the Quantic Unknown Elite Pass, which ran from September 1 to September 30, 2021.'],
+          ['M249 - Mesmerizing Nights', 'rare', 'LMG', 'assets/weapons/m249-mesmerizing-nights.png', 'Conqueror of the sand. An M249 weapon skin unlocked at 125 badges in the Mesmerizing Nights Elite Pass, October 2021.'],
+          ['SPAS12 - Mesmerizing Nights', 'rare', 'Shotgun', 'assets/weapons/spas12-mesmerizing-nights.png', 'The Sultan’s bodyguard. A SPAS12 weapon skin unlocked at 80 badges in the Mesmerizing Nights Elite Pass, October 2021.'],
+          ['Parang - Dashing Blade', 'rare', 'Melee', 'assets/weapons/parang-dashing-blade.png', 'What a handsome weapon! A rare Parang skin sold for Diamonds when stocked in the in-game store or featured in a limited event.']] },
+      { key: 'vehicles', label: 'Battle Vehicles', count: '15 items', theme: 'crystalDeep', kind: 'real',
+        badge: 'Season 52 · Garage', headline: 'Battle Vehicles', subhead: 'Supercars and bikes wrapped in mythic finishes — the fastest way to make an entrance.',
+        img: 'assets/catalog-vehicles-header.png', pos: '50% 55%', menuImg: 'assets/cat-vehicles.png', menuFocus: 'center 50%', accent: 'var(--crystal-600)', glow: 'rgba(15,166,212,0.32)',
+        items: [
+          ['MCL-FF Final Lap', 'mythic', 'Sports Car', 'assets/vehicles/mcl-ff-final-lap.png', 'Unleash the power of McLaren Racing and immerse yourself in the thrill of Free Fire. A mythic MCL-FF skin released through a diamond-based special event during the 2021 Free Fire and McLaren Racing collaboration. It is not permanently obtainable.'],
+          ['McLaren P1™ - Gold Spark', 'mythic', 'Sports Car', 'assets/vehicles/mclaren-p1-gold-spark.png', 'Make winning a habit. A mythic McLaren P1™ skin distributed free through the limited Winning Tower event during the 2021 Free Fire and McLaren collaboration. It is not permanently obtainable.'],
+          ['MCL-FF Cyber Neon', 'legendary', 'Sports Car', 'assets/vehicles/mcl-ff-cyber-neon.png', 'Unleash the power of McLaren Racing and immerse yourself in the thrill of Free Fire. A legendary MCL-FF skin released through a limited top-up event during the 2021 collaboration. It is not permanently obtainable.'],
+          ['MCL-FF Deep Dive', 'legendary', 'Sports Car', 'assets/vehicles/mcl-ff-deep-dive.png', 'Unleash the power of McLaren Racing and immerse yourself in the thrill of Free Fire. A legendary MCL-FF skin released through a diamond-based special event during the 2021 collaboration. It is not permanently obtainable.'],
+          ['McLaren P1™ - Helios', 'legendary', 'Sports Car', 'assets/vehicles/mclaren-p1-helios.png', 'Make winning a habit. A legendary McLaren P1™ skin released through a top-up event beginning June 8, 2021, as part of the Free Fire and McLaren collaboration.'],
+          ['McLaren P1™ - Kyanos', 'legendary', 'Sports Car', 'assets/vehicles/mclaren-p1-kyanos.png', 'Make winning a habit. A legendary McLaren P1™ skin obtained with Diamonds through the limited Winning Tower event during the 2021 collaboration.'],
+          ['McLaren P1™ - Mantis', 'legendary', 'Sports Car', 'assets/vehicles/mclaren-p1-mantis.png', 'Make winning a habit. A legendary McLaren P1™ skin distributed free through the limited Ace Play Event during the 2021 collaboration.'],
+          ['Motor Bike - Cobra', 'legendary', 'Motorbike', 'assets/vehicles/motor-bike-cobra.png', 'The perfect union of technology and nature. A legendary motor bike skin released through a diamond-based special event during Project Cobra in February 2021.'],
+          ['MCL-FF Winning Spirit', 'epic', 'Sports Car', 'assets/vehicles/mcl-ff-winning-spirit.png', 'Unleash the power of McLaren Racing and immerse yourself in the thrill of Free Fire. An epic MCL-FF skin distributed free through the limited 2nd Ace Play Event during the 2021 McLaren collaboration.'],
+          ['Sport Car - Cobra', 'epic', 'Sports Car', 'assets/vehicles/sport-car-cobra.png', 'Quick as a snake. An epic sports car skin released through a diamond-based special event during Project Cobra in February 2021.'],
+          ['Jeep - Quantic Unknown', 'rare', 'Jeep', 'assets/vehicles/jeep-quantic-unknown.png', 'Buckle up for a bumpy ride. A Jeep skin rewarded at the start of the Quantic Unknown Elite Pass, which ran from September 1 to September 30, 2021.'],
+          ['Motor Bike - Mesmerizing Nights', 'rare', 'Motorbike', 'assets/vehicles/motor-bike-mesmerizing-nights.png', 'Ride with your significant other into a whole new world. A motor bike skin rewarded at the start of the Mesmerizing Nights Elite Pass, October 2021.'],
+          ['Pickup Truck - Wildland Walkers', 'rare', 'Pickup Truck', 'assets/vehicles/pickup-truck-wildland-walkers.png', 'This truck can do more than farming. A pickup truck skin rewarded at the start of the Wildland Walkers Elite Pass, August 2021.'],
+          ['Venom Motorbike', 'rare', 'Motorbike', 'assets/vehicles/venom-motorbike.png', 'Created in collaboration with Venom: Let There Be Carnage. Distributed free during the limited Free Fire and Venom event in October 2021.'],
+          ['Tuk Tuk', '', 'Tuk Tuk', 'assets/vehicles/tuk-tuk.png', 'Shotgun go “chook chuk”. Vehicle go “tuk tuk”.']] },
+      { key: 'pets', label: 'Battle Pets', count: '15 items', theme: 'azure', kind: 'real', icon: 'paw',
+        badge: 'Season 52 · Companions', headline: 'Battle Pets', subhead: 'Loyal companions with active skills — every rarity, ranked by pick-rate and updated weekly.',
+        img: 'assets/catalog-pets-header.png', pos: '50% 38%', menuImg: 'assets/cat-pets.png', accent: 'var(--azure-500)', glow: 'rgba(43,99,245,0.32)',
+        items: [
+          ['Beaston', '', 'Pet', 'assets/pets/beaston.png', 'The mighty beast never backs down from a fight. Beaston’s Helping Hand ability increases the throwing distance of grenades and throwable utilities.'],
+          ['Detective Panda', '', 'Pet', 'assets/pets/detective-panda.png', 'I will protect the world! Detective Panda’s Panda’s Blessings restores HP after eliminating an enemy.'],
+          ['Dr. Beanie', '', 'Pet', 'assets/pets/dr-beanie.png', 'He insists on everyone calling him Dr. He is not one though. Dr. Beanie’s Dashy Duckwalk increases movement speed while crouching.'],
+          ['Dreki', '', 'Pet', 'assets/pets/dreki.png', 'A curious little dragon with exceptional senses. Dreki’s Dragon Glare marks enemies using medkits within range.'],
+          ['Falco', '', 'Pet', 'assets/pets/falco.png', 'When it spreads its wings and soars, sky and land merges at the horizon. Falco’s Skyline Spree increases gliding and diving speed after jumping from the plane.'],
+          ['Kitty', '', 'Pet', 'assets/pets/kitty.png', 'A playful feline that loves being around people. Kitty’s Kitty’s Mood restores EP to nearby teammates over time.'],
+          ['Moony', '', 'Pet', 'assets/pets/moony.png', 'Although not from this world, he loves everything about us. Moony’s Paranormal Protection reduces damage taken while using medkits or other interaction actions.'],
+          ['Mr. Waggor', '', 'Pet', 'assets/pets/mr-waggor.png', 'Once a guinea pig in the lab, Mr. Waggor was brought to life. Mr. Waggor’s Smooth Gloo generates Gloo Wall grenades during matches.'],
+          ['Night Panther', '', 'Pet', 'assets/pets/night-panther.png', 'A stealthy hunter that never loses sight of its prey. Night Panther’s Weight Training increases the owner’s inventory capacity.'],
+          ['Ottero', '', 'Pet', 'assets/pets/ottero.png', 'A cheerful otter that always looks after its owner. Ottero’s Double Blubber restores EP whenever the player uses treatment items.'],
+          ['Robo', '', 'Pet', 'assets/pets/robo.png', 'The latest generation defense robot. Robo’s Wall Enforcement increases the durability of placed Gloo Walls.'],
+          ['Rockie', '', 'Pet', 'assets/pets/rockie.png', 'A loyal companion that’s always ready for action. Rockie’s Stay Chill reduces the cooldown time of active character skills.'],
+          ['Sensei Tig', '', 'Pet', 'assets/pets/sensei-tig.png', 'A disciplined martial arts master with unmatched focus. Sensei Tig’s Nimble Ninja reduces the manning time of equipped firearms after eliminating an enemy.'],
+          ['Shiba', '', 'Pet', 'assets/pets/shiba.png', 'A clever companion with an excellent sense of direction. Shiba’s Mushroom Sense marks nearby mushrooms on the minimap.'],
+          ['Spirit Fox', '', 'Pet', 'assets/pets/spirit-fox.png', 'A mystical fox that watches over its allies. Spirit Fox’s Well Fed restores additional HP when using Med Kits.']] },
+      { key: 'bundles', label: 'Legendary Bundles', count: '8 items', theme: 'violet', kind: 'real', icon: 'gift',
+        badge: 'Season 52 · Vault', headline: 'Legendary Bundles', subhead: 'Complete themed sets — matched outfits, effects and collab drops in one package.',
+        img: 'assets/catalog-bundles-header.png', pos: '50% 46%', accent: 'var(--violet-500)', glow: 'rgba(138,92,255,0.34)',
+        items: [
+          ['Cobra Rage Bundle', 'mythic', 'Bundle', 'assets/bundles/cobra-rage-bundle.png', 'A customizable Project Cobra outfit with four color modes unlocked through rank progression and a shoulder Cobra companion. It debuted through Cobra Ascension from February 26 to March 4, 2021, and later returned in limited events.'],
+          ['Amber Megacypher Bundle', 'legendary', 'Bundle', 'assets/bundles/amber-megacypher-bundle.png', 'A cybernetic espionage-themed outfit with damaged and self-repairing details. It appeared in a limited Faded Wheel from September 25 to October 1, 2021, using Diamonds and is not permanently obtainable.'],
+          ['Enharmonic Treblerock Bundle', 'legendary', 'Bundle', 'assets/bundles/enharmonic-treblerock-bundle.png', 'Conquer the universe with music. A legendary music-themed bundle released through Token Tower from August 26 to September 2, 2021, during Free Fire\u2019s 4th Anniversary celebrations.'],
+          ['Frost Sabertooth Bundle', 'legendary', 'Bundle', 'assets/bundles/frost-sabertooth-bundle.png', 'I command all of the world\u2019s power. Rajah\u2019s White Tiger-themed outfit from Rampage: New Dawn was released through Faded Wheel from June 18 to June 24, 2021.'],
+          ['Lush Clubber Bundle', 'legendary', 'Bundle', 'assets/bundles/lush-clubber-bundle.png', 'A green-themed entry in the Clubber outfit series. It first appeared through Faded Wheel and later returned through limited events such as Hacker\u2019s Store from May 24 to May 31, 2021.'],
+          ['Saitama\u2019s Pajamas Bundle', 'legendary', 'Bundle', 'assets/bundles/saitamas-pajamas-bundle.png', 'One punch is all it takes to win the game! Released during the Free Fire \u00d7 One-Punch Man collaboration through Luck Royale.'],
+          ['Shadow Earthshaker Bundle', 'legendary', 'Bundle', 'assets/bundles/shadow-earthshaker-bundle.png', 'I control the earth and all of the land. Released during the Rampage: New Dawn event and obtainable for free by completing event missions and exchanging Might of Mythos Tokens.'],
+          ['Wildfire Vagabond Bundle', 'legendary', 'Bundle', 'assets/bundles/wildfire-vagabond-bundle.png', 'Free and Wild. An ever burning fire at the end of the coat. Originally obtainable through Diamond Royale using Diamond Royale Vouchers.']] },
       { key: 'characters', label: 'Elite Characters', count: '51 items', theme: 'crystal', kind: 'real', icon: 'crown',
         badge: 'Season 52 · Roster', headline: 'Elite Characters', subhead: 'Every playable operator in the roster, with the active and passive skills each one brings to a match.',
         img: 'assets/catalog-header-alt-b.png', pos: '50% 30%', menuImg: 'assets/cat-characters.png', accent: 'var(--crystal-500)', glow: 'rgba(31,205,245,0.32)',
@@ -878,72 +946,6 @@ class Component extends DCLogic {
           ['Keyboard Warrior Bundle', 'epic', 'Bundle', 'assets/bundles/keyboard-warrior-bundle.png', 'Keyboard Warrior to the rescue! A keyboard-themed outfit released as the Gold Royale grand prize in June 2021 before being replaced in August 2021.'],
           ['MC Funk Bundle', 'epic', 'Bundle', 'assets/bundles/mc-funk-bundle.png', 'King of the street. Originally released through a limited-time Special Event and obtainable with Diamonds.'],
           ['Moody Lavisher Bundle', 'epic', 'Bundle', 'assets/bundles/moody-lavisher-bundle.png', 'Limited-time fashion bundle. Detailed release information is currently unavailable from reliable sources.']] },
-      { key: 'pets', label: 'Battle Pets', count: '15 items', theme: 'azure', kind: 'real', icon: 'paw',
-        badge: 'Season 52 · Companions', headline: 'Battle Pets', subhead: 'Loyal companions with active skills — every rarity, ranked by pick-rate and updated weekly.',
-        img: 'assets/catalog-pets-header.png', pos: '50% 38%', menuImg: 'assets/cat-pets.png', accent: 'var(--azure-500)', glow: 'rgba(43,99,245,0.32)',
-        items: [
-          ['Beaston', '', 'Pet', 'assets/pets/beaston.png', 'The mighty beast never backs down from a fight. Beaston’s Helping Hand ability increases the throwing distance of grenades and throwable utilities.'],
-          ['Detective Panda', '', 'Pet', 'assets/pets/detective-panda.png', 'I will protect the world! Detective Panda’s Panda’s Blessings restores HP after eliminating an enemy.'],
-          ['Dr. Beanie', '', 'Pet', 'assets/pets/dr-beanie.png', 'He insists on everyone calling him Dr. He is not one though. Dr. Beanie’s Dashy Duckwalk increases movement speed while crouching.'],
-          ['Dreki', '', 'Pet', 'assets/pets/dreki.png', 'A curious little dragon with exceptional senses. Dreki’s Dragon Glare marks enemies using medkits within range.'],
-          ['Falco', '', 'Pet', 'assets/pets/falco.png', 'When it spreads its wings and soars, sky and land merges at the horizon. Falco’s Skyline Spree increases gliding and diving speed after jumping from the plane.'],
-          ['Kitty', '', 'Pet', 'assets/pets/kitty.png', 'A playful feline that loves being around people. Kitty’s Kitty’s Mood restores EP to nearby teammates over time.'],
-          ['Moony', '', 'Pet', 'assets/pets/moony.png', 'Although not from this world, he loves everything about us. Moony’s Paranormal Protection reduces damage taken while using medkits or other interaction actions.'],
-          ['Mr. Waggor', '', 'Pet', 'assets/pets/mr-waggor.png', 'Once a guinea pig in the lab, Mr. Waggor was brought to life. Mr. Waggor’s Smooth Gloo generates Gloo Wall grenades during matches.'],
-          ['Night Panther', '', 'Pet', 'assets/pets/night-panther.png', 'A stealthy hunter that never loses sight of its prey. Night Panther’s Weight Training increases the owner’s inventory capacity.'],
-          ['Ottero', '', 'Pet', 'assets/pets/ottero.png', 'A cheerful otter that always looks after its owner. Ottero’s Double Blubber restores EP whenever the player uses treatment items.'],
-          ['Robo', '', 'Pet', 'assets/pets/robo.png', 'The latest generation defense robot. Robo’s Wall Enforcement increases the durability of placed Gloo Walls.'],
-          ['Rockie', '', 'Pet', 'assets/pets/rockie.png', 'A loyal companion that’s always ready for action. Rockie’s Stay Chill reduces the cooldown time of active character skills.'],
-          ['Sensei Tig', '', 'Pet', 'assets/pets/sensei-tig.png', 'A disciplined martial arts master with unmatched focus. Sensei Tig’s Nimble Ninja reduces the manning time of equipped firearms after eliminating an enemy.'],
-          ['Shiba', '', 'Pet', 'assets/pets/shiba.png', 'A clever companion with an excellent sense of direction. Shiba’s Mushroom Sense marks nearby mushrooms on the minimap.'],
-          ['Spirit Fox', '', 'Pet', 'assets/pets/spirit-fox.png', 'A mystical fox that watches over its allies. Spirit Fox’s Well Fed restores additional HP when using Med Kits.']] },
-      { key: 'bundles', label: 'Legendary Bundles', count: '8 items', theme: 'violet', kind: 'real', icon: 'gift',
-        badge: 'Season 52 · Vault', headline: 'Legendary Bundles', subhead: 'Complete themed sets — matched outfits, effects and collab drops in one package.',
-        img: 'assets/catalog-bundles-header.png', pos: '50% 46%', accent: 'var(--violet-500)', glow: 'rgba(138,92,255,0.34)',
-        items: [
-          ['Cobra Rage Bundle', 'mythic', 'Bundle', 'assets/bundles/cobra-rage-bundle.png', 'A customizable Project Cobra outfit with four color modes unlocked through rank progression and a shoulder Cobra companion. It debuted through Cobra Ascension from February 26 to March 4, 2021, and later returned in limited events.'],
-          ['Amber Megacypher Bundle', 'legendary', 'Bundle', 'assets/bundles/amber-megacypher-bundle.png', 'A cybernetic espionage-themed outfit with damaged and self-repairing details. It appeared in a limited Faded Wheel from September 25 to October 1, 2021, using Diamonds and is not permanently obtainable.'],
-          ['Enharmonic Treblerock Bundle', 'legendary', 'Bundle', 'assets/bundles/enharmonic-treblerock-bundle.png', 'Conquer the universe with music. A legendary music-themed bundle released through Token Tower from August 26 to September 2, 2021, during Free Fire\u2019s 4th Anniversary celebrations.'],
-          ['Frost Sabertooth Bundle', 'legendary', 'Bundle', 'assets/bundles/frost-sabertooth-bundle.png', 'I command all of the world\u2019s power. Rajah\u2019s White Tiger-themed outfit from Rampage: New Dawn was released through Faded Wheel from June 18 to June 24, 2021.'],
-          ['Lush Clubber Bundle', 'legendary', 'Bundle', 'assets/bundles/lush-clubber-bundle.png', 'A green-themed entry in the Clubber outfit series. It first appeared through Faded Wheel and later returned through limited events such as Hacker\u2019s Store from May 24 to May 31, 2021.'],
-          ['Saitama\u2019s Pajamas Bundle', 'legendary', 'Bundle', 'assets/bundles/saitamas-pajamas-bundle.png', 'One punch is all it takes to win the game! Released during the Free Fire \u00d7 One-Punch Man collaboration through Luck Royale.'],
-          ['Shadow Earthshaker Bundle', 'legendary', 'Bundle', 'assets/bundles/shadow-earthshaker-bundle.png', 'I control the earth and all of the land. Released during the Rampage: New Dawn event and obtainable for free by completing event missions and exchanging Might of Mythos Tokens.'],
-          ['Wildfire Vagabond Bundle', 'legendary', 'Bundle', 'assets/bundles/wildfire-vagabond-bundle.png', 'Free and Wild. An ever burning fire at the end of the coat. Originally obtainable through Diamond Royale using Diamond Royale Vouchers.']] },
-      { key: 'weapons', label: 'Pro Weapons', count: '12 items', theme: 'gold', kind: 'real',
-        badge: 'Season 52 · Armory', headline: 'Pro Weapons', subhead: 'Every legendary and mythic gun skin, ranked by popularity and updated weekly.',
-        img: 'assets/catalog-weapons-header.png', pos: '42% 58%', menuImg: 'assets/cat-weapons.png', accent: 'var(--gold-500)', glow: 'rgba(245,184,51,0.30)',
-        items: [
-          ['MP40 - Predatory Cobra', 'mythic', 'SMG', 'assets/weapons/mp40-predatory-cobra.png', 'An MP40 Evolution skin with increased damage and rate of fire but reduced reload speed. It debuted in the Predatory Cobra Faded Wheel from February 18 to March 14, 2021, and has returned through later limited reruns.'],
-          ['XM8 - Destiny Guardian', 'mythic', 'Assault Rifle', 'assets/weapons/xm8-destiny-guardian.png', 'An XM8 Evolution skin with increased damage and rate of fire but reduced reload speed. It debuted in the Destiny Guardian Faded Wheel from August 6 to August 30, 2021, and has returned in later limited reruns.'],
-          ['Grenade - Malevolent Sting', 'legendary', 'Throwable', 'assets/weapons/grenade-malevolent-sting.png', 'Scorpion-bitten corpses on the battlefield. A grenade skin obtained through the Quantic Unknown Elite Pass, which ran from September 1 to September 30, 2021.'],
-          ['M4A1 - Genos', 'legendary', 'Assault Rifle', 'assets/weapons/m4a1-genos.png', 'A Genos-themed M4A1 from the Free Fire and One-Punch Man collaboration, with increased damage and rate of fire but reduced magazine capacity. Released through Weapon Royale in January 2021.'],
-          ['Kord - Killspark Shinobi', 'epic', 'LMG', 'assets/weapons/kord-killspark-shinobi.png', 'Strike like a ninja. A Kord skin with increased damage and range but reduced reload speed, released through Weapon Royale from July 21 to August 11, 2021.'],
-          ['M14 - Egg Hunter', 'epic', 'Marksman Rifle', 'assets/weapons/m14-egg-hunter.png', 'Let the hunt begin! An M14 skin with increased damage and range but reduced reload speed, debuting through the limited Egg Hunter Weapon Royale in March 2021.'],
-          ['UMP - Booyah Day', 'epic', 'SMG', 'assets/weapons/ump-booyah-day.png', 'A UMP Evolution skin with increased damage and reload speed but reduced accuracy. Originally given free during Booyah Day in October 2020 and later returned through limited events.'],
-          ['AUG - Quantic Unknown', 'rare', 'Assault Rifle', 'assets/weapons/aug-quantic-unknown.png', 'These bullets seep into the pores of your skin. An AUG weapon skin rewarded through the Quantic Unknown Elite Pass, September 2021.'],
-          ['M1873 - Quantic Unknown', 'rare', 'Shotgun', 'assets/weapons/m1873-quantic-unknown.png', 'An M1873 weapon skin rewarded through the Quantic Unknown Elite Pass, which ran from September 1 to September 30, 2021.'],
-          ['M249 - Mesmerizing Nights', 'rare', 'LMG', 'assets/weapons/m249-mesmerizing-nights.png', 'Conqueror of the sand. An M249 weapon skin unlocked at 125 badges in the Mesmerizing Nights Elite Pass, October 2021.'],
-          ['SPAS12 - Mesmerizing Nights', 'rare', 'Shotgun', 'assets/weapons/spas12-mesmerizing-nights.png', 'The Sultan’s bodyguard. A SPAS12 weapon skin unlocked at 80 badges in the Mesmerizing Nights Elite Pass, October 2021.'],
-          ['Parang - Dashing Blade', 'rare', 'Melee', 'assets/weapons/parang-dashing-blade.png', 'What a handsome weapon! A rare Parang skin sold for Diamonds when stocked in the in-game store or featured in a limited event.']] },
-      { key: 'vehicles', label: 'Battle Vehicles', count: '15 items', theme: 'crystalDeep', kind: 'real',
-        badge: 'Season 52 · Garage', headline: 'Battle Vehicles', subhead: 'Supercars and bikes wrapped in mythic finishes — the fastest way to make an entrance.',
-        img: 'assets/catalog-vehicles-header.png', pos: '50% 55%', menuImg: 'assets/cat-vehicles.png', menuFocus: 'center 50%', accent: 'var(--crystal-600)', glow: 'rgba(15,166,212,0.32)',
-        items: [
-          ['MCL-FF Final Lap', 'mythic', 'Sports Car', 'assets/vehicles/mcl-ff-final-lap.png', 'Unleash the power of McLaren Racing and immerse yourself in the thrill of Free Fire. A mythic MCL-FF skin released through a diamond-based special event during the 2021 Free Fire and McLaren Racing collaboration. It is not permanently obtainable.'],
-          ['McLaren P1™ - Gold Spark', 'mythic', 'Sports Car', 'assets/vehicles/mclaren-p1-gold-spark.png', 'Make winning a habit. A mythic McLaren P1™ skin distributed free through the limited Winning Tower event during the 2021 Free Fire and McLaren collaboration. It is not permanently obtainable.'],
-          ['MCL-FF Cyber Neon', 'legendary', 'Sports Car', 'assets/vehicles/mcl-ff-cyber-neon.png', 'Unleash the power of McLaren Racing and immerse yourself in the thrill of Free Fire. A legendary MCL-FF skin released through a limited top-up event during the 2021 collaboration. It is not permanently obtainable.'],
-          ['MCL-FF Deep Dive', 'legendary', 'Sports Car', 'assets/vehicles/mcl-ff-deep-dive.png', 'Unleash the power of McLaren Racing and immerse yourself in the thrill of Free Fire. A legendary MCL-FF skin released through a diamond-based special event during the 2021 collaboration. It is not permanently obtainable.'],
-          ['McLaren P1™ - Helios', 'legendary', 'Sports Car', 'assets/vehicles/mclaren-p1-helios.png', 'Make winning a habit. A legendary McLaren P1™ skin released through a top-up event beginning June 8, 2021, as part of the Free Fire and McLaren collaboration.'],
-          ['McLaren P1™ - Kyanos', 'legendary', 'Sports Car', 'assets/vehicles/mclaren-p1-kyanos.png', 'Make winning a habit. A legendary McLaren P1™ skin obtained with Diamonds through the limited Winning Tower event during the 2021 collaboration.'],
-          ['McLaren P1™ - Mantis', 'legendary', 'Sports Car', 'assets/vehicles/mclaren-p1-mantis.png', 'Make winning a habit. A legendary McLaren P1™ skin distributed free through the limited Ace Play Event during the 2021 collaboration.'],
-          ['Motor Bike - Cobra', 'legendary', 'Motorbike', 'assets/vehicles/motor-bike-cobra.png', 'The perfect union of technology and nature. A legendary motor bike skin released through a diamond-based special event during Project Cobra in February 2021.'],
-          ['MCL-FF Winning Spirit', 'epic', 'Sports Car', 'assets/vehicles/mcl-ff-winning-spirit.png', 'Unleash the power of McLaren Racing and immerse yourself in the thrill of Free Fire. An epic MCL-FF skin distributed free through the limited 2nd Ace Play Event during the 2021 McLaren collaboration.'],
-          ['Sport Car - Cobra', 'epic', 'Sports Car', 'assets/vehicles/sport-car-cobra.png', 'Quick as a snake. An epic sports car skin released through a diamond-based special event during Project Cobra in February 2021.'],
-          ['Jeep - Quantic Unknown', 'rare', 'Jeep', 'assets/vehicles/jeep-quantic-unknown.png', 'Buckle up for a bumpy ride. A Jeep skin rewarded at the start of the Quantic Unknown Elite Pass, which ran from September 1 to September 30, 2021.'],
-          ['Motor Bike - Mesmerizing Nights', 'rare', 'Motorbike', 'assets/vehicles/motor-bike-mesmerizing-nights.png', 'Ride with your significant other into a whole new world. A motor bike skin rewarded at the start of the Mesmerizing Nights Elite Pass, October 2021.'],
-          ['Pickup Truck - Wildland Walkers', 'rare', 'Pickup Truck', 'assets/vehicles/pickup-truck-wildland-walkers.png', 'This truck can do more than farming. A pickup truck skin rewarded at the start of the Wildland Walkers Elite Pass, August 2021.'],
-          ['Venom Motorbike', 'rare', 'Motorbike', 'assets/vehicles/venom-motorbike.png', 'Created in collaboration with Venom: Let There Be Carnage. Distributed free during the limited Free Fire and Venom event in October 2021.'],
-          ['Tuk Tuk', '', 'Tuk Tuk', 'assets/vehicles/tuk-tuk.png', 'Shotgun go “chook chuk”. Vehicle go “tuk tuk”.']] },
       { key: 'skyboards', label: 'Skyboards', count: '4 items', theme: 'magenta', kind: 'real', icon: 'board',
         badge: 'Season 52 · Descent', headline: 'Skyboards', subhead: 'Ride the drop in style — limited-event skyboards pulled from Elite Pass and collab runs.',
         img: 'assets/catalog-skyboards-header.png', pos: '50% 46%', accent: '#C026A9', glow: 'rgba(192,38,169,0.32)',
@@ -974,7 +976,7 @@ class Component extends DCLogic {
       skyboards: ['M2.8 14.4c3.2-5.6 15.4-8.8 18.5-4.6 3.1 4.2-15.3 10-18.5 4.6Z', 'M9 15.5l1.5 4', 'M15 13l1.5 4'],
       backpacks: ['M6 21V9.5A4.5 4.5 0 0 1 10.5 5h3A4.5 4.5 0 0 1 18 9.5V21H6Z', 'M9.2 5V4.2a2.8 2.8 0 0 1 5.6 0V5', 'M9 13h6', 'M9 21v-4.2h6V21']
     };
-    const menuCats = rawCats.map(c => ({ name: c.headline, count: c.count, accent: c.accent, glow: c.glow, iconPaths: catIcons[c.key] || catIcons.bundles, locked: this.state.coins < 10, href: '#/category/' + c.key, onOpen: e => this.openCategory(c.key, e) }));
+    const menuCats = rawCats.map((c, i) => ({ name: c.headline, count: c.count, accent: c.accent, glow: c.glow, iconPaths: catIcons[c.key] || catIcons.bundles, locked: this.state.coins < 10, showEntryCost: i >= 4, href: '#/category/' + c.key, onOpen: e => this.openCategory(c.key, e) }));
 
     const cur = rawCats.find(c => c.key === this.state.catKey) || rawCats[0];
     const t = THEMES[cur.theme];
