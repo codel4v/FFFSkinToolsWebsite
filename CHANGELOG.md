@@ -2,6 +2,16 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v2.4 — Fix ad fills on SPA navigation (2026-08-12)
+- Removed a premature fillAds() call that ran immediately after setState() inside the
+  hashchange handler — React 18 batches setState even in native event listeners, so this fired
+  before the new screen's ad slots existed in the DOM at all. componentDidUpdate already
+  handles this correctly (fires after the DOM commit), so this was simply the wrong-timing call.
+- Hardened fillAds() to detect an <ins> already marked processed by AdSense and swap in a
+  clean clone before requesting a fill, in case the templating engine reuses/patches an ad
+  slot's DOM node across screens or revisits rather than creating a genuinely fresh one —
+  AdSense refuses to re-fill an element it has already marked done.
+
 ## v2.3 — Ad slot polish: responsive sizing + first-load fix (2026-08-12)
 - Ad slots now use Google's own recommended CSS: reserve 250px only until an ad request
   resolves, then hide unfilled slots entirely and let filled slots size to whatever creative
@@ -59,6 +69,16 @@ All notable changes to the FFF Skin Tools website, newest first.
 - Replaced all 9 existing 320×250 placeholder ad slots site-wide with real AdSense `<ins>` units (2 slot IDs: Top/Bottom)
 - Reordered Home screen: ad slot now appears before the "Entry Coins Balance" card
 - Added `fillAds()` — required in this SPA since AdSense needs one fill call per newly-mounted `<ins>` tag on route change
+
+## v2.4 — Fix ad fills on SPA navigation (2026-08-12)
+- Removed a premature fillAds() call that ran immediately after setState() inside the
+  hashchange handler — React 18 batches setState even in native event listeners, so this fired
+  before the new screen's ad slots existed in the DOM at all. componentDidUpdate already
+  handles this correctly (fires after the DOM commit), so this was simply the wrong-timing call.
+- Hardened fillAds() to detect an <ins> already marked processed by AdSense and swap in a
+  clean clone before requesting a fill, in case the templating engine reuses/patches an ad
+  slot's DOM node across screens or revisits rather than creating a genuinely fresh one —
+  AdSense refuses to re-fill an element it has already marked done.
 
 ## v2.3 — Ad slot polish: responsive sizing + first-load fix (2026-08-12)
 - Ad slots now use Google's own recommended CSS: reserve 250px only until an ad request

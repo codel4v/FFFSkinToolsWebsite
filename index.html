@@ -659,7 +659,9 @@ class Component extends DCLogic {
         regionOpen: false, infoKey: null,
       }));
       window.scrollTo(0, 0);
-      this.fillAds();
+      // Note: fillAds() is deliberately NOT called here. React 18 batches this setState, so the
+      // new screen's <ins> tags don't exist in the DOM yet at this point — componentDidUpdate
+      // (which fires after the commit) is where the actual fill happens.
     };
     window.addEventListener('hashchange', this._onHashChange);
     // Fill whatever ad slot(s) exist on the very first screen too — but only once the page has
@@ -685,11 +687,24 @@ class Component extends DCLogic {
     }
   }
   fillAds() {
-    // Each screen change mounts/unmounts its own <ins class="adsbygoogle"> tags. AdSense needs one
+    // Each screen change mounts its own <ins class="adsbygoogle"> tags. AdSense needs one
     // push({}) call per not-yet-filled tag to actually request/render an ad into it.
     try {
       document.querySelectorAll('ins.adsbygoogle').forEach(el => {
-        if (!el.getAttribute('data-adsbygoogle-status') && !el.getAttribute('data-ad-fill-requested')) {
+        if (el.getAttribute('data-adsbygoogle-status') || el.getAttribute('data-ad-status')) {
+          // This node is already marked as processed by a previous fill — AdSense won't
+          // re-fill it. If the underlying DOM node got reused across screens/visits (rather
+          // than being freshly created) instead of just skipping it, swap in a clean clone
+          // with the same ad config but none of the "already done" markers, so revisiting a
+          // screen actually gets a fresh ad request instead of a permanently stuck empty slot.
+          const fresh = el.cloneNode(false);
+          fresh.removeAttribute('data-adsbygoogle-status');
+          fresh.removeAttribute('data-ad-status');
+          fresh.removeAttribute('data-ad-fill-requested');
+          el.parentNode.replaceChild(fresh, el);
+          fresh.setAttribute('data-ad-fill-requested', '1');
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } else if (!el.getAttribute('data-ad-fill-requested')) {
           el.setAttribute('data-ad-fill-requested', '1');
           (window.adsbygoogle = window.adsbygoogle || []).push({});
         }
