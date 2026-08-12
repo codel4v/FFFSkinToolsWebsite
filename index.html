@@ -693,6 +693,20 @@ class Component extends DCLogic {
   fillAds() {
     // Each screen change mounts its own <ins class="adsbygoogle"> tags. AdSense needs one
     // push({}) call per not-yet-filled tag to actually request/render an ad into it.
+    const requestFill = (el) => {
+      el.setAttribute('data-ad-fill-requested', '1');
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      // Retry once, but only if the push never got acknowledged at all (no
+      // data-adsbygoogle-status appeared) — most likely because the AdSense script hadn't
+      // finished loading/initializing yet when we called push(). If Google's script DID
+      // process the request (filled or genuinely unfilled), we leave it alone — AdSense
+      // won't re-fill an <ins> it has already responded to, so retrying that case is pointless.
+      setTimeout(() => {
+        if (!el.getAttribute('data-adsbygoogle-status') && el.isConnected) {
+          try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+        }
+      }, 800);
+    };
     try {
       document.querySelectorAll('ins.adsbygoogle').forEach(el => {
         if (el.getAttribute('data-adsbygoogle-status') || el.getAttribute('data-ad-status')) {
@@ -706,11 +720,9 @@ class Component extends DCLogic {
           fresh.removeAttribute('data-ad-status');
           fresh.removeAttribute('data-ad-fill-requested');
           el.parentNode.replaceChild(fresh, el);
-          fresh.setAttribute('data-ad-fill-requested', '1');
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
+          requestFill(fresh);
         } else if (!el.getAttribute('data-ad-fill-requested')) {
-          el.setAttribute('data-ad-fill-requested', '1');
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
+          requestFill(el);
         }
       });
     } catch (e) { /* AdSense script not loaded yet, or blocked (e.g. ad blocker) — fail silently */ }

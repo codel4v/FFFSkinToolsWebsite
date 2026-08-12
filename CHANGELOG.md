@@ -2,6 +2,14 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.6 — Ad fill retry on first push (2026-08-12)
+- fillAds() now retries once, after 800ms, if a push() call never got acknowledged by
+  AdSense at all (no data-adsbygoogle-status appeared) — most likely caused by the AdSense
+  script still loading/initializing at the moment we called push()
+- Deliberately scoped narrow: this never re-requests a slot Google already responded to
+  (filled or genuinely unfilled), since AdSense refuses to re-fill an <ins> it has processed —
+  only helps the specific "our push never even registered" case
+
 ## v1.5 — Weapons/Vehicles/Pets/Bundles are now genuinely free (2026-08-12)
 - Correction to v1.4: that release only hid the Entry Cost badge on these 4 categories — the
   actual 10-coin unlock requirement was untouched, so the lock overlay still showed on them
