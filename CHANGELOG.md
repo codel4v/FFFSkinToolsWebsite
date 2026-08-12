@@ -2,6 +2,21 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.9 — Hash links to URL Parameters (2026-08-12)
+- Pivoted away from the multi-file HTML-split effort (v1.4 category-grid work stays, that
+  file split is abandoned) — realized query-string changes trigger a real browser navigation
+  just like separate files do, so the whole site could go back to one index.html
+- Every #/route hash link converted to a real index.html?screen=...&key=...&item=... link —
+  each navigation is now a genuine page load, which is what actually fixes AdSense treating
+  the whole SPA as one ever-growing page
+- Removed entirely (no longer needed): the hashchange listener, routeHash/parseHash, the
+  duplicate _syncHash definition, componentDidUpdate, and all the stale-<ins>
+  pruning/cloning logic from fillAds() — a real page load starts with a clean DOM every time
+- Added shared.js: coins/UID/region now persist via localStorage, since nothing in memory
+  survives a real navigation anymore (this didn't matter in the old SPA, where the page never
+  actually reloaded) — required for the site to function correctly, not optional
+- back() now uses real history.back() with a simple fallback, no more hash comparison
+
 ## v1.8 — Cleaned up ad fill logic (2026-08-12)
 - Removed the retry-with-delay from v1.6 — redundant on top of the pruning fix, and firing
   extra unnecessary requests is exactly the kind of noisy pattern worth avoiding

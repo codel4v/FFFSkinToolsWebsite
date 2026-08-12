@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="shared.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -58,7 +59,7 @@
 
     <!-- ==================== LAUNCH / SPLASH ==================== -->
     <sc-if value="{{ isSplash }}" hint-placeholder-val="{{ true }}">
-    <a href="#/welcome" style="position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow:hidden;cursor:pointer;background:radial-gradient(120% 70% at 50% 26%, rgba(31,205,245,0.16), transparent 62%), var(--bg-canvas);text-decoration:none">
+    <a href="index.html?screen=welcome" style="position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow:hidden;cursor:pointer;background:radial-gradient(120% 70% at 50% 26%, rgba(31,205,245,0.16), transparent 62%), var(--bg-canvas);text-decoration:none">
       <img src="assets/splash-bg.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;opacity:0.55">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,7,15,0.5) 0%, rgba(5,7,15,0.82) 58%, var(--ink-950) 100%)"></div>
       <div style="position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:96px 32px 56px;min-height:100vh;box-sizing:border-box">
@@ -121,7 +122,7 @@
       </div>
 
       <div style="padding:22px 16px 0">
-        <a href="#/home" style="width:100%;height:58px;border-radius:16px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 32px rgba(31,205,245,0.34);display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;box-sizing:border-box">Get Started<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        <a href="index.html?screen=home" style="width:100%;height:58px;border-radius:16px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 32px rgba(31,205,245,0.34);display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;box-sizing:border-box">Get Started<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
       </div>
 
       <div style="padding:52px 16px 0;display:flex;flex-direction:column;gap:44px">
@@ -189,7 +190,7 @@
           <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--text-primary);line-height:1.1">FFF Skin Tools</div>
           <div style="font-size:12px;color:var(--text-tertiary);line-height:1.2">Time to find some drip</div>
         </div>
-        <a aria-label="Info" href="#/welcome" style="width:40px;height:40px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);display:grid;place-items:center;cursor:pointer;color:var(--text-secondary);text-decoration:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></a>
+        <a aria-label="Info" href="index.html?screen=welcome" style="width:40px;height:40px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);display:grid;place-items:center;cursor:pointer;color:var(--text-secondary);text-decoration:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></a>
       </div>
 
       <div style="padding:14px 16px 0">
@@ -333,7 +334,7 @@
         </div>
         <div style="padding:24px 18px;background:radial-gradient(120% 130% at 50% 0%, rgba(31,205,245,0.14), transparent 62%), linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid var(--line-crystal);border-radius:20px;display:flex;flex-direction:column;align-items:center;gap:16px">
           <span style="font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--chrome-100);line-height:1.15;text-align:center">Initialize Injection Protocol</span>
-          <a href="#/flowTerminal" style="width:100%;height:54px;border-radius:14px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 26px rgba(31,205,245,0.32);display:flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;box-sizing:border-box"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5v14"></path></svg>Add to Game for Free</a>
+          <a href="{{ flowTerminalHref }}" style="width:100%;height:54px;border-radius:14px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 26px rgba(31,205,245,0.32);display:flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;box-sizing:border-box"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5v14"></path></svg>Add to Game for Free</a>
           <span style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--success)"><span style="width:5px;height:5px;border-radius:999px;background:var(--success);box-shadow:0 0 6px var(--success)"></span>Status: Secure &amp; Ready to Deploy</span>
         </div>
       </div>
@@ -372,7 +373,7 @@
           <div style="width:76px;height:76px;border-radius:999px;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%, rgba(52,211,153,0.22), transparent 70%);border:1px solid rgba(52,211,153,0.4)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z"></path></svg></div>
           <span style="font-family:var(--font-display);font-size:21px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:var(--chrome-100);text-align:center">Cleared For Injection</span>
           <p style="margin:0;text-align:center;font-size:13px;line-height:1.55;color:var(--text-tertiary);max-width:290px">Channel is secure and the package checks out. Ready to push it into your account?</p>
-          <a href="#/flowVerify" style="width:100%;height:56px;margin-top:4px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3);text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Begin Injection</a>
+          <a href="{{ flowVerifyHref }}" style="width:100%;height:56px;margin-top:4px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3);text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Begin Injection</a>
         </div>
       </div>
     </div>
@@ -400,7 +401,7 @@
           <span style="position:absolute;top:10px;left:10px;z-index:2;display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:4px;background:rgba(5,7,15,0.72);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--text-secondary)">AD</span>
           <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8356035806330431" data-ad-slot="7202099488" data-ad-format="auto" data-full-width-responsive="true"></ins>
         </div>
-        <a href="#/flowTier" style="width:100%;height:56px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3);text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Link Account</a>
+        <a href="{{ flowTierHref }}" style="width:100%;height:56px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3);text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Link Account</a>
       </div>
     </div>
     </sc-if>
@@ -462,7 +463,7 @@
         <span style="font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--chrome-100);text-align:center">Handshake Complete</span>
         <p style="margin:0;text-align:center;font-size:13.5px;line-height:1.6;color:var(--text-tertiary);max-width:300px">{{ item.name }} has been queued for delivery to UID {{ uidLabel }}. Restart Free Fire and check your vault — first sync can take a few minutes.</p>
         <div style="width:100%;display:flex;flex-direction:column;gap:10px;margin-top:4px">
-          <a href="#/home" style="width:100%;height:54px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Back to Catalog</a>
+          <a href="index.html?screen=home" style="width:100%;height:54px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Back to Catalog</a>
           <button onClick="{{ openTroubleshoot }}" style="width:100%;height:48px;border-radius:14px;background:var(--ink-800);border:1px solid var(--line-strong);color:var(--chrome-100);font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Skin not showing?</button>
         </div>
       </div>
@@ -539,13 +540,24 @@
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;screen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;splash&quot;,&quot;welcome&quot;,&quot;home&quot;,&quot;category&quot;,&quot;detail&quot;,&quot;flowTerminal&quot;,&quot;flowVerify&quot;,&quot;flowTier&quot;,&quot;flowLevel&quot;,&quot;flowLeague&quot;,&quot;flowDone&quot;],&quot;default&quot;:&quot;splash&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const __urlParams = new URLSearchParams(location.search);
+const __shared = AppShared.getState();
+const __initialRoute = __urlParams.get('screen') || 'welcome';
+const __initialCatKey = __urlParams.get('key') || 'characters';
+const __initialItemIdx = __urlParams.get('item') != null ? (parseInt(__urlParams.get('item'), 10) || 0) : 0;
+
 class Component extends DCLogic {
-  state = { route: 'welcome', catKey: 'characters', itemIdx: 0, uid: '', region: 'India', regionOpen: false, infoKey: null, coins: 0, unlocked: [], adOpen: false, rewardReady: false, rewardError: false, shortOpen: false, pendingCat: null };
+  state = {
+    route: __initialRoute, catKey: __initialCatKey, itemIdx: __initialItemIdx,
+    uid: __shared.uid, region: __shared.region, coins: __shared.coins, unlocked: __shared.unlocked,
+    regionOpen: false, infoKey: null, adOpen: false, rewardReady: false, rewardError: false, shortOpen: false, pendingCat: null,
+  };
 
   openCategory(key, e) {
     const freeCats = ['weapons', 'vehicles', 'pets', 'bundles'];
     if (freeCats.includes(key)) return; // free category: no coin gate at all, let the real <a href> navigation proceed
     if (this.state.coins >= 10) {
+      AppShared.setState({ coins: this.state.coins - 10 });
       this.setState(st => ({ coins: st.coins - 10 }));
       return; // sufficient coins: deduct now, let the real <a href> navigation proceed
     }
@@ -568,7 +580,7 @@ class Component extends DCLogic {
       },
       beforeAd: () => { this.setState({ adOpen: false }); }, // real ad is about to take over the screen — hide our own UI
       adDismissed: () => { this.setState({ adOpen: false, rewardReady: false }); }, // user backed out before finishing
-      adViewed: () => { this.setState(st => ({ adOpen: false, rewardReady: false, coins: st.coins + 10 })); }, // reward only granted here
+      adViewed: () => { const s = AppShared.setState({ coins: AppShared.getState().coins + 10 }); this.setState({ adOpen: false, rewardReady: false, coins: s.coins }); }, // reward only granted here
       adBreakDone: () => {
         // Fires in every case, including when no ad was available at all. If we never got as far as
         // showing a real ad, surface a visible error instead of silently closing — but not so fast the
@@ -591,143 +603,30 @@ class Component extends DCLogic {
     this.setState({ adOpen: false, rewardReady: false, rewardError: false });
   }
 
-  routeHash(route, extra) {
+  routeUrl(route, extra) {
     const e = extra || {};
     const catKey = e.catKey != null ? e.catKey : this.state.catKey;
     const itemIdx = e.itemIdx != null ? e.itemIdx : this.state.itemIdx;
-    if (route === 'category') return '#/category/' + catKey;
-    if (route === 'detail') return '#/detail/' + catKey + '/' + itemIdx;
-    return '#/' + route;
-  }
-  parseHash() {
-    const raw = location.hash.replace(/^#\/?/, '');
-    const parts = raw.split('/').filter(Boolean);
-    if (!parts.length) return null;
-    const route = parts[0];
-    if (route === 'category') return { route, catKey: parts[1] || this.state.catKey };
-    if (route === 'detail') return { route, catKey: parts[1] || this.state.catKey, itemIdx: parts[2] != null ? parseInt(parts[2], 10) : this.state.itemIdx };
-    return { route };
-  }
-  _syncHash(route, extra) {
-    const h = this.routeHash(route, extra);
-    if (location.hash !== h) { this._suppressHash = true; location.hash = h; }
-  }
-  _syncHash(route, extra) {
-    const h = this.routeHash(route, extra);
-    if (location.hash !== h) { this._suppressHash = true; location.hash = h; }
+    const p = new URLSearchParams();
+    p.set('screen', route);
+    if (route === 'category' || route === 'detail' || route.indexOf('flow') === 0) p.set('key', catKey);
+    if (route === 'detail' || route.indexOf('flow') === 0) p.set('item', itemIdx);
+    return 'index.html?' + p.toString();
   }
 
   componentDidMount() {
     if (typeof adConfig === 'function') adConfig({ sound: 'off' });
-    const initialHash = this.parseHash();
-    if (initialHash) {
-      this.setState(st => ({ route: initialHash.route, catKey: initialHash.catKey != null ? initialHash.catKey : st.catKey, itemIdx: initialHash.itemIdx != null ? initialHash.itemIdx : st.itemIdx }));
-    } else {
-      const p = this.props.screen;
-      if (p === 'splash') {
-        this._t = setTimeout(() => {
-          if (this.state.route === 'splash') { this.setState({ route: 'welcome' }); this._syncHash('welcome'); }
-        }, 2200);
-      } else if (p) {
-        this.setState({ route: p });
-        this._syncHash(p);
-      } else {
-        this._syncHash(this.state.route); // establish a real baseline entry (e.g. #/welcome) so Back always has somewhere real to go
-      }
-    }
     this.updateTitle();
-
-    this._onHashChange = () => {
-      if (this._suppressHash) { this._suppressHash = false; return; }
-      const parsed = this.parseHash();
-      if (!parsed) return;
-      clearTimeout(this._t);
-      // Every real navigation (any link click, or browser back/forward) is an interstitial
-      // opportunity. Google's own frequency cap (min. 1/min, default 1/10min) decides whether
-      // an ad actually shows each time — this call doesn't force one on every single click.
-      // Guarded against overlapping calls: firing adBreak() again while a previous one was still
-      // resolving/showing was leaving the overlay stuck (no countdown, unclickable close button).
-      if (typeof adBreak === 'function' && !this._interstitialInFlight) {
-        this._interstitialInFlight = true;
-        adBreak({
-          type: 'next',
-          name: 'page-nav',
-          afterAd: () => { this._interstitialInFlight = false; },
-          adBreakDone: () => { this._interstitialInFlight = false; }, // always fires — also covers the no-fill case
-        });
-      }
-      this.setState(st => ({
-        route: parsed.route,
-        catKey: parsed.catKey != null ? parsed.catKey : st.catKey,
-        itemIdx: parsed.itemIdx != null ? parsed.itemIdx : st.itemIdx,
-        regionOpen: false, infoKey: null,
-      }));
-      window.scrollTo(0, 0);
-      // Note: fillAds() is deliberately NOT called here. React 18 batches this setState, so the
-      // new screen's <ins> tags don't exist in the DOM yet at this point — componentDidUpdate
-      // (which fires after the commit) is where the actual fill happens.
-    };
-    window.addEventListener('hashchange', this._onHashChange);
-    // Fill whatever ad slot(s) exist on the very first screen too — but only once the page has
-    // fully finished loading (styles/fonts/images settled). Requesting an ad before layout is
-    // stable can silently fail (e.g. a container briefly resolving to 0 width), which is a
-    // known cause of ads working on refresh (cached, loads fast) but not on a cold first load.
+    // One real page load = one natural interstitial opportunity. Google's own frequency cap
+    // (min. 1/min, default 1/10min) decides whether an ad actually shows each time.
+    AppShared.triggerInterstitial('page-nav');
+    // Wait for the page to be fully loaded (styles/fonts/images settled) before the first ad
+    // fill — requesting one before layout is stable can silently fail.
     if (document.readyState === 'complete') {
-      this.fillAds();
+      AppShared.fillAds();
     } else {
-      window.addEventListener('load', () => this.fillAds(), { once: true });
+      window.addEventListener('load', () => AppShared.fillAds(), { once: true });
     }
-  }
-  componentWillUnmount() {
-    clearTimeout(this._t);
-    clearTimeout(this._backFallback);
-    if (this._onHashChange) window.removeEventListener('hashchange', this._onHashChange);
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (!prevState) return;
-    if (prevState.route !== this.state.route || prevState.catKey !== this.state.catKey || prevState.itemIdx !== this.state.itemIdx) {
-      this.updateTitle();
-      this.fillAds();
-    }
-  }
-  fillAds() {
-    // Screens that are no longer active sometimes leave their old <ins> tags behind in the
-    // DOM instead of being removed (confirmed via console testing: a previous screen's ad
-    // slots were still present, invisible, while viewing the current one). AdSense has no
-    // concept of our SPA "screens" — it just sees one real, ever-growing page — and appears to
-    // cap/ignore further requests once too many <ins> tags have piled up. That lines up
-    // exactly with "works right after a refresh, breaks down the more you navigate around."
-    // Prune anything no longer actually visible before requesting anything new.
-    try {
-      document.querySelectorAll('ins.adsbygoogle').forEach(el => {
-        if (el.offsetParent === null) el.remove();
-      });
-    } catch (e) { /* ignore */ }
-
-    // Each screen change mounts its own <ins class="adsbygoogle"> tags. AdSense needs one
-    // push({}) call per not-yet-filled tag to actually request/render an ad into it.
-    try {
-      document.querySelectorAll('ins.adsbygoogle').forEach(el => {
-        const status = el.getAttribute('data-ad-status');
-        if (status === 'filled') return; // already showing a real ad — never touch this one
-        if (el.getAttribute('data-adsbygoogle-status')) {
-          // Processed (genuinely unfilled, or done with no explicit status) and still visible
-          // — a currently-active slot, not a stale leftover (those were already pruned above).
-          // Swap in a clean clone with the same ad config but none of the "already done"
-          // markers, so it can be requested again instead of staying permanently stuck.
-          const fresh = el.cloneNode(false);
-          fresh.removeAttribute('data-adsbygoogle-status');
-          fresh.removeAttribute('data-ad-status');
-          fresh.removeAttribute('data-ad-fill-requested');
-          el.parentNode.replaceChild(fresh, el);
-          fresh.setAttribute('data-ad-fill-requested', '1');
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } else if (!el.getAttribute('data-ad-fill-requested')) {
-          el.setAttribute('data-ad-fill-requested', '1');
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        }
-      });
-    } catch (e) { /* AdSense script not loaded yet, or blocked (e.g. ad blocker) — fail silently */ }
   }
   updateTitle() {
     const base = 'FFF Skin Tools';
@@ -751,22 +650,13 @@ class Component extends DCLogic {
     document.title = typeof t === 'function' ? t() : (t || base);
   }
 
-  go(route, extra) {
-    clearTimeout(this._t);
-    this.setState(st => ({ route, regionOpen: false, infoKey: null, ...(extra || {}) }));
-    window.scrollTo(0, 0);
-    this._syncHash(route, extra);
-  }
+  go(route, extra) { location.href = this.routeUrl(route, extra); }
   back(e) {
     if (e) e.preventDefault();
-    const hashBefore = location.hash;
-    window.history.back();
-    // Safety net: if there was nowhere real to go back to (e.g. a direct deep link with no prior history), fall back to home instead of doing nothing.
-    clearTimeout(this._backFallback);
-    this._backFallback = setTimeout(() => {
-      if (location.hash === hashBefore) { this.setState({ route: 'home' }); this._syncHash('home'); }
-    }, 150);
-    window.scrollTo(0, 0);
+    history.back();
+    // Safety net: if there was nowhere real to go back to (e.g. a direct deep link with no
+    // prior history), history.back() does nothing and we're still here after this fires.
+    setTimeout(() => { location.href = this.routeUrl('home'); }, 200);
   }
 
   renderVals() {
@@ -993,7 +883,7 @@ class Component extends DCLogic {
       backpacks: ['M6 21V9.5A4.5 4.5 0 0 1 10.5 5h3A4.5 4.5 0 0 1 18 9.5V21H6Z', 'M9.2 5V4.2a2.8 2.8 0 0 1 5.6 0V5', 'M9 13h6', 'M9 21v-4.2h6V21']
     };
     const freeCatKeys = ['weapons', 'vehicles', 'pets', 'bundles'];
-    const menuCats = rawCats.map(c => ({ name: c.headline, count: c.count, accent: c.accent, glow: c.glow, iconPaths: catIcons[c.key] || catIcons.bundles, locked: !freeCatKeys.includes(c.key) && this.state.coins < 10, showEntryCost: !freeCatKeys.includes(c.key), href: '#/category/' + c.key, onOpen: e => this.openCategory(c.key, e) }));
+    const menuCats = rawCats.map(c => ({ name: c.headline, count: c.count, accent: c.accent, glow: c.glow, iconPaths: catIcons[c.key] || catIcons.bundles, locked: !freeCatKeys.includes(c.key) && this.state.coins < 10, showEntryCost: !freeCatKeys.includes(c.key), href: this.routeUrl('category', { catKey: c.key }), onOpen: e => this.openCategory(c.key, e) }));
 
     const cur = rawCats.find(c => c.key === this.state.catKey) || rawCats[0];
     const t = THEMES[cur.theme];
@@ -1003,7 +893,7 @@ class Component extends DCLogic {
       const rr = RR[it[1]] || { accent: cur.accent, glow: cur.glow, label: '' };
       rows.push({ isItem: true, name: it[0], type: it[2], accent: plain ? cur.accent : rr.accent, glow: plain ? cur.glow : rr.glow, label: rr.label, showLabel: !plain && !!RR[it[1]],
         imgEl: cur.kind === 'real' ? realImg(it[3], null, true) : phIcon(cur.icon, plain ? cur.accent : rr.accent, cur.icon === 'paw' ? 42 : 40),
-        onOpen: () => this.go('detail', { itemIdx: i }), href: '#/detail/' + cur.key + '/' + i });
+        onOpen: () => this.go('detail', { itemIdx: i }), href: this.routeUrl('detail', { catKey: cur.key, itemIdx: i }) });
     });
     const noRarity = plain;
     const catPage = { label: cur.label, count: cur.count, badge: cur.badge, headline: cur.headline, subhead: cur.subhead, bar: t.bar, badgeBg: t.bg, badgeBorder: t.border, badgeColor: t.color, rows,
@@ -1073,14 +963,14 @@ class Component extends DCLogic {
       { name: 'BR-Ranked', desc: 'Battle Royale ranked ladder', iconKey: 'crosshair', accent: 'var(--crystal-400)' },
       { name: 'CS-Ranked', desc: 'Clash Squad ranked ladder', iconKey: 'flame', accent: '#FF4D6A' },
       { name: 'Casual Modes', desc: 'Unranked practice lobbies', iconKey: 'gamepad', accent: '#8A5CFF' },
-    ].map(x => ({ ...x, icon: modeIcons[x.iconKey], iconBg: 'color-mix(in srgb, ' + x.accent + ' 14%, transparent)', tint: 'color-mix(in srgb, ' + x.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + x.accent + ' 40%, transparent)', href: '#/flowLevel', onPick: () => this.go('flowLevel') }));
+    ].map(x => ({ ...x, icon: modeIcons[x.iconKey], iconBg: 'color-mix(in srgb, ' + x.accent + ' 14%, transparent)', tint: 'color-mix(in srgb, ' + x.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + x.accent + ' 40%, transparent)', href: this.routeUrl('flowLevel'), onPick: () => this.go('flowLevel') }));
     const levels = [
       { name: 'Level 0-25', accent: 'var(--success)' },
       { name: 'Level 26-40', accent: 'var(--crystal-400)' },
       { name: 'Level 41-60', accent: '#FF4D6A' },
       { name: 'Level 61-90', accent: 'var(--gold-500)' },
       { name: 'Level 90+', accent: '#8A5CFF' },
-    ].map(l => ({ ...l, tint: 'color-mix(in srgb, ' + l.accent + ' 12%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 38%, transparent)', href: '#/flowLeague', onPick: () => this.go('flowLeague') }));
+    ].map(l => ({ ...l, tint: 'color-mix(in srgb, ' + l.accent + ' 12%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 38%, transparent)', href: this.routeUrl('flowLeague'), onPick: () => this.go('flowLeague') }));
     const leagues = [
       { name: 'Bronze', src: 'assets/ranks/bronze.png', accent: '#B77F35' },
       { name: 'Silver', src: 'assets/ranks/silver.png', accent: '#9AAABE' },
@@ -1089,12 +979,12 @@ class Component extends DCLogic {
       { name: 'Diamond', src: 'assets/ranks/diamond.png', accent: '#C026A9' },
       { name: 'Heroic', src: 'assets/ranks/heroic.png', accent: '#E2481E' },
       { name: 'Master', src: 'assets/ranks/master.png', accent: '#F5A417' },
-    ].map(l => ({ ...l, imgEl: img(l.src, { position: 'relative', width: '76px', height: '76px', objectFit: 'contain', filter: 'drop-shadow(0 5px 11px rgba(0,0,0,0.55))' }), tint: 'color-mix(in srgb, ' + l.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 46%, transparent)', href: '#/flowDone', onPick: () => this.go('flowDone') }));
+    ].map(l => ({ ...l, imgEl: img(l.src, { position: 'relative', width: '76px', height: '76px', objectFit: 'contain', filter: 'drop-shadow(0 5px 11px rgba(0,0,0,0.55))' }), tint: 'color-mix(in srgb, ' + l.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 46%, transparent)', href: this.routeUrl('flowDone'), onPick: () => this.go('flowDone') }));
 
     // ---------- region ----------
     const check = React.createElement('svg', { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'var(--crystal-400)', strokeWidth: 2.4, strokeLinecap: 'round', strokeLinejoin: 'round' }, React.createElement('path', { d: 'M20 6 9 17l-5-5' }));
     const regions = ['India', 'Bangladesh', 'Pakistan', 'Indonesia', 'Thailand', 'Vietnam', 'Singapore', 'Taiwan', 'Middle East (MENA)', 'Europe (EU)', 'CIS', 'Brazil', 'North America', 'South America', 'Africa']
-      .map(name => ({ name, checkEl: this.state.region === name ? check : null, onPick: () => this.setState({ region: name, regionOpen: false }) }));
+      .map(name => ({ name, checkEl: this.state.region === name ? check : null, onPick: () => { AppShared.setState({ region: name }); this.setState({ region: name, regionOpen: false }); } }));
 
     // ---------- info sheets ----------
     const infoData = {
@@ -1143,7 +1033,8 @@ class Component extends DCLogic {
       shortOpaque: this.state.shortOpen ? 1 : 0, shortPE: this.state.shortOpen ? 'auto' : 'none',
       closeShort: () => this.setState({ shortOpen: false, pendingCat: null }),
       goFlow: () => this.go('flowTerminal'), startExec: () => this.go('flowVerify'), syncUplink: () => this.go('flowTier'),
-      uid: this.state.uid, uidLabel: this.state.uid || '—', setUid: e => this.setState({ uid: e.target.value }),
+      uid: this.state.uid, uidLabel: this.state.uid || '—', setUid: e => { const v = e.target.value; AppShared.setState({ uid: v }); this.setState({ uid: v }); },
+      flowTerminalHref: this.routeUrl('flowTerminal'), flowVerifyHref: this.routeUrl('flowVerify'), flowTierHref: this.routeUrl('flowTier'),
       region: this.state.region,
       openRegion: () => this.setState({ regionOpen: true }), closeRegion: () => this.setState({ regionOpen: false }),
       regionTransform: this.state.regionOpen ? 'translateY(0)' : 'translateY(112%)',
