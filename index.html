@@ -491,6 +491,13 @@
         <span style="font-family:var(--font-mono);font-size:12px;color:var(--text-tertiary);text-align:center">One moment…</span>
         <button onClick="{{ closeAd }}" style="width:100%;height:42px;border-radius:13px;background:var(--ink-800);border:1px solid var(--line-strong);color:var(--chrome-100);font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer">Cancel</button>
       </sc-if>
+      <sc-if value="{{ rewardError }}" hint-placeholder-val="{{ false }}">
+        <span style="width:52px;height:52px;border-radius:999px;display:grid;place-items:center;background:rgba(255,77,106,0.14);border:1px solid rgba(255,77,106,0.4)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--rarity-mythic)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v5M12 16h.01"></path></svg></span>
+        <span style="font-family:var(--font-display);font-size:17px;font-weight:700;letter-spacing:0.02em;color:var(--chrome-100);text-align:center;line-height:1.25">No ad available</span>
+        <span style="font-family:var(--font-mono);font-size:12px;color:var(--text-tertiary);text-align:center">Please try again in a moment</span>
+        <button onClick="{{ retryWatchAd }}" style="width:100%;height:48px;border-radius:13px;border:none;background:var(--grad-premium);color:#241a05;font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Try Again</button>
+        <button onClick="{{ closeAd }}" style="width:100%;height:42px;border-radius:13px;background:var(--ink-800);border:1px solid var(--line-strong);color:var(--chrome-100);font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer">Close</button>
+      </sc-if>
     </div>
   </div>
   </sc-if>
@@ -533,7 +540,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;screen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;splash&quot;,&quot;welcome&quot;,&quot;home&quot;,&quot;category&quot;,&quot;detail&quot;,&quot;flowTerminal&quot;,&quot;flowVerify&quot;,&quot;flowTier&quot;,&quot;flowLevel&quot;,&quot;flowLeague&quot;,&quot;flowDone&quot;],&quot;default&quot;:&quot;splash&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
-  state = { route: 'welcome', catKey: 'characters', itemIdx: 0, uid: '', region: 'India', regionOpen: false, infoKey: null, coins: 0, unlocked: [], adOpen: false, rewardReady: false, shortOpen: false, pendingCat: null };
+  state = { route: 'welcome', catKey: 'characters', itemIdx: 0, uid: '', region: 'India', regionOpen: false, infoKey: null, coins: 0, unlocked: [], adOpen: false, rewardReady: false, rewardError: false, shortOpen: false, pendingCat: null };
 
   openCategory(key, e) {
     if (this.state.coins >= 10) {
@@ -546,7 +553,7 @@ class Component extends DCLogic {
 
   watchAd() {
     this._watchAdStartedAt = Date.now();
-    this.setState({ adOpen: true, rewardReady: false, shortOpen: false });
+    this.setState({ adOpen: true, rewardReady: false, rewardError: false, shortOpen: false });
     if (typeof adBreak !== 'function') return;
     adBreak({
       type: 'reward',
@@ -562,14 +569,14 @@ class Component extends DCLogic {
       adViewed: () => { this.setState(st => ({ adOpen: false, rewardReady: false, coins: st.coins + 10 })); }, // reward only granted here
       adBreakDone: () => {
         // Fires in every case, including when no ad was available at all. If we never got as far as
-        // showing a real ad, close our modal quietly — but not so fast the "Finding an ad" state
-        // never gets a chance to actually paint (a very quick no-fill response would otherwise make
-        // it look like nothing happened at all when the button was clicked).
-        const closeNow = () => this.setState(st => (st.adOpen || st.rewardReady) ? { adOpen: false, rewardReady: false } : null);
+        // showing a real ad, surface a visible error instead of silently closing — but not so fast the
+        // "Finding an ad" state never gets a chance to actually paint (a very quick no-fill response
+        // would otherwise make it look like nothing happened when the button was clicked).
+        const showResult = () => this.setState(st => (st.adOpen && !st.rewardReady) ? { rewardError: true } : null);
         const elapsed = Date.now() - (this._watchAdStartedAt || 0);
         const minVisibleMs = 600;
-        if (elapsed < minVisibleMs) setTimeout(closeNow, minVisibleMs - elapsed);
-        else closeNow();
+        if (elapsed < minVisibleMs) setTimeout(showResult, minVisibleMs - elapsed);
+        else showResult();
       },
     });
   }
@@ -577,9 +584,9 @@ class Component extends DCLogic {
     if (this._showRewardedAd) this._showRewardedAd();
   }
   closeAd() {
-    // Only reachable before a real ad starts (during the "finding an ad" / "ad ready" stages) —
-    // once a real ad is actually playing, beforeAd already hid this modal.
-    this.setState({ adOpen: false, rewardReady: false });
+    // Reachable during "finding an ad" / "ad ready" / error stages — once a real ad is actually
+    // playing, beforeAd already hid this modal.
+    this.setState({ adOpen: false, rewardReady: false, rewardError: false });
   }
 
   routeHash(route, extra) {
@@ -636,8 +643,16 @@ class Component extends DCLogic {
       // Every real navigation (any link click, or browser back/forward) is an interstitial
       // opportunity. Google's own frequency cap (min. 1/min, default 1/10min) decides whether
       // an ad actually shows each time — this call doesn't force one on every single click.
-      if (typeof adBreak === 'function') {
-        adBreak({ type: 'next', name: 'page-nav' });
+      // Guarded against overlapping calls: firing adBreak() again while a previous one was still
+      // resolving/showing was leaving the overlay stuck (no countdown, unclickable close button).
+      if (typeof adBreak === 'function' && !this._interstitialInFlight) {
+        this._interstitialInFlight = true;
+        adBreak({
+          type: 'next',
+          name: 'page-nav',
+          afterAd: () => { this._interstitialInFlight = false; },
+          adBreakDone: () => { this._interstitialInFlight = false; }, // always fires — also covers the no-fill case
+        });
       }
       this.setState(st => ({
         route: parsed.route,
@@ -1086,7 +1101,9 @@ class Component extends DCLogic {
       isFlowTerminal: route === 'flowTerminal', isFlowVerify: route === 'flowVerify', isFlowTier: route === 'flowTier',
       isFlowLevel: route === 'flowLevel', isFlowLeague: route === 'flowLeague', isFlowDone: route === 'flowDone',
       goWelcome: () => this.go('welcome'), goHome: () => this.go('home'), back: e => this.back(e),
-      coins: this.state.coins, adOpen: this.state.adOpen, rewardReady: this.state.rewardReady, rewardChecking: this.state.adOpen && !this.state.rewardReady,
+      coins: this.state.coins, adOpen: this.state.adOpen, rewardReady: this.state.rewardReady, rewardError: this.state.rewardError,
+      rewardChecking: this.state.adOpen && !this.state.rewardReady && !this.state.rewardError,
+      retryWatchAd: () => this.watchAd(),
       watchAd: () => this.watchAd(),
       confirmWatchAd: () => this.confirmWatchAd(),
       closeAd: () => this.closeAd(),

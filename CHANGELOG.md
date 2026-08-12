@@ -2,6 +2,14 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.16 — Interstitial/Rewarded ad reliability fixes (2026-08-12)
+- Fixed interstitial getting stuck (no countdown, unclickable X, required a refresh): added a
+  guard against firing a second adBreak() while a previous one was still resolving
+- Rewarded ad flow no longer silently closes when no ad is available — now shows a visible
+  "No ad available, Try Again" state instead
+- Confirmed: the grey header bar, countdown, and X button are entirely Google's own test-mode
+  overlay chrome (data-adbreak-test="on") — nothing in our code renders any of that
+
 ## v1.15b — Interstitial Ads Fixes and Changes (2026-08-12)
 - Reward ("Watch Ad") modal redesigned: small centered card + blurred backdrop instead of a full-screen takeover, matching the existing "insufficient coins" dialog style
 - Fixed "Finding an ad" appearing to do nothing: modal now stays visible at least 600ms before auto-closing on a no-fill response
