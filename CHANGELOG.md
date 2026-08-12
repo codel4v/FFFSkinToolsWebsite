@@ -2,6 +2,14 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v2.3 — Ad slot polish: responsive sizing + first-load fix (2026-08-12)
+- Ad slots now use Google's own recommended CSS: reserve 250px only until an ad request
+  resolves, then hide unfilled slots entirely and let filled slots size to whatever creative
+  actually loaded (fixes visible empty space in slot boxes)
+- First ad-fill attempt now waits for the page to fully finish loading instead of firing right
+  after mount — likely cause of static ads only appearing after a refresh, not on first load
+  (a known class of issue when a slot briefly resolves to 0-width before layout settles)
+
 ## v2.21 — Fix: test mode flags had reappeared (2026-08-12)
 - v1.2 was built on a stale base and silently re-included data-ad-test="on" on all 10 display
   slots plus data-adbreak-test="on" on the loader script, despite the commit message — the
@@ -51,6 +59,14 @@ All notable changes to the FFF Skin Tools website, newest first.
 - Replaced all 9 existing 320×250 placeholder ad slots site-wide with real AdSense `<ins>` units (2 slot IDs: Top/Bottom)
 - Reordered Home screen: ad slot now appears before the "Entry Coins Balance" card
 - Added `fillAds()` — required in this SPA since AdSense needs one fill call per newly-mounted `<ins>` tag on route change
+
+## v2.3 — Ad slot polish: responsive sizing + first-load fix (2026-08-12)
+- Ad slots now use Google's own recommended CSS: reserve 250px only until an ad request
+  resolves, then hide unfilled slots entirely and let filled slots size to whatever creative
+  actually loaded (fixes visible empty space in slot boxes)
+- First ad-fill attempt now waits for the page to fully finish loading instead of firing right
+  after mount — likely cause of static ads only appearing after a refresh, not on first load
+  (a known class of issue when a slot briefly resolves to 0-width before layout settles)
 
 ## v2.21 — Fix: test mode flags had reappeared (2026-08-12)
 - v1.2 was built on a stale base and silently re-included data-ad-test="on" /
