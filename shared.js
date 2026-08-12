@@ -4,8 +4,14 @@
 // Every screen is now a genuinely real page load (index.html?screen=...&key=...&item=...),
 // which is what actually fixes the AdSense problem — but it also means nothing in `this.state`
 // survives between screens on its own anymore. This module is the one thing that DOES persist
-// (coins/uid/region/unlocked, via localStorage) plus the ad helpers, which are much simpler now
-// than the old SPA version since every load starts with a genuinely clean DOM.
+// (coins/uid/region/unlocked, via localStorage) plus the ad helpers.
+//
+// v1.10: adBreak() must be called as part of a user action (Google's own requirement). Firing
+// it from componentDidMount — a page-load lifecycle hook, not a live user gesture — silently
+// broke BOTH the interstitial and the rewarded ad (the rewarded ad's own, genuinely valid click
+// was very likely getting caught by the same page's ad-placement context having already been
+// flagged non-compliant by the earlier bad call). Fix: only ever call adBreak() synchronously
+// inside an actual click handler, and defer the real navigation until it resolves.
 
 window.AppShared = (function () {
   const STATE_KEY = 'fffSkinToolsState';
@@ -24,8 +30,8 @@ window.AppShared = (function () {
     return next;
   }
 
-  // Real page loads mean a genuinely clean DOM every time — no more accumulation of stale
-  // <ins> tags across "screens", so this is back to the simple, original form.
+  // Real page loads mean a genuinely clean DOM every time — no accumulation of stale <ins>
+  // tags across "screens" to worry about.
   function fillAds() {
     try {
       document.querySelectorAll('ins.adsbygoogle').forEach(el => {
@@ -37,13 +43,26 @@ window.AppShared = (function () {
     } catch (e) { /* AdSense script not loaded yet, or blocked (e.g. ad blocker) — fail silently */ }
   }
 
-  // The H5 Games Ads Placement API has no automatic click/navigation detection (that's a
-  // GPT/Web-Interstitial thing) — it always needs an explicit call. One real page load = one
-  // natural opportunity, called once from componentDidMount.
-  function triggerInterstitial(name) {
-    if (typeof adBreak !== 'function') return;
-    adBreak({ type: 'next', name: name || 'page-nav' });
+  // Navigate to `url`, giving Google a real interstitial opportunity first — called
+  // synchronously from a link's click handler, so it genuinely is "part of a user action".
+  // Navigation always completes via adBreakDone, whether or not an ad actually showed.
+  function navigateWithInterstitial(url) {
+    if (typeof adBreak !== 'function') { location.href = url; return; }
+    adBreak({ type: 'next', name: 'page-nav', adBreakDone: () => { location.href = url; } });
   }
 
-  return { getState, setState, fillAds, triggerInterstitial };
+  // Same idea, but for Back buttons, which don't have a fixed destination URL — they rely on
+  // the browser's own history. Falls back to `fallbackUrl` if there was nothing real to go
+  // back to (checked only after the ad break has resolved, not from a blind fixed delay).
+  function goBackWithInterstitial(fallbackUrl) {
+    const doBack = () => {
+      const before = location.href;
+      history.back();
+      setTimeout(() => { if (location.href === before) location.href = fallbackUrl; }, 200);
+    };
+    if (typeof adBreak !== 'function') { doBack(); return; }
+    adBreak({ type: 'next', name: 'page-nav', adBreakDone: doBack });
+  }
+
+  return { getState, setState, fillAds, navigateWithInterstitial, goBackWithInterstitial };
 })();

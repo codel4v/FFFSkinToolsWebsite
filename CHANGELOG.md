@@ -2,6 +2,23 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.10 — Fix interstitial/rewarded broken by v1.9 (2026-08-12)
+- Root cause: Google's Ad Placement API requires adBreak() to be called "as part of a user
+  action". v1.9 called it in componentDidMount — a page-load lifecycle hook, not a live user
+  gesture — which very likely also poisoned the page's whole ad-placement context, breaking
+  the rewarded ad's otherwise-valid click too. Confirmed via console: no JS error, just a
+  silent "no ad" — consistent with a policy-compliant rejection, not a crash.
+- Moved the interstitial trigger out of componentDidMount entirely. Every navigating link
+  (category cards, item rows, flow tiles, Back buttons, Get Started, etc.) now calls
+  adBreak() synchronously from its own click handler, and only completes the real navigation
+  once the ad break resolves (via adBreakDone) — genuinely "part of a user action" this time.
+- Added AppShared.navigateWithInterstitial()/goBackWithInterstitial() and a navClick() handler
+  factory; modified clicks (ctrl/cmd/shift/middle-click) are left alone so opening in a new
+  tab still works normally
+- Verified the new helpers directly in Node (deferred-navigation timing, Back fallback,
+  modified-click bypass) before shipping, not just by inspection
+- Top/Bottom static ad slot bug is unrelated and still open — not addressed in this release
+
 ## v1.9 — Hash links to URL Parameters (2026-08-12)
 - Pivoted away from the multi-file HTML-split effort (v1.4 category-grid work stays, that
   file split is abandoned) — realized query-string changes trigger a real browser navigation

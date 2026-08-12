@@ -122,7 +122,7 @@
       </div>
 
       <div style="padding:22px 16px 0">
-        <a href="index.html?screen=home" style="width:100%;height:58px;border-radius:16px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 32px rgba(31,205,245,0.34);display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;box-sizing:border-box">Get Started<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        <a href="index.html?screen=home" onClick="{{ getStartedClick }}" style="width:100%;height:58px;border-radius:16px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 32px rgba(31,205,245,0.34);display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;box-sizing:border-box">Get Started<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
       </div>
 
       <div style="padding:52px 16px 0;display:flex;flex-direction:column;gap:44px">
@@ -190,7 +190,7 @@
           <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--text-primary);line-height:1.1">FFF Skin Tools</div>
           <div style="font-size:12px;color:var(--text-tertiary);line-height:1.2">Time to find some drip</div>
         </div>
-        <a aria-label="Info" href="index.html?screen=welcome" style="width:40px;height:40px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);display:grid;place-items:center;cursor:pointer;color:var(--text-secondary);text-decoration:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></a>
+        <a aria-label="Info" href="index.html?screen=welcome" onClick="{{ infoClick }}" style="width:40px;height:40px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);display:grid;place-items:center;cursor:pointer;color:var(--text-secondary);text-decoration:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></a>
       </div>
 
       <div style="padding:14px 16px 0">
@@ -288,7 +288,7 @@
         </div>
         <sc-for list="{{ catPage.rows }}" as="row" hint-placeholder-count="7">
           <sc-if value="{{ row.isItem }}" hint-placeholder-val="{{ true }}">
-            <a href="{{ row.href }}" style="position:relative;display:flex;align-items:center;gap:13px;padding:11px 13px 11px 11px;background:var(--grad-surface);border:1px solid var(--line);border-radius:15px;cursor:pointer;transition:border-color .18s,transform .18s cubic-bezier(0.16,1,0.3,1);text-decoration:none;box-sizing:border-box" style-hover="border-color:var(--line-crystal);transform:translateY(-2px)">
+            <a href="{{ row.href }}" onClick="{{ row.onOpen }}" style="position:relative;display:flex;align-items:center;gap:13px;padding:11px 13px 11px 11px;background:var(--grad-surface);border:1px solid var(--line);border-radius:15px;cursor:pointer;transition:border-color .18s,transform .18s cubic-bezier(0.16,1,0.3,1);text-decoration:none;box-sizing:border-box" style-hover="border-color:var(--line-crystal);transform:translateY(-2px)">
               <span style="position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 3px 3px 0;background:{{ row.accent }}"></span>
               <div style="position:relative;width:74px;height:74px;flex-shrink:0;border-radius:13px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(120% 100% at 50% 24%, {{ row.glow }}, var(--ink-900) 76%)">{{ row.imgEl }}</div>
               <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
@@ -334,7 +334,7 @@
         </div>
         <div style="padding:24px 18px;background:radial-gradient(120% 130% at 50% 0%, rgba(31,205,245,0.14), transparent 62%), linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid var(--line-crystal);border-radius:20px;display:flex;flex-direction:column;align-items:center;gap:16px">
           <span style="font-family:var(--font-display);font-size:19px;font-weight:700;color:var(--chrome-100);line-height:1.15;text-align:center">Initialize Injection Protocol</span>
-          <a href="{{ flowTerminalHref }}" style="width:100%;height:54px;border-radius:14px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 26px rgba(31,205,245,0.32);display:flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;box-sizing:border-box"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5v14"></path></svg>Add to Game for Free</a>
+          <a href="{{ flowTerminalHref }}" onClick="{{ flowTerminalClick }}" style="width:100%;height:54px;border-radius:14px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 26px rgba(31,205,245,0.32);display:flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;box-sizing:border-box"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5v14"></path></svg>Add to Game for Free</a>
           <span style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--success)"><span style="width:5px;height:5px;border-radius:999px;background:var(--success);box-shadow:0 0 6px var(--success)"></span>Status: Secure &amp; Ready to Deploy</span>
         </div>
       </div>
@@ -373,7 +373,7 @@
           <div style="width:76px;height:76px;border-radius:999px;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%, rgba(52,211,153,0.22), transparent 70%);border:1px solid rgba(52,211,153,0.4)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z"></path></svg></div>
           <span style="font-family:var(--font-display);font-size:21px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:var(--chrome-100);text-align:center">Cleared For Injection</span>
           <p style="margin:0;text-align:center;font-size:13px;line-height:1.55;color:var(--text-tertiary);max-width:290px">Channel is secure and the package checks out. Ready to push it into your account?</p>
-          <a href="{{ flowVerifyHref }}" style="width:100%;height:56px;margin-top:4px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3);text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Begin Injection</a>
+          <a href="{{ flowVerifyHref }}" onClick="{{ flowVerifyClick }}" style="width:100%;height:56px;margin-top:4px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3);text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Begin Injection</a>
         </div>
       </div>
     </div>
@@ -401,7 +401,7 @@
           <span style="position:absolute;top:10px;left:10px;z-index:2;display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:4px;background:rgba(5,7,15,0.72);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--text-secondary)">AD</span>
           <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8356035806330431" data-ad-slot="7202099488" data-ad-format="auto" data-full-width-responsive="true"></ins>
         </div>
-        <a href="{{ flowTierHref }}" style="width:100%;height:56px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3);text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Link Account</a>
+        <a href="{{ flowTierHref }}" onClick="{{ flowTierClick }}" style="width:100%;height:56px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(31,224,166,0.3);text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Link Account</a>
       </div>
     </div>
     </sc-if>
@@ -416,7 +416,7 @@
       <div style="padding:8px 16px 30px;display:flex;flex-direction:column;gap:12px;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);background-size:34px 34px">
         <div style="display:flex;align-items:center;gap:10px"><span style="width:4px;height:15px;border-radius:2px;background:var(--gold-500)"></span><span style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-primary)">Select Game Mode</span></div>
         <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="4">
-          <a href="{{ t.href }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;width:100%;padding:18px 16px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ t.border }};cursor:pointer;text-align:left;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%);text-decoration:none;box-sizing:border-box"><div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:{{ t.accent }}"></div><div style="position:absolute;top:0;right:0;width:60%;height:100%;background:radial-gradient(120% 92% at 100% 26%, {{ t.tint }}, transparent 72%);pointer-events:none"></div><div style="position:relative;width:62px;height:62px;flex-shrink:0;border-radius:16px;display:grid;place-items:center;background:{{ t.iconBg }};border:1px solid {{ t.border }};color:{{ t.accent }}">{{ t.icon }}</div><div style="position:relative;flex:1;min-width:0"><div style="font-family:var(--font-display);font-size:18px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:var(--chrome-100)">{{ t.name }}</div><div style="margin-top:4px;font-size:13px;color:var(--text-tertiary)">{{ t.desc }}</div></div><div style="position:relative;width:36px;height:36px;flex-shrink:0;border-radius:999px;display:grid;place-items:center;background:{{ t.iconBg }};border:1px solid {{ t.border }};color:{{ t.accent }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></div></a>
+          <a href="{{ t.href }}" onClick="{{ t.onPick }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;width:100%;padding:18px 16px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ t.border }};cursor:pointer;text-align:left;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%);text-decoration:none;box-sizing:border-box"><div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:{{ t.accent }}"></div><div style="position:absolute;top:0;right:0;width:60%;height:100%;background:radial-gradient(120% 92% at 100% 26%, {{ t.tint }}, transparent 72%);pointer-events:none"></div><div style="position:relative;width:62px;height:62px;flex-shrink:0;border-radius:16px;display:grid;place-items:center;background:{{ t.iconBg }};border:1px solid {{ t.border }};color:{{ t.accent }}">{{ t.icon }}</div><div style="position:relative;flex:1;min-width:0"><div style="font-family:var(--font-display);font-size:18px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:var(--chrome-100)">{{ t.name }}</div><div style="margin-top:4px;font-size:13px;color:var(--text-tertiary)">{{ t.desc }}</div></div><div style="position:relative;width:36px;height:36px;flex-shrink:0;border-radius:999px;display:grid;place-items:center;background:{{ t.iconBg }};border:1px solid {{ t.border }};color:{{ t.accent }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></div></a>
         </sc-for>
       </div>
     </div>
@@ -433,7 +433,7 @@
         <div style="display:flex;align-items:center;gap:10px"><span style="width:4px;height:15px;border-radius:2px;background:var(--crystal-500)"></span><span style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-primary)">Select Your Account Level</span></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
           <sc-for list="{{ levels }}" as="l" hint-placeholder-count="5">
-            <a href="{{ l.href }}" style="position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:22px 12px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ l.border }};cursor:pointer;text-decoration:none;box-sizing:border-box"><div style="position:absolute;inset:0;background:radial-gradient(90% 120% at 50% 0%, {{ l.tint }}, transparent 70%);pointer-events:none"></div><span style="position:relative;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--chrome-100)">{{ l.name }}</span></a>
+            <a href="{{ l.href }}" onClick="{{ l.onPick }}" style="position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:22px 12px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ l.border }};cursor:pointer;text-decoration:none;box-sizing:border-box"><div style="position:absolute;inset:0;background:radial-gradient(90% 120% at 50% 0%, {{ l.tint }}, transparent 70%);pointer-events:none"></div><span style="position:relative;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--chrome-100)">{{ l.name }}</span></a>
           </sc-for>
         </div>
       </div>
@@ -449,7 +449,7 @@
       </div>
       <div style="padding:8px 16px 30px;display:grid;grid-template-columns:1fr 1fr;gap:12px;background-image:linear-gradient(rgba(255,255,255,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.045) 1px,transparent 1px);background-size:34px 34px">
         <sc-for list="{{ leagues }}" as="l" hint-placeholder-count="7">
-          <a href="{{ l.href }}" style="position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 12px 16px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ l.border }};cursor:pointer;text-decoration:none;box-sizing:border-box"><div style="position:absolute;inset:0;background:radial-gradient(80% 60% at 50% 20%, {{ l.tint }}, transparent 72%);pointer-events:none"></div>{{ l.imgEl }}<span style="position:relative;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--chrome-100)">{{ l.name }}</span></a>
+          <a href="{{ l.href }}" onClick="{{ l.onPick }}" style="position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 12px 16px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid {{ l.border }};cursor:pointer;text-decoration:none;box-sizing:border-box"><div style="position:absolute;inset:0;background:radial-gradient(80% 60% at 50% 20%, {{ l.tint }}, transparent 72%);pointer-events:none"></div>{{ l.imgEl }}<span style="position:relative;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--chrome-100)">{{ l.name }}</span></a>
         </sc-for>
       </div>
     </div>
@@ -463,7 +463,7 @@
         <span style="font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--chrome-100);text-align:center">Handshake Complete</span>
         <p style="margin:0;text-align:center;font-size:13.5px;line-height:1.6;color:var(--text-tertiary);max-width:300px">{{ item.name }} has been queued for delivery to UID {{ uidLabel }}. Restart Free Fire and check your vault — first sync can take a few minutes.</p>
         <div style="width:100%;display:flex;flex-direction:column;gap:10px;margin-top:4px">
-          <a href="index.html?screen=home" style="width:100%;height:54px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Back to Catalog</a>
+          <a href="index.html?screen=home" onClick="{{ backToCatalogClick }}" style="width:100%;height:54px;border-radius:14px;border:none;background:linear-gradient(100deg,#1FE0A6,#16C8EC);color:#04231c;font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Back to Catalog</a>
           <button onClick="{{ openTroubleshoot }}" style="width:100%;height:48px;border-radius:14px;background:var(--ink-800);border:1px solid var(--line-strong);color:var(--chrome-100);font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer">Skin not showing?</button>
         </div>
       </div>
@@ -554,14 +554,16 @@ class Component extends DCLogic {
   };
 
   openCategory(key, e) {
+    if (e) e.preventDefault();
     const freeCats = ['weapons', 'vehicles', 'pets', 'bundles'];
-    if (freeCats.includes(key)) return; // free category: no coin gate at all, let the real <a href> navigation proceed
+    const url = this.routeUrl('category', { catKey: key });
+    if (freeCats.includes(key)) { AppShared.navigateWithInterstitial(url); return; } // free category: no coin gate
     if (this.state.coins >= 10) {
       AppShared.setState({ coins: this.state.coins - 10 });
       this.setState(st => ({ coins: st.coins - 10 }));
-      return; // sufficient coins: deduct now, let the real <a href> navigation proceed
+      AppShared.navigateWithInterstitial(url);
+      return; // sufficient coins: deducted, navigate with an interstitial opportunity
     }
-    if (e) e.preventDefault();
     this.setState({ shortOpen: true, pendingCat: key });
   }
 
@@ -617,9 +619,6 @@ class Component extends DCLogic {
   componentDidMount() {
     if (typeof adConfig === 'function') adConfig({ sound: 'off' });
     this.updateTitle();
-    // One real page load = one natural interstitial opportunity. Google's own frequency cap
-    // (min. 1/min, default 1/10min) decides whether an ad actually shows each time.
-    AppShared.triggerInterstitial('page-nav');
     // Wait for the page to be fully loaded (styles/fonts/images settled) before the first ad
     // fill — requesting one before layout is stable can silently fail.
     if (document.readyState === 'complete') {
@@ -650,13 +649,17 @@ class Component extends DCLogic {
     document.title = typeof t === 'function' ? t() : (t || base);
   }
 
-  go(route, extra) { location.href = this.routeUrl(route, extra); }
+  go(route, extra) { AppShared.navigateWithInterstitial(this.routeUrl(route, extra)); }
   back(e) {
     if (e) e.preventDefault();
-    history.back();
-    // Safety net: if there was nowhere real to go back to (e.g. a direct deep link with no
-    // prior history), history.back() does nothing and we're still here after this fires.
-    setTimeout(() => { location.href = this.routeUrl('home'); }, 200);
+    AppShared.goBackWithInterstitial(this.routeUrl('home'));
+  }
+  navClick(url) {
+    return (e) => {
+      if (e && (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey)) return; // let modified clicks (open in new tab, etc.) behave normally
+      if (e) e.preventDefault();
+      AppShared.navigateWithInterstitial(url);
+    };
   }
 
   renderVals() {
@@ -893,7 +896,7 @@ class Component extends DCLogic {
       const rr = RR[it[1]] || { accent: cur.accent, glow: cur.glow, label: '' };
       rows.push({ isItem: true, name: it[0], type: it[2], accent: plain ? cur.accent : rr.accent, glow: plain ? cur.glow : rr.glow, label: rr.label, showLabel: !plain && !!RR[it[1]],
         imgEl: cur.kind === 'real' ? realImg(it[3], null, true) : phIcon(cur.icon, plain ? cur.accent : rr.accent, cur.icon === 'paw' ? 42 : 40),
-        onOpen: () => this.go('detail', { itemIdx: i }), href: this.routeUrl('detail', { catKey: cur.key, itemIdx: i }) });
+        onOpen: this.navClick(this.routeUrl('detail', { itemIdx: i })), href: this.routeUrl('detail', { catKey: cur.key, itemIdx: i }) });
     });
     const noRarity = plain;
     const catPage = { label: cur.label, count: cur.count, badge: cur.badge, headline: cur.headline, subhead: cur.subhead, bar: t.bar, badgeBg: t.bg, badgeBorder: t.border, badgeColor: t.color, rows,
@@ -963,14 +966,14 @@ class Component extends DCLogic {
       { name: 'BR-Ranked', desc: 'Battle Royale ranked ladder', iconKey: 'crosshair', accent: 'var(--crystal-400)' },
       { name: 'CS-Ranked', desc: 'Clash Squad ranked ladder', iconKey: 'flame', accent: '#FF4D6A' },
       { name: 'Casual Modes', desc: 'Unranked practice lobbies', iconKey: 'gamepad', accent: '#8A5CFF' },
-    ].map(x => ({ ...x, icon: modeIcons[x.iconKey], iconBg: 'color-mix(in srgb, ' + x.accent + ' 14%, transparent)', tint: 'color-mix(in srgb, ' + x.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + x.accent + ' 40%, transparent)', href: this.routeUrl('flowLevel'), onPick: () => this.go('flowLevel') }));
+    ].map(x => ({ ...x, icon: modeIcons[x.iconKey], iconBg: 'color-mix(in srgb, ' + x.accent + ' 14%, transparent)', tint: 'color-mix(in srgb, ' + x.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + x.accent + ' 40%, transparent)', href: this.routeUrl('flowLevel'), onPick: this.navClick(this.routeUrl('flowLevel')) }));
     const levels = [
       { name: 'Level 0-25', accent: 'var(--success)' },
       { name: 'Level 26-40', accent: 'var(--crystal-400)' },
       { name: 'Level 41-60', accent: '#FF4D6A' },
       { name: 'Level 61-90', accent: 'var(--gold-500)' },
       { name: 'Level 90+', accent: '#8A5CFF' },
-    ].map(l => ({ ...l, tint: 'color-mix(in srgb, ' + l.accent + ' 12%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 38%, transparent)', href: this.routeUrl('flowLeague'), onPick: () => this.go('flowLeague') }));
+    ].map(l => ({ ...l, tint: 'color-mix(in srgb, ' + l.accent + ' 12%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 38%, transparent)', href: this.routeUrl('flowLeague'), onPick: this.navClick(this.routeUrl('flowLeague')) }));
     const leagues = [
       { name: 'Bronze', src: 'assets/ranks/bronze.png', accent: '#B77F35' },
       { name: 'Silver', src: 'assets/ranks/silver.png', accent: '#9AAABE' },
@@ -979,7 +982,7 @@ class Component extends DCLogic {
       { name: 'Diamond', src: 'assets/ranks/diamond.png', accent: '#C026A9' },
       { name: 'Heroic', src: 'assets/ranks/heroic.png', accent: '#E2481E' },
       { name: 'Master', src: 'assets/ranks/master.png', accent: '#F5A417' },
-    ].map(l => ({ ...l, imgEl: img(l.src, { position: 'relative', width: '76px', height: '76px', objectFit: 'contain', filter: 'drop-shadow(0 5px 11px rgba(0,0,0,0.55))' }), tint: 'color-mix(in srgb, ' + l.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 46%, transparent)', href: this.routeUrl('flowDone'), onPick: () => this.go('flowDone') }));
+    ].map(l => ({ ...l, imgEl: img(l.src, { position: 'relative', width: '76px', height: '76px', objectFit: 'contain', filter: 'drop-shadow(0 5px 11px rgba(0,0,0,0.55))' }), tint: 'color-mix(in srgb, ' + l.accent + ' 22%, transparent)', border: 'color-mix(in srgb, ' + l.accent + ' 46%, transparent)', href: this.routeUrl('flowDone'), onPick: this.navClick(this.routeUrl('flowDone')) }));
 
     // ---------- region ----------
     const check = React.createElement('svg', { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'var(--crystal-400)', strokeWidth: 2.4, strokeLinecap: 'round', strokeLinejoin: 'round' }, React.createElement('path', { d: 'M20 6 9 17l-5-5' }));
@@ -1035,6 +1038,8 @@ class Component extends DCLogic {
       goFlow: () => this.go('flowTerminal'), startExec: () => this.go('flowVerify'), syncUplink: () => this.go('flowTier'),
       uid: this.state.uid, uidLabel: this.state.uid || '—', setUid: e => { const v = e.target.value; AppShared.setState({ uid: v }); this.setState({ uid: v }); },
       flowTerminalHref: this.routeUrl('flowTerminal'), flowVerifyHref: this.routeUrl('flowVerify'), flowTierHref: this.routeUrl('flowTier'),
+      flowTerminalClick: this.navClick(this.routeUrl('flowTerminal')), flowVerifyClick: this.navClick(this.routeUrl('flowVerify')), flowTierClick: this.navClick(this.routeUrl('flowTier')),
+      getStartedClick: this.navClick('index.html?screen=home'), infoClick: this.navClick('index.html?screen=welcome'), backToCatalogClick: this.navClick('index.html?screen=home'),
       region: this.state.region,
       openRegion: () => this.setState({ regionOpen: true }), closeRegion: () => this.setState({ regionOpen: false }),
       regionTransform: this.state.regionOpen ? 'translateY(0)' : 'translateY(112%)',
