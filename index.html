@@ -543,6 +543,8 @@ class Component extends DCLogic {
   state = { route: 'welcome', catKey: 'characters', itemIdx: 0, uid: '', region: 'India', regionOpen: false, infoKey: null, coins: 0, unlocked: [], adOpen: false, rewardReady: false, rewardError: false, shortOpen: false, pendingCat: null };
 
   openCategory(key, e) {
+    const freeCats = ['weapons', 'vehicles', 'pets', 'bundles'];
+    if (freeCats.includes(key)) return; // free category: no coin gate at all, let the real <a href> navigation proceed
     if (this.state.coins >= 10) {
       this.setState(st => ({ coins: st.coins - 10 }));
       return; // sufficient coins: deduct now, let the real <a href> navigation proceed
@@ -976,7 +978,8 @@ class Component extends DCLogic {
       skyboards: ['M2.8 14.4c3.2-5.6 15.4-8.8 18.5-4.6 3.1 4.2-15.3 10-18.5 4.6Z', 'M9 15.5l1.5 4', 'M15 13l1.5 4'],
       backpacks: ['M6 21V9.5A4.5 4.5 0 0 1 10.5 5h3A4.5 4.5 0 0 1 18 9.5V21H6Z', 'M9.2 5V4.2a2.8 2.8 0 0 1 5.6 0V5', 'M9 13h6', 'M9 21v-4.2h6V21']
     };
-    const menuCats = rawCats.map((c, i) => ({ name: c.headline, count: c.count, accent: c.accent, glow: c.glow, iconPaths: catIcons[c.key] || catIcons.bundles, locked: this.state.coins < 10, showEntryCost: i >= 4, href: '#/category/' + c.key, onOpen: e => this.openCategory(c.key, e) }));
+    const freeCatKeys = ['weapons', 'vehicles', 'pets', 'bundles'];
+    const menuCats = rawCats.map(c => ({ name: c.headline, count: c.count, accent: c.accent, glow: c.glow, iconPaths: catIcons[c.key] || catIcons.bundles, locked: !freeCatKeys.includes(c.key) && this.state.coins < 10, showEntryCost: !freeCatKeys.includes(c.key), href: '#/category/' + c.key, onOpen: e => this.openCategory(c.key, e) }));
 
     const cur = rawCats.find(c => c.key === this.state.catKey) || rawCats[0];
     const t = THEMES[cur.theme];

@@ -2,6 +2,13 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.5 — Weapons/Vehicles/Pets/Bundles are now genuinely free (2026-08-12)
+- Correction to v1.4: that release only hid the Entry Cost badge on these 4 categories — the
+  actual 10-coin unlock requirement was untouched, so the lock overlay still showed on them
+- Now fixed for real: openCategory() skips the coin gate entirely for these 4 keys (based on
+  category key, not array position, so this stays correct even if the grid order changes again),
+  and the category card never renders as locked regardless of coin balance
+
 ## v1.4 — Home page category grid changes (2026-08-12)
 - Swapped row 1 and row 3: Weapons and Vehicles are now the first two category cards, moving
   Characters and Fashion down
