@@ -2,6 +2,12 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.2 — Go live: test mode removed (2026-08-12)
+- Removed data-ad-test="on" from all 10 AdSense display slots
+- Removed data-adbreak-test="on" from the AdSense loader script (interstitial/rewarded)
+- All ad units now request real inventory — no more forced test creative
+- Fixed the "Finding an ad" loading icon: was static, now has a simple looping spin animation
+
 ## v1.17 — Category page ad slots (2026-08-12)
 - Removed the repeating 320×100 in-list ad placeholders from category pages (never wired to
   real ads; could repeat up to ~17 times on a single large category — a duplicate-density
