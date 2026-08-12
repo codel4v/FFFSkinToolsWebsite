@@ -2,6 +2,13 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.17 — Category page ad slots (2026-08-12)
+- Removed the repeating 320×100 in-list ad placeholders from category pages (never wired to
+  real ads; could repeat up to ~17 times on a single large category — a duplicate-density
+  concern anyway)
+- Added a real Top ad slot to category pages (above the item list), joining the existing Bottom
+  slot (below it) — category pages now match every other screen's Top/Bottom pattern
+
 ## v1.16 — Interstitial/Rewarded ad reliability fixes (2026-08-12)
 - Fixed interstitial getting stuck (no countdown, unclickable X, required a refresh): added a
   guard against firing a second adBreak() while a previous one was still resolving

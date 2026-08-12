@@ -268,6 +268,12 @@
           <p style="margin:0;font-size:13px;line-height:1.45;color:var(--chrome-300);max-width:340px;text-wrap:pretty;text-shadow:0 1px 6px rgba(0,0,0,0.6)">{{ catPage.subhead }}</p>
         </div>
       </div>
+      <div style="padding:16px 16px 0">
+        <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--ink-900)">
+          <span style="position:absolute;top:10px;left:10px;z-index:2;display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:4px;background:rgba(5,7,15,0.72);border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--text-secondary)">AD</span>
+          <ins class="adsbygoogle" style="display:block;min-height:250px" data-ad-client="ca-pub-8356035806330431" data-ad-slot="3316443330" data-ad-format="auto" data-ad-test="on" data-full-width-responsive="true"></ins>
+        </div>
+      </div>
       <div style="padding:16px 16px 30px;display:flex;flex-direction:column;gap:12px">
         <div style="display:flex;align-items:center;justify-content:space-between">
           <div style="display:flex;align-items:center;gap:10px"><span style="width:4px;height:16px;border-radius:2px;background:{{ catPage.bar }}"></span><span style="font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-primary)">{{ catPage.label }}</span></div>
@@ -287,18 +293,6 @@
               </div>
               <span style="display:inline-flex;align-items:center;gap:6px;flex-shrink:0;height:32px;padding:0 10px 0 13px;border-radius:999px;background:rgba(31,205,245,0.1);border:1px solid var(--line-crystal);font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--crystal-300)">Unlock<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
             </a>
-          </sc-if>
-          <sc-if value="{{ row.isAd }}" hint-placeholder-val="{{ false }}">
-            <div style="display:flex;justify-content:center">
-              <div onClick="{{ noop }}" style="position:relative;width:100%;aspect-ratio:3.2 / 1;border-radius:12px;overflow:hidden;background:repeating-linear-gradient(135deg, rgba(255,255,255,0.035) 0 10px, transparent 10px 20px), var(--ink-900);border:1px dashed var(--line-strong);display:grid;place-items:center;cursor:pointer">
-                <span style="position:absolute;top:7px;right:8px;display:inline-flex;align-items:center;height:16px;padding:0 6px;border-radius:4px;background:rgba(31,205,245,0.12);border:1px solid var(--line-crystal);font-family:var(--font-mono);font-size:9px;font-weight:600;letter-spacing:0.12em;color:var(--crystal-300)">AD</span>
-                <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.8" cy="9" r="1.6"></circle><path d="m21 15.5-4.7-4.5L5 21"></path></svg>
-                  <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;color:var(--text-tertiary)">AD SLOT · 320 × 100 RATIO</span>
-                  <span style="font-family:var(--font-display);font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary);opacity:0.75">Your promotion here</span>
-                </div>
-              </div>
-            </div>
           </sc-if>
         </sc-for>
         <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--ink-900);margin-top:4px">
@@ -958,19 +952,13 @@ class Component extends DCLogic {
 
     const cur = rawCats.find(c => c.key === this.state.catKey) || rawCats[0];
     const t = THEMES[cur.theme];
-    const catAds = [
-      { headline: 'Boost your gaming style', sub: 'Latest skin-unlock tips, delivered every day.' },
-      { headline: 'Daily 1000 + 1000 free', sub: 'Spin the wheel and claim bonus diamonds.' },
-    ];
     const plain = cur.key === 'characters' || cur.key === 'pets';
     const rows = [];
-    let ai = 0;
     cur.items.forEach((it, i) => {
       const rr = RR[it[1]] || { accent: cur.accent, glow: cur.glow, label: '' };
       rows.push({ isItem: true, name: it[0], type: it[2], accent: plain ? cur.accent : rr.accent, glow: plain ? cur.glow : rr.glow, label: rr.label, showLabel: !plain && !!RR[it[1]],
         imgEl: cur.kind === 'real' ? realImg(it[3], null, true) : phIcon(cur.icon, plain ? cur.accent : rr.accent, cur.icon === 'paw' ? 42 : 40),
         onOpen: () => this.go('detail', { itemIdx: i }), href: '#/detail/' + cur.key + '/' + i });
-      if ((i + 1) % 3 === 0 && i < cur.items.length - 1) { const a = catAds[ai % catAds.length]; ai++; rows.push({ isAd: true, headline: a.headline, sub: a.sub }); }
     });
     const noRarity = plain;
     const catPage = { label: cur.label, count: cur.count, badge: cur.badge, headline: cur.headline, subhead: cur.subhead, bar: t.bar, badgeBg: t.bg, badgeBorder: t.border, badgeColor: t.color, rows,
