@@ -3,16 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="shared.js"></script>
-<script src="./support.js"></script>
+<script defer src="shared.js"></script>
+<script defer src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FFF Skin Tools</title>
-<link rel="icon" type="image/svg+xml" href="Favicon.svg">
 <link rel="icon" type="image/png" href="Favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/bundle.css">
 <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
 <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin>
 <link rel="dns-prefetch" href="https://tpc.googlesyndication.com">
@@ -21,16 +24,6 @@
   window.adsbygoogle = window.adsbygoogle || [];
   window.adBreak = window.adConfig = function(o) { window.adsbygoogle.push(o); };
 </script>
-<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/fonts.css">
-<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/colors.css">
-<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/typography.css">
-<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/spacing.css">
-<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/radius.css">
-<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/shadow.css">
-<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/motion.css">
-<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/tokens/base.css">
-<link rel="stylesheet" href="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/styles.css">
-<script src="_ds/fff-skin-tool-design-system-2dd5ed6a-ddd2-49c3-bad3-8d146bc86b8c/_ds_bundle.js"></script>
 <style>
   html,body{margin:0;background:#05070F;font-family:var(--font-sans)}
   h1,h2,h3,p,span,div,button,input{font-family:inherit}
@@ -670,7 +663,7 @@ class Component extends DCLogic {
       // immediately at load, so one may actually be ready when the user clicks a few
       // seconds later. Without this, a nav break is very likely to report noAdPreloaded.
       preloadAdBreaks: 'on',
-      onReady: () => { try { console.log('[ads] adConfig onReady — ad placement API ready'); } catch (e) {} }
+      onReady: () => { if (window.AppShared && AppShared.adLog) AppShared.adLog('adConfig onReady — ad placement API ready'); }
     });
     this.updateTitle();
     AppShared.fillAdsWhenReady();

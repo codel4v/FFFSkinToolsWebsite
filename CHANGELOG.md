@@ -2,6 +2,60 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.22 — Caching, render-blocking cleanup, CSS consolidation, hygiene (2026-08-13)
+- Audit follow-up; items 1, 2, 3, 5, 7 and 8 from the full-repo pass. No new functionality
+- CACHING (new vercel.json): assets/ now served with max-age=31536000, immutable. This matters
+  more than it looks -- every screen is a real page load, so previously each navigation
+  re-validated every image. Favicon 7 days. JS/CSS and HTML set to must-revalidate so deploys
+  still propagate instantly (a 304 costs a round trip but no body). Also added nosniff and
+  Referrer-Policy headers
+  CAVEAT: immutable means a changed image at the SAME filename won't be picked up by returning
+  visitors. If an asset is ever re-optimised, change its filename
+- REMOVED _ds_bundle.js (76 KB, render-blocking, entirely unused). It exports 21 components
+  (ItemCard, Button, Badge, AppHeader, TabBar...) plus window.FFFData and window.__t -- index.html
+  references NONE of them, and there are zero <x-dc component=...> tags for support.js to
+  resolve. The earlier "ICONS" grep hit was a local const at index.html line 725, not the bundle.
+  This was the single largest blocking resource on the page, bigger than everything else combined
+- shared.js and support.js now load with defer instead of blocking the parser. Safe because
+  support.js already gates its own boot on readyState/DOMContentLoaded (line ~1760): under defer
+  it executes with readyState "interactive" and boots immediately, so behaviour is unchanged --
+  it just no longer blocks HTML parsing. defer also preserves order, so shared.js still defines
+  AppShared before support.js boots the component code
+- CSS: the 9 separate <link> tags collapsed into one bundle.css (same directory, so any relative
+  paths still resolve). Found while doing it: styles.css ALREADY @imported all 8 token files, so
+  every token file was being fetched TWICE -- once via its own <link> and once via styles.css.
+  Those redundant @imports are stripped in the bundle
+- The Google Fonts @import was hoisted out of fonts.css into a real <link>, plus preconnect to
+  fonts.googleapis.com and fonts.gstatic.com. An @import inside CSS serializes: the browser had
+  to download and parse fonts.css before it could even discover the font URL. Now they fetch in
+  parallel
+- Net effect on the critical path: 12 blocking requests (9 CSS + 3 JS) down to 2 (bundle.css +
+  Google Fonts), with 76 KB of dead JS gone and the font request no longer chained
+- CHANGELOG renumbered to match the reconciled deploy folders. Every duplicate version number is
+  resolved -- earlier re-attempts of a clashing number now carry a dot:
+    v1.11 (Navigation Bug Fixes, 10-08)        -> v1.1.1
+    v1.12 (Favicon fix + text changes, 10-08)  -> v1.1.2
+    v1.21 (Lazyload + minor fixes, 12-08)      -> v1.1.3
+    v1.14 / v1.14b / v1.14c (Top-Bottom slots) -> v1.1.4 / v1.1.4b / v1.1.4c
+    v1.15 / v1.15b (Interstitial Ads)          -> v1.1.5 / v1.1.5b
+    v1.16 (Interstitial/Rewarded reliability)  -> v1.1.6
+    v1.17 (Category page ad slots)             -> v1.1.7
+    v2.3 / v2.4 / v2.21 (stray v2.x block)     -> v1.2.3 / v1.2.4 / v1.2.21
+    v1.1 (Hash links & Favicon, asset upload)  -> v1.0.1
+  Version list now reads cleanly descending with no repeats
+- Deleted Favicon.svg (44 KB). It was an Illustrator export wrapping a base64 raster, so it was
+  never really a vector; Favicon.png does the same job in 8 KB. Its <link> is removed
+- [ads] console logging is now opt-in: add ?addebug=1 to any URL to re-enable it. The flag rides
+  in the query string, which is also how routing works here, so it survives navigation. Off by
+  default so production consoles stay clean. adLog is exported from AppShared and the adConfig
+  onReady log in index.html now routes through the same gate
+- Left alone from the audit: the {{ d }} SVG path console error (item 4), .git history bloat
+  (item 6), the unused fillAds export (item 9), SEO/meta additions (item 10, would be new
+  functionality), and the claim-language and ad-density observations (items 11 and 12, product
+  decisions rather than code fixes)
+- The token CSS files and _ds_bundle.js remain in the repo as unreferenced source. Safe to leave;
+  safe to delete if you want the repo tidier
+
 ## v1.21 — Image optimisation: 89.7 MB of assets down to 8.5 MB (2026-08-13)
 - The real fix flagged in v1.20. All 164 images in assets/ resized to their actual on-screen
   size and converted to WebP. Result: 89.7 MB -> 8.54 MB, a 90.5% reduction
@@ -331,7 +385,7 @@ All notable changes to the FFF Skin Tools website, newest first.
 - Reworked the locked-category overlay to only cover the bottom portion of the card, so the
   title and item count stay visible even when a category is locked
 
-## v2.4 — Fix ad fills on SPA navigation (2026-08-12)
+## v1.2.4 — Fix ad fills on SPA navigation (Static Ad not loading fix) (2026-08-12)
 - Removed a premature fillAds() call that ran immediately after setState() inside the
   hashchange handler — React 18 batches setState even in native event listeners, so this fired
   before the new screen's ad slots existed in the DOM at all. componentDidUpdate already
@@ -341,7 +395,7 @@ All notable changes to the FFF Skin Tools website, newest first.
   slot's DOM node across screens or revisits rather than creating a genuinely fresh one —
   AdSense refuses to re-fill an element it has already marked done.
 
-## v2.3 — Ad slot polish: responsive sizing + first-load fix (2026-08-12)
+## v1.2.3 — Ad slot polish: responsive sizing + first-load fix (2026-08-12)
 - Ad slots now use Google's own recommended CSS: reserve 250px only until an ad request
   resolves, then hide unfilled slots entirely and let filled slots size to whatever creative
   actually loaded (fixes visible empty space in slot boxes)
@@ -349,7 +403,7 @@ All notable changes to the FFF Skin Tools website, newest first.
   after mount — likely cause of static ads only appearing after a refresh, not on first load
   (a known class of issue when a slot briefly resolves to 0-width before layout settles)
 
-## v2.21 — Fix: test mode flags had reappeared (2026-08-12)
+## v1.2.21 — Fix: test mode flags had reappeared (2026-08-12)
 - v1.2 was built on a stale base and silently re-included data-ad-test="on" on all 10 display
   slots plus data-adbreak-test="on" on the loader script, despite the commit message — the
   rewarded interstitial showing "Rewarded ad example" after go-live was this, not a deployment issue
@@ -362,14 +416,14 @@ All notable changes to the FFF Skin Tools website, newest first.
 - All ad units now request real inventory — no more forced test creative
 - Fixed the "Finding an ad" loading icon: was static, now has a simple looping spin animation
 
-## v1.17 — Category page ad slots (2026-08-12)
+## v1.1.7 — Category page ad slots (2026-08-12)
 - Removed the repeating 320×100 in-list ad placeholders from category pages (never wired to
   real ads; could repeat up to ~17 times on a single large category — a duplicate-density
   concern anyway)
 - Added a real Top ad slot to category pages (above the item list), joining the existing Bottom
   slot (below it) — category pages now match every other screen's Top/Bottom pattern
 
-## v1.16 — Interstitial/Rewarded ad reliability fixes (2026-08-12)
+## v1.1.6 — Interstitial/Rewarded ad reliability fixes (2026-08-12)
 - Fixed interstitial getting stuck (no countdown, unclickable X, required a refresh): added a
   guard against firing a second adBreak() while a previous one was still resolving
 - Rewarded ad flow no longer silently closes when no ad is available — now shows a visible
@@ -377,37 +431,37 @@ All notable changes to the FFF Skin Tools website, newest first.
 - Confirmed: the grey header bar, countdown, and X button are entirely Google's own test-mode
   overlay chrome (data-adbreak-test="on") — nothing in our code renders any of that
 
-## v1.15b — Interstitial Ads Fixes and Changes (2026-08-12)
+## v1.1.5b — Interstitial Ads Fixes and Changes (2026-08-12)
 - Reward ("Watch Ad") modal redesigned: small centered card + blurred backdrop instead of a full-screen takeover, matching the existing "insufficient coins" dialog style
 - Fixed "Finding an ad" appearing to do nothing: modal now stays visible at least 600ms before auto-closing on a no-fill response
 - Reserved `min-height:250px` on all 9 AdSense `<ins>` slots so unfilled ads don't collapse to 0px and shorten pages on desktop
 
-## v1.15 — Interstitial Ads (2026-08-12)
+## v1.1.5 — Interstitial Ads (2026-08-12)
 - Implemented non-rewarded interstitial (`adBreak({type:'next'})`) firing on every real navigation, via the single hashchange choke point
 - Rebuilt the rewarded-ad flow end to end: "Watch Ad" → real `adBreak({type:'reward'})` call → checking/ready states → user-confirmed "Watch Now" → coins granted only in `adViewed` (previously granted unconditionally on modal close)
 - Added `adBreak`/`adConfig` bootstrap script; enabled `data-adbreak-test="on"` for testing
 
-## v1.14c — Top Bottom Ad Slot bug fixes (2026-08-12)
+## v1.1.4c — Top Bottom Ad Slot bug fixes (2026-08-12)
 - Fixed crash in `componentDidUpdate` (`Cannot read properties of undefined (reading 'route')`) that was silently blocking ad slots from re-filling on navigation
 
-## v1.14b — Top Bottom Ad Slot testing (2026-08-12)
+## v1.1.4b — Top Bottom Ad Slot testing (2026-08-12)
 - Added `data-ad-test="on"` to all 9 display ad slots for AdSense test-mode verification
 
-## v1.14 — Top Bottom Ad Slot implementation (2026-08-12)
+## v1.1.4 — Top Bottom Ad Slot implementation (2026-08-12)
 - Pivoted from the originally-planned Google Ad Manager/GPT setup to AdSense + H5 Games Ads (per ad ops)
 - Replaced all 9 existing 320×250 placeholder ad slots site-wide with real AdSense `<ins>` units (2 slot IDs: Top/Bottom)
 - Reordered Home screen: ad slot now appears before the "Entry Coins Balance" card
 - Added `fillAds()` — required in this SPA since AdSense needs one fill call per newly-mounted `<ins>` tag on route change
 
-## v1.21 — Lazyload Implementation + Minor bug fixes (2026-08-12)
+## v1.1.3 — Lazyload Implementation + Minor bug fixes (2026-08-12)
 - Added `loading="lazy"` to category-grid item thumbnails (up to 51 images in some categories); left hero/detail images eager
 - Fixed a leftover dangling line in `back()` referencing an undefined variable
 
-## v1.12 — Favicon fix and minor text changes (2026-08-10)
+## v1.1.2 — Favicon fix and minor text changes (2026-08-10)
 - Fixed favicon not appearing: href casing didn't match the actual uploaded filenames (`Favicon.svg`/`Favicon.png` vs `favicon.svg`/`favicon.png`)
 - Synced the "Skin not showing?" troubleshooting popup text to exactly match the Home page's troubleshooting section (was missing a bullet + had a shortened closing line)
 
-## v1.11 — Navigation Bug Fixes (2026-08-10)
+## v1.1.1 — Navigation Bug Fixes (2026-08-10)
 - Fixed Back button infinite loop (category ↔ detail bounce, never reaching Home): removed the hand-rolled history stack and switched to native `window.history.back()`, since every forward navigation already creates a real browser history entry
 
 ## v1.1 — hash links & favicon implementation (2026-08-10)
@@ -416,7 +470,7 @@ All notable changes to the FFF Skin Tools website, newest first.
 - Added favicon `<link>` tags
 - Swapped the coin icon (opaque-white slit → transparent slit) across all 4 places it appears
 
-## v1.1 — Hash links & Favicon (2026-08-10)
+## v1.0.1 — Hash links & Favicon (asset upload) (2026-08-10)
 - Uploaded Favicon.svg / Favicon.png asset files
 
 ## Initial deployment (2026-08-07)

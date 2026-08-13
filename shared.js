@@ -84,7 +84,12 @@ window.AppShared = (function () {
   var NO_AD_MS = 1200;   // "is an ad even coming?" window
   var AD_PLAY_MS = 30000; // safety net once an ad is genuinely on screen
 
+  // Ad diagnostics are opt-in rather than always-on: add ?addebug=1 to any URL to turn the
+  // [ads] logging back on (it survives navigation because the flag rides in the query string,
+  // which is also how routing works here). Off by default so production consoles stay clean.
+  var AD_DEBUG = /[?&]addebug=1/.test(location.search);
   function adLog() {
+    if (!AD_DEBUG) return;
     try { console.log.apply(console, ['[ads]'].concat([].slice.call(arguments))); } catch (e) {}
   }
 
@@ -140,5 +145,5 @@ window.AppShared = (function () {
     });
   }
 
-  return { getState, setState, fillAds, fillAdsWhenReady, navigateWithInterstitial, goBackWithInterstitial };
+  return { getState, setState, fillAds, fillAdsWhenReady, adLog, navigateWithInterstitial, goBackWithInterstitial };
 })();
