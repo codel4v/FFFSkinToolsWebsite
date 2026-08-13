@@ -2,6 +2,30 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.15 — Roll back CSS entirely; stop fighting AdSense's own resize box model (2026-08-13)
+- v1.14 made things worse: min-height:100px unconditional caused Top to also collapse almost
+  always, with mostly 1:1/square creatives now being served
+- Root cause reframed: AdSense sets sizing via inline styles on the ins during its own resize
+  step (which briefly shrinks before settling on final size) — inline styles beat any CSS rule
+  we write unless we use !important, so our min-height was never actually stopping the shrink,
+  it was just adding noise. Meanwhile the ad wrapper divs' overflow:hidden was clipping the ad
+  if it tried to grow past whatever height it was mid-resize at — this is what "shrinks, then
+  collapses" was actually showing us. The shrunk/clipped presentation at push() time is also the
+  likely cause of the 1:1-only creatives, since Google was measuring an artificially squeezed
+  container
+- Fix: removed the ins-level min-height rule entirely (back to zero custom sizing CSS — ad ops'
+  original snippet has none). Changed overflow:hidden to overflow:visible on all 10 ad wrapper
+  divs so nothing can clip AdSense's own resize. Kept the unfilled data-ad-status hide rule
+  only, which is Google's own documented recommendation and scoped to genuinely-unfilled ins,
+  not the filled/resizing case
+- Kept AppShared.fillAdsWhenReady()/fillAds() in shared.js — unlike ad ops' snippet, our ins
+  tags don't exist in the DOM until support.js compiles the page at runtime, so a deferred
+  push() call is a real architectural requirement here, not an embellishment
+- Lesson from this round: two consecutive "fixes" (v1.12's claim, and v1.14's real but wrong-
+  theory attempt) both tried to manage AdSense's box model via CSS instead of just not fighting
+  it — reverting to the minimum footprint matching ad ops' original tags first, rather than
+  layering on more CSS, was the move that should have happened earlier
+
 ## v1.14 — Actually fix the grey-line collapse (v1.12 fix had never shipped) (2026-08-13)
 - Root cause of the collapse bug "coming back with a vengeance": verified against the live
   deployed index.html and found the v1.12 fix was never actually applied — the CSS was still
