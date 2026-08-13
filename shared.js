@@ -43,6 +43,21 @@ window.AppShared = (function () {
     } catch (e) { /* AdSense script not loaded yet, or blocked (e.g. ad blocker) — fail silently */ }
   }
 
+  // Calls fillAds() once the page has fully loaded AND at least one full render/layout cycle
+  // has completed — document.readyState === 'complete' alone doesn't strictly guarantee the
+  // browser has actually finished laying out the page at that exact synchronous point, which
+  // is a plausible cause of the intermittent "No slot size for availableWidth=0" error (the ad
+  // slot's container briefly resolving to 0 width right when push() is called). A double
+  // requestAnimationFrame is the standard way to guarantee a real paint has happened first.
+  function fillAdsWhenReady() {
+    const afterPaint = () => requestAnimationFrame(() => requestAnimationFrame(fillAds));
+    if (document.readyState === 'complete') {
+      afterPaint();
+    } else {
+      window.addEventListener('load', afterPaint, { once: true });
+    }
+  }
+
   // Navigate to `url`, giving Google a real interstitial opportunity first — called
   // synchronously from a link's click handler, so it genuinely is "part of a user action".
   // Navigation always completes via adBreakDone, whether or not an ad actually showed — but
@@ -83,5 +98,5 @@ window.AppShared = (function () {
     }
   }
 
-  return { getState, setState, fillAds, navigateWithInterstitial, goBackWithInterstitial };
+  return { getState, setState, fillAds, fillAdsWhenReady, navigateWithInterstitial, goBackWithInterstitial };
 })();
