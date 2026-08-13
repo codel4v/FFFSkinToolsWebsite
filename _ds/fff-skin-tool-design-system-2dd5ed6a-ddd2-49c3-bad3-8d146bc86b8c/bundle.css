@@ -1,0 +1,258 @@
+/* FFF Skin Tools - combined design tokens + styles.
+   Concatenation of the 9 files previously linked separately, in original order.
+   The Google Fonts @import was hoisted to a <link> in index.html so it no longer
+   serializes behind this file being downloaded and parsed first. */
+
+/* ===== tokens/fonts.css ===== */
+/* FFF Skin Tool — Webfonts
+ * SUBSTITUTION NOTE: No brand font files were provided. These Google Fonts are
+ * chosen as the closest match to the logo's angular, technical wordmark:
+ *   - Chakra Petch  → squared, technical display (headings, stats, the "gaming-first" voice)
+ *   - IBM Plex Sans → clean, professional body/UI text
+ *   - IBM Plex Mono → numerics, diamond counts, IDs, code-like data
+ * Replace with licensed brand fonts when available.
+ */
+
+/* ===== tokens/colors.css ===== */
+/* FFF Skin Tool — Color System
+ * Dark-first. Deep navy canvas, electric crystal-cyan primary, gold for premium/legendary,
+ * violet + azure as rarity/secondary accents, chrome-silver text. Restrained on purpose:
+ * one hero accent (crystal), gold reserved for premium, no neon overload.
+ */
+:root{
+  /* ——— Ink / surfaces (deep navy blacks) ——— */
+  --ink-950:#05070F;
+  --ink-900:#0A0E1B;
+  --ink-850:#10162A;
+  --ink-800:#161E38;
+  --ink-700:#1E2947;
+  --ink-600:#2A3862;
+  --ink-500:#3A4B78;
+
+  /* ——— Crystal (primary accent — the cyan from the logo crystal) ——— */
+  --crystal-300:#8FF0FF;
+  --crystal-400:#4FE3FF;
+  --crystal-500:#1FCDF5;
+  --crystal-600:#0FA6D4;
+  --crystal-700:#0B7EA3;
+
+  /* ——— Azure (royal blue) ——— */
+  --azure-400:#4C86FF;
+  --azure-500:#2B63F5;
+  --azure-600:#1D48C9;
+
+  /* ——— Violet (epic rarity / secondary) ——— */
+  --violet-400:#A97DFF;
+  --violet-500:#8A5CFF;
+  --violet-600:#6C3FE0;
+
+  /* ——— Gold (premium / legendary) ——— */
+  --gold-300:#FFE59B;
+  --gold-400:#FFD264;
+  --gold-500:#F5B833;
+  --gold-600:#D4941A;
+
+  /* ——— Chrome / neutral text ——— */
+  --chrome-100:#EEF3FF;
+  --chrome-300:#C3CEE3;
+  --chrome-500:#A4B2D0;
+  --chrome-700:#647291;
+
+  /* ——— Hairlines ——— */
+  --line:rgba(255,255,255,0.07);
+  --line-strong:rgba(255,255,255,0.13);
+  --line-crystal:rgba(31,205,245,0.35);
+
+  /* ——— Semantic ——— */
+  --success:#33E0A0;
+  --warning:#FFB43D;
+  --danger:#FF5C77;
+  --info:var(--crystal-500);
+
+  /* ——— Rarity ladder (skins, pets, loot) ——— */
+  --rarity-common:#7C8AA8;
+  --rarity-rare:#3B82F6;
+  --rarity-epic:#8A5CFF;
+  --rarity-legendary:#F5B833;
+  --rarity-mythic:#1FCDF5;
+
+  /* ——— Gradients ——— */
+  --grad-crystal:linear-gradient(135deg,#4FE3FF 0%,#2B63F5 100%); /* @kind color */
+  --grad-premium:linear-gradient(135deg,#FFE59B 0%,#F5B833 55%,#D4941A 100%); /* @kind color */
+  --grad-mythic:linear-gradient(135deg,#8FF0FF 0%,#8A5CFF 100%); /* @kind color */
+  --grad-surface:linear-gradient(180deg,#161E38 0%,#10162A 100%); /* @kind color */
+  --grad-glow:radial-gradient(120% 120% at 50% 0%,rgba(31,205,245,0.18) 0%,rgba(31,205,245,0) 60%); /* @kind color */
+
+  /* ——— Semantic aliases ——— */
+  --bg-canvas:var(--ink-950);
+  --surface-1:var(--ink-850);
+  --surface-2:var(--ink-800);
+  --surface-3:var(--ink-700);
+  --border:var(--line);
+  --border-strong:var(--line-strong);
+
+  --brand:var(--crystal-500);
+  --brand-hover:var(--crystal-400);
+  --brand-active:var(--crystal-600);
+  --on-brand:#04121A;
+  --accent-premium:var(--gold-500);
+  --on-premium:#1A1203;
+
+  --text-primary:var(--chrome-100);
+  --text-secondary:var(--chrome-500);
+  --text-tertiary:var(--chrome-700);
+  --text-brand:var(--crystal-400);
+  --text-premium:var(--gold-400);
+}
+
+/* ===== tokens/typography.css ===== */
+/* FFF Skin Tool — Typography
+ * Chakra Petch = technical squared display (headings, stats, labels).
+ * IBM Plex Sans = clean professional body/UI. IBM Plex Mono = numerics/IDs.
+ */
+:root{
+  --font-display:'Chakra Petch',system-ui,sans-serif;
+  --font-sans:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+
+  /* Type scale (px) — app-density scale */
+  --fs-display:44px;
+  --fs-h1:32px;
+  --fs-h2:26px;
+  --fs-h3:20px;
+  --fs-title:17px;
+  --fs-body:15px;
+  --fs-sm:13px;
+  --fs-xs:11px;
+  --fs-micro:10px;
+
+  --lh-tight:1.05; /* @kind font */
+  --lh-snug:1.25; /* @kind font */
+  --lh-normal:1.5; /* @kind font */
+
+  --fw-regular:400; /* @kind font */
+  --fw-medium:500; /* @kind font */
+  --fw-semibold:600; /* @kind font */
+  --fw-bold:700; /* @kind font */
+
+  /* Letter-spacing — display is tight, labels are wide/technical */
+  --ls-display:-0.01em; /* @kind font */
+  --ls-normal:0; /* @kind font */
+  --ls-label:0.08em; /* @kind font */
+  --ls-caps:0.14em; /* @kind font */
+
+  /* Semantic text roles */
+  --text-hero:var(--fw-bold) var(--fs-display)/var(--lh-tight) var(--font-display); /* @kind font */
+  --text-h1:var(--fw-bold) var(--fs-h1)/var(--lh-tight) var(--font-display); /* @kind font */
+  --text-h2:var(--fw-semibold) var(--fs-h2)/var(--lh-snug) var(--font-display); /* @kind font */
+  --text-h3:var(--fw-semibold) var(--fs-h3)/var(--lh-snug) var(--font-display); /* @kind font */
+  --text-body:var(--fw-regular) var(--fs-body)/var(--lh-normal) var(--font-sans); /* @kind font */
+  --text-label:var(--fw-semibold) var(--fs-xs)/1 var(--font-display); /* @kind font */
+}
+
+/* ===== tokens/spacing.css ===== */
+/* FFF Skin Tool — Spacing & layout (4px base grid) */
+:root{
+  --sp-0:0; /* @kind spacing */
+  --sp-1:4px;
+  --sp-2:8px;
+  --sp-3:12px;
+  --sp-4:16px;
+  --sp-5:20px;
+  --sp-6:24px;
+  --sp-8:32px;
+  --sp-10:40px;
+  --sp-12:48px;
+  --sp-16:64px;
+  --sp-20:80px;
+
+  /* App layout */
+  --app-width:412px; /* @kind spacing */ /* Android reference width */
+  --app-gutter:16px;        /* @kind spacing */
+  --header-h:56px;          /* @kind spacing */
+  --tabbar-h:64px;          /* @kind spacing */
+  --touch-min:44px;         /* @kind spacing */
+}
+
+/* ===== tokens/radius.css ===== */
+/* FFF Skin Tool — Radius
+ * Controlled, slightly sharp. Sharp clip-corner motif reserved for the "shard" chip,
+ * expressed via clip-path in components rather than radius.
+ */
+:root{
+  --r-xs:4px;
+  --r-sm:8px;
+  --r-md:12px;
+  --r-lg:16px;
+  --r-xl:20px;
+  --r-2xl:28px;
+  --r-pill:999px;
+  --r-card:var(--r-lg);
+  --r-control:var(--r-md);
+}
+
+/* ===== tokens/shadow.css ===== */
+/* FFF Skin Tool — Elevation & glow
+ * On a dark canvas, elevation reads through lighter surface + subtle border, not heavy shadow.
+ * Glows are reserved (focus, legendary/mythic items) — never ambient neon everywhere.
+ */
+:root{
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md:0 6px 20px rgba(0,0,0,0.45);
+  --shadow-lg:0 18px 48px rgba(0,0,0,0.55);
+  --shadow-inset:inset 0 1px 0 rgba(255,255,255,0.05);
+
+  /* Focus + accent glows */
+  --glow-crystal:0 0 0 1px rgba(31,205,245,0.5),0 0 24px rgba(31,205,245,0.28);
+  --glow-gold:0 0 0 1px rgba(245,184,51,0.55),0 0 22px rgba(245,184,51,0.25);
+  --glow-violet:0 0 0 1px rgba(138,92,255,0.5),0 0 22px rgba(138,92,255,0.25);
+  --focus-ring:0 0 0 2px var(--ink-950),0 0 0 4px var(--crystal-500);
+}
+
+/* ===== tokens/motion.css ===== */
+/* FFF Skin Tool — Motion
+ * Fast, confident, snappy. Short durations, decisive easing. No bounce, no float loops.
+ */
+:root{
+  --dur-fast:120ms; /* @kind other */
+  --dur-base:180ms; /* @kind other */
+  --dur-slow:280ms; /* @kind other */
+  --ease-out:cubic-bezier(0.16,1,0.3,1); /* @kind other */
+  --ease-in-out:cubic-bezier(0.65,0,0.35,1); /* @kind other */
+  --ease-standard:cubic-bezier(0.4,0,0.2,1); /* @kind other */
+
+  --press-scale:0.97; /* @kind other */
+}
+
+/* ===== tokens/base.css ===== */
+/* FFF Skin Tool — base resets & primitives (opt-in via .fff-scope or applied to app roots) */
+*{box-sizing:border-box}
+
+.fff-scope,.fff-app{
+  background:var(--bg-canvas);
+  color:var(--text-primary);
+  font:var(--text-body);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Link defaults from palette */
+a{color:var(--text-brand);text-decoration:none;transition:color var(--dur-fast) var(--ease-out)}
+a:hover{color:var(--crystal-300)}
+
+/* Utility: technical uppercase label */
+.fff-label{font:var(--text-label);letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-secondary)}
+
+/* Utility: mono numerics */
+.fff-num{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+
+/* Selection */
+::selection{background:rgba(31,205,245,0.3);color:var(--chrome-100)}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:0.001ms!important;transition-duration:0.001ms!important}
+}
+
+/* ===== styles.css ===== */
+/* FFF Skin Tool Design System — global entry point.
+ * Consumers link THIS file. It is an import manifest only.
+ */
