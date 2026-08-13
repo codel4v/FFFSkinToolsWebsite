@@ -2,6 +2,41 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.23 — Rewarded ad shows without re-confirming; Welcome page reorder + CTA animation (2026-08-13)
+- No caching changes. v1.22's assets/ rule stays at max-age=31536000, immutable as deployed
+- REWARDED AD: beforeReward now calls showAdFn() immediately instead of revealing a second
+  "Ad ready / Watch Now" confirmation. One tap on "Watch ad to earn entry coins" now goes
+  straight into the ad once one is available
+- The "Finding an ad" and "No ad available / Try again" states are untouched and still behave
+  exactly as before -- only the redundant middle confirmation step is bypassed
+- Compliance reasoning: Google's rewarded requirement is an informed, user-initiated opt-in. The
+  initiating button already satisfies both -- it is a direct user tap and it states the reward on
+  the button itself ("WATCH AD TO EARN ENTRY COINS", with "Each short ad adds 10 coins" directly
+  beneath). That copy is now load-bearing for compliance and should NOT be reworded to drop the
+  reward amount. Note Google's documented sample pattern is the two-step prompt, so this relies
+  on the initiating tap being the opt-in rather than a prompt inside beforeReward
+- Kept the old two-step path as a FALLBACK only: if showAdFn() throws, or if the ad hasn't taken
+  over the screen within 2.5s (beforeAd never fires), the "Ad ready / Watch Now" prompt appears so
+  the user is never stranded on "Finding an ad". The fallback timer is cleared in beforeAd,
+  adDismissed, adViewed and closeAd so it can't fire late over a playing or closed ad
+- WELCOME PAGE reordered to get Get Started above the fold. New order: top ad slot -> header
+  image + "Welcome To" + "FFF Skin Tools" -> Get Started -> Rate/Share/Policy tiles -> the
+  "Every legendary drop..." line -> Top Features and the rest unchanged
+- The tagline paragraph moved out of the centred hero block to its own centred wrapper below the
+  tiles (it kept its max-width:320px and centring, so it reads the same)
+- Header image reduced from max-width 420px to 340px, hero top padding 44px -> 26px, and the
+  decorative radial glow behind it scaled 400x320 -> 360x270 to match. Ad slot untouched
+- Net effect: Get Started moves from roughly 936px down the page to roughly 686px with a filled
+  top ad, or about 406px when the top slot is unfilled -- a saving of about 250px. Caveat: with a
+  filled 280px-tall top ad this is right at the fold on shorter phones. The top ad is by far the
+  biggest consumer of above-fold space and was deliberately left alone, so if it needs to clear
+  the fold on every device the logo would have to come down further (~300px) or the "Welcome To"
+  eyebrow be dropped
+- Get Started now has a pulse + radiating glow animation (.fff-cta): 2.4s ease-in-out, scaling to
+  1.028 with the shadow blooming and a soft expanding ring. The 0%/100% keyframe matches the
+  button's existing inline box-shadow so it rests at its normal appearance between pulses.
+  Wrapped in prefers-reduced-motion so it disables for users who ask for less animation
+
 ## v1.22 — Caching, render-blocking cleanup, CSS consolidation, hygiene (2026-08-13)
 - Audit follow-up; items 1, 2, 3, 5, 7 and 8 from the full-repo pass. No new functionality
 - CACHING (new vercel.json): assets/ now served with max-age=31536000, immutable. This matters

@@ -34,6 +34,15 @@
   *::-webkit-scrollbar{display:none}
   @keyframes fff-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
   .fff-spinner{animation:fff-spin 1s linear infinite;transform-origin:center}
+  /* Get Started CTA: gentle pulse + radiating glow to draw the eye. The 0%/100% box-shadow
+     matches the button's inline shadow so it rests at its normal look between pulses. */
+  @keyframes fff-cta-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.028)}}
+  @keyframes fff-cta-glow{
+    0%,100%{box-shadow:0 10px 32px rgba(31,205,245,0.34), 0 0 0 0 rgba(31,205,245,0.30)}
+    50%{box-shadow:0 12px 42px rgba(31,205,245,0.62), 0 0 0 8px rgba(31,205,245,0.06)}
+  }
+  .fff-cta{animation:fff-cta-pulse 2.4s ease-in-out infinite, fff-cta-glow 2.4s ease-in-out infinite}
+  @media (prefers-reduced-motion: reduce){.fff-cta{animation:none}}
   ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important}
   /* No box/border/radius around ad slots on purpose — we don't control the creative's
      size, and framing it just fought the ad. Only thing left is the AD label, which has
@@ -97,15 +106,18 @@
         </div>
       </div>
 
-      <div style="position:relative;padding:44px 16px 4px;display:flex;flex-direction:column;align-items:center;text-align:center">
-        <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:400px;height:320px;background:radial-gradient(50% 50% at 50% 44%, rgba(31,205,245,0.4), transparent 72%);filter:blur(4px);pointer-events:none"></div>
-        <img src="assets/hero-logo-characters.webp" alt="FFF Skin Tools" style="position:relative;width:100%;max-width:420px;height:auto;filter:drop-shadow(0 14px 46px rgba(31,205,245,0.5)) drop-shadow(0 2px 30px rgba(138,92,255,0.5))">
+      <div style="position:relative;padding:26px 16px 4px;display:flex;flex-direction:column;align-items:center;text-align:center">
+        <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:360px;height:270px;background:radial-gradient(50% 50% at 50% 44%, rgba(31,205,245,0.4), transparent 72%);filter:blur(4px);pointer-events:none"></div>
+        <img src="assets/hero-logo-characters.webp" alt="FFF Skin Tools" style="position:relative;width:100%;max-width:340px;height:auto;filter:drop-shadow(0 14px 46px rgba(31,205,245,0.5)) drop-shadow(0 2px 30px rgba(138,92,255,0.5))">
         <span style="position:relative;margin-top:10px;font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-tertiary)">Welcome To</span>
         <h1 style="position:relative;margin:6px 0 0;font-family:var(--font-display);font-size:32px;font-weight:700;letter-spacing:-0.01em;line-height:1.05;color:var(--chrome-100)">FFF Skin Tools</h1>
-        <p style="position:relative;margin:12px 0 0;font-size:14px;line-height:1.55;color:var(--chrome-300);max-width:320px;text-wrap:pretty">Every legendary drop and rare cache in Free Fire, tracked in one arsenal — free, in your browser.</p>
       </div>
 
-      <div style="padding:34px 16px 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+      <div style="padding:20px 16px 0">
+        <a href="index.html?screen=home" onClick="{{ getStartedClick }}" class="fff-cta" style="width:100%;height:58px;border-radius:16px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 32px rgba(31,205,245,0.34);display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;box-sizing:border-box">Get Started<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+      </div>
+
+      <div style="padding:26px 16px 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
         <div onClick="{{ noop }}" style="display:flex;flex-direction:column;align-items:center;gap:9px;padding:15px 8px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));border:1px solid rgba(245,184,51,0.34);cursor:pointer" style-hover="border-color:rgba(245,184,51,0.7)">
           <span style="width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:rgba(245,184,51,0.12);border:1px solid rgba(245,184,51,0.4);color:var(--gold-400)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2 8 12.7 4 8.8 9.5 8Z"></path></svg></span>
           <span style="font-family:var(--font-display);font-size:11.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--chrome-100);text-align:center">Rate Our App</span>
@@ -120,11 +132,12 @@
         </div>
       </div>
 
-      <div style="padding:22px 16px 0">
-        <a href="index.html?screen=home" onClick="{{ getStartedClick }}" style="width:100%;height:58px;border-radius:16px;border:none;background:var(--grad-crystal);color:var(--on-brand);font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 32px rgba(31,205,245,0.34);display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;box-sizing:border-box">Get Started<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+
+      <div style="padding:22px 16px 0;display:flex;justify-content:center">
+        <p style="margin:0;font-size:14px;line-height:1.55;color:var(--chrome-300);max-width:320px;text-align:center;text-wrap:pretty">Every legendary drop and rare cache in Free Fire, tracked in one arsenal — free, in your browser.</p>
       </div>
 
-      <div style="padding:52px 16px 0;display:flex;flex-direction:column;gap:44px">
+      <div style="padding:40px 16px 0;display:flex;flex-direction:column;gap:44px">
         <div style="display:flex;flex-direction:column;gap:13px">
           <div style="display:flex;align-items:center;gap:10px"><span style="width:5px;height:20px;border-radius:3px;background:linear-gradient(180deg,#4FE3FF,#2B63F5)"></span><h2 style="margin:0;font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text-primary)">Top Features</h2></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
@@ -613,15 +626,27 @@ class Component extends DCLogic {
     adBreak({
       type: 'reward',
       name: 'watch-ad-for-coins',
-      // Fires once a real ad is actually available. We can't call showAdFn() here directly —
-      // it must be triggered by its own direct user click — so we reveal a "Watch Now" button instead.
+      // Fires once a real ad is actually available. The user has ALREADY opted in by tapping
+      // "Watch ad to earn entry coins", which states the reward on the button itself — so we
+      // show the ad immediately rather than asking a second time.
       beforeReward: (showAdFn) => {
         this._showRewardedAd = showAdFn;
-        this.setState({ rewardReady: true });
+        try {
+          showAdFn();
+          // Safety net: if the ad never actually takes over the screen (beforeAd doesn't fire),
+          // fall back to the explicit Watch Now prompt rather than stranding the user on
+          // "Finding an ad" forever. This keeps the old two-step path alive as a fallback only.
+          clearTimeout(this._rewardFallbackTimer);
+          this._rewardFallbackTimer = setTimeout(() => {
+            this.setState(st => (st.adOpen && !st.rewardReady) ? { rewardReady: true } : null);
+          }, 2500);
+        } catch (e) {
+          this.setState({ rewardReady: true }); // auto-show refused — let the user tap through
+        }
       },
-      beforeAd: () => { this.setState({ adOpen: false }); }, // real ad is about to take over the screen — hide our own UI
-      adDismissed: () => { this.setState({ adOpen: false, rewardReady: false }); }, // user backed out before finishing
-      adViewed: () => { const s = AppShared.setState({ coins: AppShared.getState().coins + 10 }); this.setState({ adOpen: false, rewardReady: false, coins: s.coins }); }, // reward only granted here
+      beforeAd: () => { clearTimeout(this._rewardFallbackTimer); this.setState({ adOpen: false }); }, // real ad is about to take over the screen — hide our own UI
+      adDismissed: () => { clearTimeout(this._rewardFallbackTimer); this.setState({ adOpen: false, rewardReady: false }); }, // user backed out before finishing
+      adViewed: () => { clearTimeout(this._rewardFallbackTimer); const s = AppShared.setState({ coins: AppShared.getState().coins + 10 }); this.setState({ adOpen: false, rewardReady: false, coins: s.coins }); }, // reward only granted here
       adBreakDone: () => {
         // Fires in every case, including when no ad was available at all. If we never got as far as
         // showing a real ad, surface a visible error instead of silently closing — but not so fast the
@@ -639,6 +664,7 @@ class Component extends DCLogic {
     if (this._showRewardedAd) this._showRewardedAd();
   }
   closeAd() {
+    clearTimeout(this._rewardFallbackTimer);
     // Reachable during "finding an ad" / "ad ready" / error stages — once a real ad is actually
     // playing, beforeAd already hid this modal.
     this.setState({ adOpen: false, rewardReady: false, rewardError: false });
