@@ -2,6 +2,28 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.19 — Strip the frame around Top/Bottom ad slots (2026-08-13)
+- Simplified the Top/Bottom ad slots site-wide (all 20 blocks, every screen). Removed the
+  rounded frame entirely: no border, no border-radius, no background, no overflow, no
+  position:relative, and dropped the leftover width/flex-shrink/min-width props from the
+  abandoned v1.16 flex theory. Each slot is now just a bare wrapper (width:100%, plus
+  grid-column:1/-1 on the two inside Rank's 2-col grid) containing an AD label and the ins
+- Reason: these creatives are sometimes video and we don't control their dimensions, so a fixed
+  rounded frame was never going to fit them. Reported symptoms it addresses: ads rarely fitting
+  the frame, and on iPhone Chrome incognito rendering outside/above the box with square corners
+  while the frame stayed rounded -- i.e. the frame and the ad disagreeing about size
+- The AD label was position:absolute overlaying the creative's top-left corner; it's now a plain
+  block label sitting above the ad. Better for policy too (label adjacent to the ad rather than
+  obscuring it)
+- Consequence to be aware of: the grey line on an unfilled slot is gone, because that line WAS
+  this box's 1px top+bottom border. With no border there's nothing to show. Added
+  .fff-ad:has(ins[data-ad-status="unfilled"]){display:none} so an unfilled slot also hides its
+  AD label -- otherwise you'd get a stray "AD" with no ad beneath it. If a visible no-fill
+  indicator is wanted back, that one CSS rule is the place to change
+- Field report on v1.18: non-rewarded interstitials are firing again, roughly half of
+  navigations. Consistent with the frequency cap plus normal fill variability, so no further
+  interstitial changes made here -- leaving it to settle before touching it again
+
 ## v1.18 — Fix non-rewarded interstitials not firing on navigation (2026-08-13)
 - Static display ads: left exactly as-is at v1.17. The grey line on an unfilled slot is
   intentional/wanted and was NOT removed. Console diagnostics from v1.17 testing showed the
