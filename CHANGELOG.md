@@ -2,6 +2,26 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.16 — Fix collapse on Detail/flow screens: ad wrapper as flex item (2026-08-13)
+- Reported: static ads still collapsing on the item Detail screen and every flow screen after
+  it (Terminal, Account Sync, Complete), even on a cold first load with no prior navigation --
+  ruling out any session/frequency-based explanation
+- Verified the v1.14/v1.15 CSS fixes ARE present identically on every screen, including these
+  ones -- this is not a leftover of the earlier bug
+- Actual difference found by checking each ad wrapper's direct parent: on Welcome/Home/Category
+  (stable) the ad wrapper's parent is a plain block div. On Detail, Flow Terminal, Flow Account
+  Sync, and Flow Complete (collapsing) the ad wrapper's direct parent is a
+  display:flex;flex-direction:column container -- making the ad wrapper itself a flex item
+- Flex items get min-width:auto by default, which lets the browser size them by content rather
+  than guaranteeing 100% width -- a known source of full-width-responsive AdSense units
+  mis-measuring available space, rendering, then re-resolving to something smaller. This matches
+  the "shrinks, then collapses" symptom exactly
+- Fix: added width:100%;flex-shrink:0;min-width:0 to the 4 ad wrapper divs that sit inside a
+  flex column (Detail, Flow Terminal, Flow Account Sync, Flow Complete only) to force stable
+  block-level sizing regardless of the flex context. The 6 wrappers on non-flex parents
+  (Welcome/Home/Category) were left untouched since they were never affected
+- Flow Mode Selection and Flow Level Selection have no ad slots at all, so nothing to fix there
+
 ## v1.15 — Roll back CSS entirely; stop fighting AdSense's own resize box model (2026-08-13)
 - v1.14 made things worse: min-height:100px unconditional caused Top to also collapse almost
   always, with mostly 1:1/square creatives now being served
