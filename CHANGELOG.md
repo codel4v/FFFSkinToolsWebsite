@@ -2,6 +2,40 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.13 — Fix lingering availableWidth=0 error; note on ad sizing (2026-08-13)
+- Confirmed via fresh screenshot: "TagError: adsbygoogle.push() error: No slot size for
+  availableWidth=0" is a separate, still-open issue from the v1.12 grey-line fix (that one was
+  about height being removed after fill; this is specifically about width resolving to 0 at
+  push() time)
+- Replaced the readyState/load-event gate with AppShared.fillAdsWhenReady(): waits for load,
+  then a double requestAnimationFrame — readyState === 'complete' doesn't strictly guarantee
+  the browser has actually finished a layout pass at that exact synchronous point, which is a
+  plausible cause of the intermittent width=0 error; double rAF is the standard way to
+  guarantee a real paint has happened first
+- Reviewed the "ad sizing sometimes looks off" report (a tall list-style creative pushing
+  content down): this looks like normal variation from data-ad-format="auto", not a bug —
+  Google is deliberately choosing creative shape/size per request. Constraining the format
+  (e.g. "rectangle") would reduce this at the cost of fill rate; not changed without a
+  decision on that trade-off
+- Confirmed via screenshot: rewarded ads are genuinely playing full video creatives now
+  (#goog_fullscreen_ad), consistent with what's been reported working
+
+## v1.12 — Fix: ads rendering then collapsing into a grey line (2026-08-12)
+- Confirmed: the top/bottom static ad refresh bug (loading only once, needing a refresh) is
+  fixed as of the v1.9/v1.10 query-string routing work — no longer an open issue
+- New bug found instead: an ad would render successfully, then collapse into a grey
+  placeholder a moment later. Root cause: our own CSS removed the reserved min-height the
+  instant data-ad-status="filled" appeared, which could trigger Google's script to
+  re-evaluate the slot's now-changed dimensions and invalidate what was just a working ad
+- Fixed: min-height is now static (100px, down from 250px) and never removed once an ad
+  fills — only the display:none for genuinely unfilled slots still toggles dynamically
+- Reviewed the once-in-7-9-attempts rewarded ad auto-close report: nothing in our code can
+  cause this — our own UI is fully removed from the DOM before real ad playback begins, so
+  this is most likely inherent ad-network flakiness, not a fixable bug on our end
+- Ad ops enabled vignette ads via the AdSense dashboard directly — working well, so the
+  custom overlay-style interstitial (discussed but never built) is no longer needed
+- Regular (non-rewarded) blanket interstitials confirmed not firing anywhere — next up
+
 ## v1.11 — Fix: navigation could get permanently stuck (2026-08-12)
 - v1.10's navigateWithInterstitial()/goBackWithInterstitial() waited for adBreakDone before
   navigating, with no fallback — reported as "clicking a category does nothing"

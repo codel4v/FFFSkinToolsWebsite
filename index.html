@@ -619,13 +619,7 @@ class Component extends DCLogic {
   componentDidMount() {
     if (typeof adConfig === 'function') adConfig({ sound: 'off' });
     this.updateTitle();
-    // Wait for the page to be fully loaded (styles/fonts/images settled) before the first ad
-    // fill — requesting one before layout is stable can silently fail.
-    if (document.readyState === 'complete') {
-      AppShared.fillAds();
-    } else {
-      window.addEventListener('load', () => AppShared.fillAds(), { once: true });
-    }
+    AppShared.fillAdsWhenReady();
   }
   updateTitle() {
     const base = 'FFF Skin Tools';
