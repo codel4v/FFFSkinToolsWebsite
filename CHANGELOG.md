@@ -2,6 +2,23 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.14 — Actually fix the grey-line collapse (v1.12 fix had never shipped) (2026-08-13)
+- Root cause of the collapse bug "coming back with a vengeance": verified against the live
+  deployed index.html and found the v1.12 fix was never actually applied — the CSS was still
+  the original `ins.adsbygoogle:not([data-ad-status]){min-height:250px}` rule, not the static
+  100px/never-removed version the v1.12 entry describes
+- `:not([data-ad-status])` stops matching the instant Google sets data-ad-status="filled" on
+  the ins, so the min-height rule doesn't shrink, it disappears entirely — and since each ad's
+  wrapper div has overflow:hidden with no height of its own, the whole block collapses to the
+  AD-badge sliver the moment a fill succeeds. Very likely also what triggers Google's script to
+  re-evaluate and invalidate the just-filled ad, per the original v1.12 theory
+- Explains the Top (~1/4) vs Bottom (almost every time) asymmetry too — it tracks how often
+  each slot actually resolves to data-ad-status at all, not a lazy-load/viewport timing effect
+- Fixed for real this time: `ins.adsbygoogle{min-height:100px}` (unconditional, all states),
+  `ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important}` unchanged
+- Reinforces the standing rule: always verify against the actual deployed file before trusting
+  a changelog entry describing a fix as shipped
+
 ## v1.13 — Fix lingering availableWidth=0 error; note on ad sizing (2026-08-13)
 - Confirmed via fresh screenshot: "TagError: adsbygoogle.push() error: No slot size for
   availableWidth=0" is a separate, still-open issue from the v1.12 grey-line fix (that one was
