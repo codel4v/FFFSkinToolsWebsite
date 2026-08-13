@@ -2,6 +2,30 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.24 — Actually get Get Started above the fold on mobile (2026-08-13)
+- v1.23 shrank the header image but the space it occupied stayed, as reported. Cause: the logo
+  was sized by WIDTH (width:100%;max-width:340px;height:auto), which guarantees nothing about its
+  HEIGHT -- the rendered height is whatever the aspect ratio produces at that width, so on wider
+  viewports it still filled ~227px and the hero block's height followed it. Reducing max-width
+  from 420 to 340 only reclaimed ~53px, nowhere near enough
+- Fix: constrain the logo by height instead -- width:auto;height:auto;max-width:100%;max-height:150px.
+  The vertical budget is now deterministic regardless of viewport width, which is the property
+  that was missing. Aspect ratio is preserved (the image is 1.5:1, so it renders ~225x150)
+- Confirmed the image itself was NOT the problem: checked hero-logo-characters.webp's alpha
+  bounding box and there is no baked-in transparent padding to crop (6px top, 0px bottom of 560)
+- Supporting cuts in the hero block: padding-top 26 -> 10, padding-bottom 4 -> 0, the "Welcome To"
+  eyebrow margin 10 -> 8 and font 12 -> 11px, h1 32 -> 26px with margin 6 -> 4, and the decorative
+  radial glow rescaled 360x270 -> 300x200 to match. CTA wrapper padding-top 20 -> 16
+- Measured result on a 393px-wide device with a filled 280px top ad: bottom of Get Started moves
+  from ~769px to ~656px, a 113px saving. Fits with ~44px headroom on a typical Android Chrome
+  viewport (~700px usable) and ~74px on iPhone Safari (~730px)
+- Remaining caveat, unchanged from v1.23: the top ad slot is ~312px of the budget and was left
+  untouched by instruction. On a small phone (~640px usable) it is still about 16px over, and if
+  the ad serves taller than 280px that headroom shrinks accordingly. The next levers, if needed,
+  would be max-height 150 -> 120 on the logo or dropping the "Welcome To" eyebrow entirely
+- The sticky header bar was deliberately NOT touched: that markup is shared with the Home screen,
+  and changing it would have altered a screen outside the scope of this request for ~4px
+
 ## v1.23 — Rewarded ad shows without re-confirming; Welcome page reorder + CTA animation (2026-08-13)
 - No caching changes. v1.22's assets/ rule stays at max-age=31536000, immutable as deployed
 - REWARDED AD: beforeReward now calls showAdFn() immediately instead of revealing a second
