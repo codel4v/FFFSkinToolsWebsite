@@ -2,6 +2,25 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.17 — Ad slots on all flow screens; slot-parity test for the collapse (2026-08-13)
+- v1.16's flex-item theory did NOT fix it: Detail and the flow screens still collapse, both via
+  the flow and on a fresh direct load. Third failed theory in a row on this bug
+- Added the missing static slots: Mode Selection, Progression Level, and Rank Selection had NO
+  ad slots at all and now have both Top and Bottom. Rank's container is a 2-col grid, so its
+  ad wrappers get grid-column:1/-1 to span full width instead of sitting in one cell
+- Also added the complementary slot to the four screens that only had one: Detail (had Top only,
+  now + Bottom), Flow Terminal / Account Sync / Complete (had Bottom only, now + Top). Every
+  screen now has exactly one Top + one Bottom; 20 ins tags across 10 screens
+- Reason for doing that beyond consistency: the only structural property that correlates
+  perfectly with the bug across all 7 ad-bearing screens is slot COUNT, not any CSS property --
+  Welcome/Home/Category have two slots and are stable; Detail/Terminal/Verify/Complete had
+  exactly one and all collapse. No confirmed mechanism for why, so this is explicitly a
+  hypothesis test that happens to coincide with wanted work, NOT a diagnosed fix
+- If the collapse persists after this, stop guessing and capture real evidence first -- a
+  MutationObserver on the ins (logging data-ad-status, inline style, offsetWidth/Height over
+  time) will show whether the slot is being un-filled, resized to zero, or width-starved,
+  which none of the last three theories could distinguish between
+
 ## v1.16 — Fix collapse on Detail/flow screens: ad wrapper as flex item (2026-08-13)
 - Reported: static ads still collapsing on the item Detail screen and every flow screen after
   it (Terminal, Account Sync, Complete), even on a cold first load with no prior navigation --
