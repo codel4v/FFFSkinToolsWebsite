@@ -2,6 +2,20 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.11 — Fix: navigation could get permanently stuck (2026-08-12)
+- v1.10's navigateWithInterstitial()/goBackWithInterstitial() waited for adBreakDone before
+  navigating, with no fallback — reported as "clicking a category does nothing"
+- Confirmed via console: Google's own ad script is throwing real internal errors on this page
+  ("TagError: adsbygoogle.push() error: No slot size for availableWidth=0") — if a similar
+  error happens inside adBreak()'s own processing, adBreakDone can simply never fire
+- Added a hard 2.5s timeout so navigation always completes regardless of what the ad script
+  does, plus a try/catch around adBreak() itself so a thrown error navigates immediately
+  instead of waiting out the timeout unnecessarily
+- Verified both failure modes directly in Node (adBreakDone never firing, adBreak() throwing
+  synchronously) before shipping
+- The "No slot size for availableWidth=0" error is new, useful evidence for the still-open
+  Top/Bottom static ad slot bug — not addressed in this release, still next up
+
 ## v1.10 — Fix interstitial/rewarded broken by v1.9 (2026-08-12)
 - Root cause: Google's Ad Placement API requires adBreak() to be called "as part of a user
   action". v1.9 called it in componentDidMount — a page-load lifecycle hook, not a live user

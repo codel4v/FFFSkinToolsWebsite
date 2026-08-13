@@ -45,10 +45,22 @@ window.AppShared = (function () {
 
   // Navigate to `url`, giving Google a real interstitial opportunity first — called
   // synchronously from a link's click handler, so it genuinely is "part of a user action".
-  // Navigation always completes via adBreakDone, whether or not an ad actually showed.
+  // Navigation always completes via adBreakDone, whether or not an ad actually showed — but
+  // that's guarded with a hard timeout below: Google's own ad script has been observed
+  // throwing real internal errors (e.g. "No slot size for availableWidth=0"), and if that
+  // happens during adBreak()'s own processing, adBreakDone may simply never fire. Getting
+  // permanently stuck unable to navigate is a far worse outcome than a missing ad, so this
+  // never waits indefinitely no matter what the ad script does.
   function navigateWithInterstitial(url) {
     if (typeof adBreak !== 'function') { location.href = url; return; }
-    adBreak({ type: 'next', name: 'page-nav', adBreakDone: () => { location.href = url; } });
+    let navigated = false;
+    const go = () => { if (!navigated) { navigated = true; location.href = url; } };
+    setTimeout(go, 2500);
+    try {
+      adBreak({ type: 'next', name: 'page-nav', adBreakDone: go });
+    } catch (e) {
+      go(); // adBreak() itself threw — navigate immediately rather than getting stuck
+    }
   }
 
   // Same idea, but for Back buttons, which don't have a fixed destination URL — they rely on
@@ -60,8 +72,15 @@ window.AppShared = (function () {
       history.back();
       setTimeout(() => { if (location.href === before) location.href = fallbackUrl; }, 200);
     };
-    if (typeof adBreak !== 'function') { doBack(); return; }
-    adBreak({ type: 'next', name: 'page-nav', adBreakDone: doBack });
+    let done = false;
+    const safeDoBack = () => { if (!done) { done = true; doBack(); } };
+    if (typeof adBreak !== 'function') { safeDoBack(); return; }
+    setTimeout(safeDoBack, 2500);
+    try {
+      adBreak({ type: 'next', name: 'page-nav', adBreakDone: safeDoBack });
+    } catch (e) {
+      safeDoBack();
+    }
   }
 
   return { getState, setState, fillAds, navigateWithInterstitial, goBackWithInterstitial };
