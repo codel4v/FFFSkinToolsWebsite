@@ -2,6 +2,42 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.20 — Loading performance: lazy loading, fetch priority, preconnect (2026-08-13)
+- Audited load performance after a slow-connection report on mobile. Finding: lazy loading was
+  implemented in exactly ONE place (category list row thumbnails, via realImg(..., true)) out of
+  ~20 img() call sites -- but lazy loading is NOT the main bottleneck here
+- The dominant problem is raw image weight. assets/ is 164 files / 90 MB, averaging 560 KB per
+  file, with 43 files over 500 KB. The site frame is max-width 480px, and the images are
+  full-resolution uncompressed PNGs, e.g.:
+    app-icon.png                  1254x1254  2.1 MB  -- rendered at 32x32 in the header
+    site-bg.png                   1448x1086  2.5 MB  -- blurred, 50% opacity, on EVERY page
+    catalog-weapons-header.png    1448x1086  2.8 MB  -- shown at roughly 480x190
+    characters/nulla.png          1024x1536  2.3 MB  -- 74x74 in list view
+  Measured on a 5-file sample: resizing to displayed size + WebP at q82 took 11.6 MB down to
+  456 KB, a 96% reduction. Extrapolated, assets/ would go from ~90 MB to roughly 3.5 MB.
+  NOT done in this release -- it changes 164 binary files and every src path, so it needs to be
+  its own deliberate pass
+- Why lazy loading has limited headroom on its own: the heaviest images (page headers, detail
+  hero, site background, app icon) are all ABOVE the fold, and loading="lazy" only defers what's
+  offscreen. Those can only be fixed by making the files smaller
+- Code-level wins shipped here:
+  - loading="lazy" added to the 7 Rank/league tile images and to the info/troubleshoot modal
+    image (the latter only ever renders once a user opens it, so it was pure waste before)
+  - fetchpriority="low" + decoding="async" on site-bg.png and splash-bg.png -- both are purely
+    decorative, blurred and semi-transparent, but were competing with real content for
+    bandwidth. They fill the viewport so lazy can't defer them; deprioritising is the right tool
+  - fetchPriority "high" on the two LCP images (category header, detail hero) so they win the
+    race against the decorative layers instead of queueing behind them
+  - decoding="async" now applied to all images via the img() helper, not just lazy ones
+  - Added preconnect to pagead2.googlesyndication.com and googleads.g.doubleclick.net, plus
+    dns-prefetch for tpc.googlesyndication.com -- saves a DNS + TLS round trip before any ad
+    byte transfers, which is significant on high-latency mobile
+- img() helper signature extended to img(src, style, lazy, prio); existing 3-arg calls unaffected
+- Worth noting for future perf work: the query-string routing pivot means every screen is a real
+  page load, so index.html (141 KB) + support.js (63 KB) + 9 separate token CSS files +
+  _ds_bundle.js are re-requested per navigation. Browser cache covers most of it after the first
+  visit, but the 9 separate CSS round trips are a latency cost worth revisiting
+
 ## v1.19 — Strip the frame around Top/Bottom ad slots (2026-08-13)
 - Simplified the Top/Bottom ad slots site-wide (all 20 blocks, every screen). Removed the
   rounded frame entirely: no border, no border-radius, no background, no overflow, no
