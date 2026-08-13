@@ -58,44 +58,86 @@ window.AppShared = (function () {
     }
   }
 
-  // Navigate to `url`, giving Google a real interstitial opportunity first — called
-  // synchronously from a link's click handler, so it genuinely is "part of a user action".
-  // Navigation always completes via adBreakDone, whether or not an ad actually showed — but
-  // that's guarded with a hard timeout below: Google's own ad script has been observed
-  // throwing real internal errors (e.g. "No slot size for availableWidth=0"), and if that
-  // happens during adBreak()'s own processing, adBreakDone may simply never fire. Getting
-  // permanently stuck unable to navigate is a far worse outcome than a missing ad, so this
-  // never waits indefinitely no matter what the ad script does.
-  function navigateWithInterstitial(url) {
-    if (typeof adBreak !== 'function') { location.href = url; return; }
-    let navigated = false;
-    const go = () => { if (!navigated) { navigated = true; location.href = url; } };
-    setTimeout(go, 2500);
+  // ---------------------------------------------------------------------------
+  // Non-rewarded interstitial ("blanket" ad break) on navigation.
+  //
+  // Why the previous version never showed an ad:
+  //   1. A blind setTimeout(go, 2500) fired REGARDLESS of whether an ad was
+  //      playing. A real interstitial takes longer than 2.5s (the user has to
+  //      view/dismiss it), so even a successfully-served ad got destroyed by
+  //      navigating away mid-playback. The timeout has to distinguish "no ad is
+  //      coming" from "an ad is on screen right now" — that's what beforeAd is for.
+  //   2. adBreakDone receives a placementInfo argument whose breakStatus says
+  //      exactly why no ad showed (noAdPreloaded / frequencyCapped / timeout /
+  //      ignored / dismissed / viewed / error / notReady / other). It was being
+  //      discarded, so there was no way to tell a policy/fill decision apart from
+  //      a code bug. It's now logged.
+  //   3. Every screen is a REAL page load in this app, so each page starts a brand
+  //      new ad-placement session with nothing preloaded. Clicking a few seconds
+  //      later then asks for a break that was never fetched. adConfig now sets
+  //      preloadAdBreaks:'on' so Google starts fetching a break at page load.
+  //
+  // Timing model: wait a short window to see if an ad even starts (beforeAd). If
+  // it doesn't, navigate immediately — no ad was coming. If it does, cancel that
+  // window and allow a long one so the ad can actually play to completion.
+  // Navigation is never blocked indefinitely no matter what the ad script does.
+  var NO_AD_MS = 1200;   // "is an ad even coming?" window
+  var AD_PLAY_MS = 30000; // safety net once an ad is genuinely on screen
+
+  function adLog() {
+    try { console.log.apply(console, ['[ads]'].concat([].slice.call(arguments))); } catch (e) {}
+  }
+
+  // Runs an interstitial opportunity, then calls onDone() exactly once.
+  function runNavInterstitial(label, onDone) {
+    var done = false;
+    var timer = null;
+    function finish(why) {
+      if (done) return;
+      done = true;
+      if (timer) clearTimeout(timer);
+      adLog(label, '-> continuing:', why);
+      onDone();
+    }
+    if (typeof adBreak !== 'function') { finish('adBreak() unavailable'); return; }
+
+    timer = setTimeout(function () { finish('no ad started within ' + NO_AD_MS + 'ms'); }, NO_AD_MS);
+
     try {
-      adBreak({ type: 'next', name: 'page-nav', adBreakDone: go });
+      adBreak({
+        type: 'next',
+        name: label,
+        // Fires only when an ad is actually about to take over the screen. This is
+        // the signal that we must NOT navigate yet.
+        beforeAd: function () {
+          adLog(label, 'beforeAd — ad taking over, holding navigation');
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(function () { finish('ad exceeded ' + AD_PLAY_MS + 'ms safety net'); }, AD_PLAY_MS);
+        },
+        afterAd: function () { adLog(label, 'afterAd — ad finished'); },
+        adBreakDone: function (info) {
+          adLog(label, 'adBreakDone breakStatus =', (info && info.breakStatus) || '(none)');
+          finish('adBreakDone');
+        }
+      });
     } catch (e) {
-      go(); // adBreak() itself threw — navigate immediately rather than getting stuck
+      adLog(label, 'adBreak() threw:', e && e.message);
+      finish('adBreak() threw');
     }
   }
 
-  // Same idea, but for Back buttons, which don't have a fixed destination URL — they rely on
-  // the browser's own history. Falls back to `fallbackUrl` if there was nothing real to go
-  // back to (checked only after the ad break has resolved, not from a blind fixed delay).
+  function navigateWithInterstitial(url) {
+    runNavInterstitial('page-nav', function () { location.href = url; });
+  }
+
+  // Same, but for Back buttons, which have no fixed destination — they rely on
+  // browser history, with fallbackUrl used only if there was nothing to go back to.
   function goBackWithInterstitial(fallbackUrl) {
-    const doBack = () => {
-      const before = location.href;
+    runNavInterstitial('page-back', function () {
+      var before = location.href;
       history.back();
-      setTimeout(() => { if (location.href === before) location.href = fallbackUrl; }, 200);
-    };
-    let done = false;
-    const safeDoBack = () => { if (!done) { done = true; doBack(); } };
-    if (typeof adBreak !== 'function') { safeDoBack(); return; }
-    setTimeout(safeDoBack, 2500);
-    try {
-      adBreak({ type: 'next', name: 'page-nav', adBreakDone: safeDoBack });
-    } catch (e) {
-      safeDoBack();
-    }
+      setTimeout(function () { if (location.href === before) location.href = fallbackUrl; }, 200);
+    });
   }
 
   return { getState, setState, fillAds, fillAdsWhenReady, navigateWithInterstitial, goBackWithInterstitial };

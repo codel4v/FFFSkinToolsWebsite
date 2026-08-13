@@ -656,7 +656,15 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
-    if (typeof adConfig === 'function') adConfig({ sound: 'off' });
+    if (typeof adConfig === 'function') adConfig({
+      sound: 'off',
+      // Every screen is a real page load here, so each page starts a fresh ad-placement
+      // session with nothing preloaded. 'on' tells Google to start fetching an ad break
+      // immediately at load, so one may actually be ready when the user clicks a few
+      // seconds later. Without this, a nav break is very likely to report noAdPreloaded.
+      preloadAdBreaks: 'on',
+      onReady: () => { try { console.log('[ads] adConfig onReady — ad placement API ready'); } catch (e) {} }
+    });
     this.updateTitle();
     AppShared.fillAdsWhenReady();
   }

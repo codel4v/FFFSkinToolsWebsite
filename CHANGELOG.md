@@ -2,6 +2,40 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.18 — Fix non-rewarded interstitials not firing on navigation (2026-08-13)
+- Static display ads: left exactly as-is at v1.17. The grey line on an unfilled slot is
+  intentional/wanted and was NOT removed. Console diagnostics from v1.17 testing showed the
+  static-ad symptom is data-ad-status="unfilled" (Google returning no ad), not a layout collapse
+  -- treating that as a fill-rate matter to give more time, not a code bug
+- Rewarded ad flow deliberately untouched -- it works consistently and shares no code with the
+  navigation interstitial path
+- Three real problems found in the non-rewarded nav interstitial:
+  1. navigateWithInterstitial()/goBackWithInterstitial() ran a blind setTimeout(go, 2500) that
+     fired regardless of ad state. A real interstitial takes longer than 2.5s to view/dismiss,
+     so even a successfully-served ad was destroyed by navigating away mid-playback. Verified in
+     Node: a 6s ad under the old timing gets cut off at 2500ms
+  2. adBreakDone's placementInfo argument was discarded. Its breakStatus field states exactly
+     why no ad showed (noAdPreloaded / frequencyCapped / timeout / ignored / dismissed / viewed
+     / error / notReady / other) -- the single most useful diagnostic available, thrown away
+  3. adConfig() never set preloadAdBreaks. Because every screen is a real page load in this app,
+     each page begins a fresh ad-placement session with nothing preloaded, so a break requested
+     a few seconds after load was very likely never fetched at all
+- Fixes: replaced the blind timeout with a two-stage model keyed off the beforeAd callback --
+  a short 1200ms "is an ad even coming?" window, cancelled the moment beforeAd fires, then a
+  30s safety net so a real ad can play to completion. Navigation still can never block
+  indefinitely. Both nav and Back now share one runNavInterstitial() implementation to stop the
+  two copies drifting apart. adConfig now sets preloadAdBreaks:'on' plus an onReady log
+- All adBreak callbacks now log to console under an [ads] prefix, including breakStatus
+- Verified all four paths in Node before shipping (no ad / silent adBreakDone never firing /
+  6s ad playing through / adBreak throwing). Navigation completes correctly in every case, and
+  is now FASTER than before when no ad is coming (~30-50ms, or 1200ms worst case, vs a flat
+  2500ms wait previously)
+- Expectation setting: even fully working, this will NOT fire on every navigation. Google
+  enforces a frequency cap between interstitials, so breakStatus=frequencyCapped on most
+  navigations is correct behaviour, not a bug. Also worth noting vignette ads are already
+  enabled at the AdSense dashboard level and serve their own navigation interstitials -- the two
+  formats compete, so some suppression of adBreak interstitials is expected
+
 ## v1.17 — Ad slots on all flow screens; slot-parity test for the collapse (2026-08-13)
 - v1.16's flex-item theory did NOT fix it: Detail and the flow screens still collapse, both via
   the flow and on a fresh direct load. Third failed theory in a row on this bug
