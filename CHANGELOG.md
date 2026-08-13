@@ -2,6 +2,40 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.21 — Image optimisation: 89.7 MB of assets down to 8.5 MB (2026-08-13)
+- The real fix flagged in v1.20. All 164 images in assets/ resized to their actual on-screen
+  size and converted to WebP. Result: 89.7 MB -> 8.54 MB, a 90.5% reduction
+- Sizing was derived from measured display dimensions, not guessed. The site frame is 480px
+  wide, so full-bleed targets are 960px (2x for retina):
+    item renders (characters/bundles/fashion/vehicles/pets/weapons/backpacks/skyboards)
+                              -> 768px q85   (doubles as 74px list thumb and ~384px detail hero)
+    page + catalog headers    -> 960px q82   (container is 480x190, object-fit:cover)
+    category card fills (cat-*) -> 400px q82 (~136x158 on screen)
+    ranks                     -> 200px q85   (shown at 76x76)
+    app-icon                  -> 300px q88   (largest use is 150x150 on splash)
+    hero-logo                 -> 840px q85   (max-width 420px)
+    splash-bg                 -> 960px q78   (full viewport, 55% opacity)
+    site-bg / home-coins-header -> 720px q72 (blurred 2px at 50% opacity, detail is invisible)
+- Representative results:
+    app-icon.png             2.1 MB  ->  23 KB   (was 1254x1254 for a 32x32 header icon)
+    catalog-weapons-header   2.8 MB  -> 125 KB
+    home-coins-header        2.7 MB  ->  70 KB
+    site-bg                  2.5 MB  ->  66 KB
+    hero-logo-characters     1.9 MB  -> 112 KB
+- Alpha channel preserved on all item renders (verified RGBA with a full 0-255 alpha range) so
+  they still composite correctly over the gradient backgrounds. Genuinely opaque images were
+  flattened to RGB to save further bytes
+- All 166 asset paths in index.html rewritten from .png to .webp. Verified programmatically:
+  164 referenced paths, 164 converted files, zero missing and zero orphans. Favicon.png at the
+  repo root is intentionally untouched (referenced separately as type="image/png")
+- WebP is safe to use without PNG fallbacks — supported in every current browser including iOS
+  Safari 14+, which predates the audience's device range by years
+- DEPLOY NOTE: the old assets/*.png files are now unreferenced but still present in the repo.
+  They should be deleted so the repo/deployment isn't carrying 90 MB of dead weight. Deleting
+  the assets/ folder before uploading the new one is the cleanest route through the GitHub web UI
+- Combined with v1.20's lazy loading and fetch-priority work, this is where the slow-connection
+  problem actually gets solved -- v1.20 changed request ordering, this changes the payload
+
 ## v1.20 — Loading performance: lazy loading, fetch priority, preconnect (2026-08-13)
 - Audited load performance after a slow-connection report on mobile. Finding: lazy loading was
   implemented in exactly ONE place (category list row thumbnails, via realImg(..., true)) out of
