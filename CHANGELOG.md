@@ -2,6 +2,32 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.25 — Fix white flash on page load (2026-08-13)
+- Reported after v1.24: a flash of white before the dark UI appears on load
+- Root cause, confirmed by inspection rather than theory:
+    1. bundle.css never sets a page background. base.css scopes the canvas background to
+       .fff-scope/.fff-app, and neither class is on <html> or <body>
+    2. The ONLY rule that sets it -- html,body{margin:0;background:#05070F} -- lives inside
+       <helmet>. Verified programmatically: helmet spans chars 227-2916 and that rule sits at
+       char 1363. Everything inside <x-dc> (helmet included) is template markup that support.js
+       injects into <head> only once it boots, so it arrives AFTER the browser's first paint
+  Net result: at first paint there is no page background rule at all, so the browser paints
+  white, then flips dark once support.js boots
+- This bug is not new and was NOT introduced by v1.22 -- v1.22 exposed it. Previously 3
+  render-blocking scripts (including the 76 KB unused _ds_bundle.js) plus 9 blocking CSS files
+  delayed first paint long enough that support.js had usually already booted, masking the gap.
+  Removing that blocking made first paint arrive early enough to see it
+- Fix: added <style>html,body{margin:0;background:#05070F}</style> to the REAL <head>, inline so
+  it costs no extra request and is guaranteed to apply before anything paints. Also added
+  <meta name="theme-color" content="#05070F"> so mobile browser chrome tints to match instead of
+  showing a bright band above the page
+- The original rule inside <helmet> is deliberately left in place. It also carries font-family,
+  and keeping it means nothing depends on the ordering of this fix
+- Welcome page hero left exactly as v1.24. The remaining empty space between the ad and the logo
+  was traced to unused height reserved inside Google's own <ins> (only 10px of that gap is our
+  layout -- the outer container is a flex column so no margin collapsing is possible, ad parent
+  has 0 bottom padding, hero has 10px top, img has no margin). Deliberately not touched
+
 ## v1.24 — Actually get Get Started above the fold on mobile (2026-08-13)
 - v1.23 shrank the header image but the space it occupied stayed, as reported. Cause: the logo
   was sized by WIDTH (width:100%;max-width:340px;height:auto), which guarantees nothing about its
