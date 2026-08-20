@@ -3,6 +3,8 @@
 All notable changes to the FFF Skin Tools website, newest first.
 
 ## v1.25 — Fix white flash on page load (2026-08-13)
+- NOTE: the first build of v1.25 shipped with a broken <head> comment that took the site down.
+  Cause and permanent rule recorded at the bottom of this entry. The fix itself is unchanged.
 - Reported after v1.24: a flash of white before the dark UI appears on load
 - Root cause, confirmed by inspection rather than theory:
     1. bundle.css never sets a page background. base.css scopes the canvas background to
@@ -23,6 +25,22 @@ All notable changes to the FFF Skin Tools website, newest first.
   showing a bright band above the page
 - The original rule inside <helmet> is deliberately left in place. It also carries font-family,
   and keeping it means nothing depends on the ordering of this fix
+- REGRESSION AND FIX (same version): the explanatory HTML comment added alongside this fix in
+  <head> broke the whole site -- the page flashed once then rendered as a blank dark screen with
+  a stray word from the comment visible top-left
+- Cause: support.js does NOT locate the template via the DOM. support.js line 39 uses
+  /<x-dc(?:\s[^>]*)?>/.exec(src) -- a REGEX ON THE RAW HTML SOURCE STRING. The comment contained
+  the literal text "<x-dc>", so that regex matched INSIDE THE COMMENT, and everything from that
+  point was treated as the template body. Line 377 compounded it by string-replacing "<helmet"
+  with "<sc-helmet" on raw source, and the comment contained "<helmet" twice
+- HTML comments are inert to the browser but NOT to a string-based parser. Fixed by removing the
+  comment entirely; the meta theme-color and the inline <style> are unchanged and still work
+- PERMANENT RULE for this repo: never put the text "<x-dc", "</x-dc>", "<helmet" or "</helmet"
+  inside any comment in index.html -- HTML comments, CSS comments in the <style> block, or JS
+  comments in the script block. support.js finds the template by raw string search and cannot
+  tell a comment from real markup. Verified after the fix: each of those four markers now occurs
+  exactly ONCE in the file, at its real position. Explanations belong in this changelog instead
+
 - Welcome page hero left exactly as v1.24. The remaining empty space between the ad and the logo
   was traced to unused height reserved inside Google's own <ins> (only 10px of that gap is our
   layout -- the outer container is a flex column so no margin collapsing is possible, ad parent

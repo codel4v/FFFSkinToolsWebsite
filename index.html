@@ -4,12 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#05070F">
-<!-- Page background must live in the REAL <head>, not in <helmet>. Everything inside <x-dc>
-     (including <helmet>) is template markup that support.js only injects into <head> once it
-     boots, so any background declared there arrives too late for the browser's first paint and
-     the page flashes white. bundle.css doesn't cover this either: base.css scopes the canvas
-     background to .fff-scope/.fff-app, which aren't on html/body. Inline so it costs no request
-     and is guaranteed to apply before anything paints. -->
 <style>html,body{margin:0;background:#05070F}</style>
 <script defer src="shared.js"></script>
 <script defer src="./support.js"></script>
