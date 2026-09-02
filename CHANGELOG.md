@@ -2,6 +2,82 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.26 — Ad slot height reservation; remove top bar; Home back button (2026-08-13)
+- Reported on mobile: top/bottom banner slots either load then collapse, or don't load and the
+  space collapses. Chose option A from the discussion: reserve fixed space, accept blank gaps
+  when a slot is unfilled
+- Mechanism confirmed before changing anything. There was ZERO reserved space -- the wrapper was
+  just width:100% with no height -- and two CSS rules did the collapsing. The load sequence was:
+  the ad element sits at height 0; adsbygoogle.push() runs and GOOGLE ITSELF sets an inline
+  height (observed as height:280px in earlier console output, present even on unfilled slots) so
+  space appears; then Google resolves and on unfilled our rules collapsed it back to nothing.
+  Both reported symptoms were that same mechanism, not two separate bugs
+- Why it showed on mobile and not desktop: full-width-responsive picks proportionally taller
+  units on a narrow viewport so the collapse is bigger; that collapse is a far larger share of a
+  ~700px mobile viewport; mobile fill is separately worse (the bottom slot has never filled
+  reliably on any platform); and the viewport changes as the URL bar hides on scroll, which can
+  make AdSense re-evaluate a responsive slot
+- Fix: .fff-ad{min-height:296px} = 280px ad area + 16px AD label. 280 is the height Google itself
+  set inline on both slots, so the reservation matches what actually serves
+- The height is on the WRAPPER, never on the ad element. The ad element is what Google measures
+  when choosing a creative, and sizing it directly is exactly what caused the v1.12-v1.16
+  collapse saga. Also deliberately NO overflow:hidden on the wrapper -- that clipped resizing ads
+  in v1.15. min-height rather than height, so a taller creative can still grow the box
+- Removed the wrapper-hiding rule (.fff-ad:has(unfilled){display:none}) that was doing the
+  collapse. Kept the rule that hides the ad element itself on unfilled, so no empty iframe
+  lingers inside the reserved space
+- Unfilled slots now hide the AD label via visibility:hidden rather than display:none, so the
+  label still occupies its 16px and the reserved height is byte-identical whether a slot fills or
+  not. Avoids labelling an empty box while keeping the reservation exact
+- Layout is now deterministic. On the Welcome page, bottom of Get Started lands at ~656px whether
+  the top slot fills or not; previously it was ~656px filled versus ~360px unfilled, which was
+  the jump being reported
+- KNOWN COST, accepted as part of option A: an unfilled slot now leaves ~296px of blank space
+  instead of collapsing. With two slots per screen that is up to ~592px of dead space on a page
+  where neither fills, and the bottom slot rarely does. The single knob to tune this is the
+  min-height value; dropping it to ~120px would trade some residual shift for much less dead
+  space if the gaps prove too costly in practice
+- Also note this partially undoes the practical benefit of v1.24's above-fold work: that assumed
+  unfilled slots collapse, so on a no-fill page Get Started used to sit much higher. It is now
+  consistently at the filled-slot position
+- TOP BAR REMOVED site-wide (folded into this release rather than shipped separately). Both
+  instances of the branded sticky bar are gone: the app icon, the "FFF Skin Tools" title, the
+  "Time to find some drip" tagline, and the trailing element on each. That is 2 bars, on Welcome
+  and Home -- they were the only two screens carrying it
+- Checked before removing that nothing functional was lost. The Home bar's trailing Info button
+  looked load-bearing but was only navClick('index.html?screen=welcome') -- it navigated to the
+  Welcome screen, it did NOT open the info modal. The modals remain reachable exactly as before:
+  openPrivacy from Welcome's Privacy Policy tile, openTroubleshoot from the button further down.
+  Welcome's bar ended in a decorative "Web" badge with no handler at all
+- Navigation preserved rather than lost: added a square floating-style back button, top-left, on
+  the Home screen (the screen carrying the Browse Categories grid, which is what lost its link to
+  Welcome). Reuses the existing infoClick handler -- navClick('index.html?screen=welcome') -- which
+  was left unused when the bar was removed, so no new binding was needed
+- Styled to match the existing floating back buttons on Detail and the flow screens: 40x40,
+  12px radius, translucent rgba(5,7,15,0.5) with an 8px backdrop blur, --line-strong border, and
+  the same left-arrow icon. Consistent with the rest of the site rather than a new visual
+- Placed in its own left-aligned row ABOVE the ad slot, not absolutely positioned over it. A
+  genuinely floating button at top-left would sit on top of the top ad now that the ad is Home's
+  first element, and overlaying an ad breaches AdSense policy. Same floating look, no overlap --
+  verified programmatically that the button precedes the first ad wrapper in the DOM
+- Cost: the button row is ~52px, so Home is back to roughly its pre-removal height. Welcome keeps
+  the full ~57px saving since it needs no back button, so the Get Started above-fold gain there is
+  unaffected
+- The Category screen still uses its own sticky bar's Back button and needed no change
+- Deliberately NOT removed: the Category screen's sticky bar. That is a different component --
+  a centred 54px navigation header holding the Back button and the category title -- and removing
+  it would break back navigation. Only the branded bar shown in the request was taken out
+- assets/app-icon.webp is still referenced: the Splash screen uses it at 150x150. Not orphaned
+- Side benefits: both screens now begin directly with the top ad slot, matching the element order
+  requested back in v1.23. Get Started moves up by the bar's ~57px, so it now lands around 599px
+  instead of 656px, recovering most of what the v1.26 ad reservation cost it. Two backdrop-filter
+  blur layers are also gone, which are among the more expensive things to composite on mobile
+- Verified after removal: div tags balance at 174 open / 174 close, and all 20 ad slots and
+  wrappers are intact
+- Verified after the change: all four template markers (x-dc / helmet open and close) still occur
+  exactly once, and no comment in any syntax contains a parser-visible tag string -- the v1.25
+  regression rule
+
 ## v1.25 — Fix white flash on page load (2026-08-13)
 - NOTE: the first build of v1.25 shipped with a broken <head> comment that took the site down.
   Cause and permanent rule recorded at the bottom of this entry. The fix itself is unchanged.
