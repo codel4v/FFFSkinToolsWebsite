@@ -32,10 +32,60 @@ window.AppShared = (function () {
 
   // Real page loads mean a genuinely clean DOM every time — no accumulation of stale <ins>
   // tags across "screens" to worry about.
+  // --- Campaign attribution --------------------------------------------------------------
+  // Reads 'campaign', 'adset' and 'channel' from the landing URL and keeps them for the rest
+  // of the visit. Persistence is required, not optional: every screen change on this site is a
+  // REAL page load, so without it the params would be dropped the moment someone navigates and
+  // every ad after the landing screen would go untagged.
+  //
+  // sessionStorage rather than localStorage on purpose. It survives page loads within the tab
+  // but clears when the tab closes, so a campaign can never be credited for an unrelated
+  // organic visit days later. localStorage would silently inflate campaign revenue over time.
+  var ATTR_KEY = 'fff_attr';
+  var attrCache = null;
+
+  function readParam(name) {
+    try { return new URLSearchParams(location.search).get(name) || ''; } catch (e) { return ''; }
+  }
+
+  function getAttribution() {
+    if (attrCache) return attrCache;
+    var fromUrl = {
+      campaign: readParam('campaign'),
+      adset: readParam('adset'),
+      channel: readParam('channel')
+    };
+    var stored = {};
+    try { stored = JSON.parse(sessionStorage.getItem(ATTR_KEY) || '{}') || {}; } catch (e) {}
+
+    // A fresh campaign link on this load re-attributes the session; otherwise carry what we had.
+    var a = (fromUrl.campaign || fromUrl.channel)
+      ? fromUrl
+      : { campaign: stored.campaign || '', adset: stored.adset || '', channel: stored.channel || '' };
+
+    // AdSense channel IDs are numeric, with '+' separating multiple. Note a '+' in a query
+    // string decodes to a SPACE, so channel=111+222 arrives here as "111 222" — normalise any
+    // run of spaces or plusses back to a single '+' so ad ops can write it the natural way.
+    a.channel = String(a.channel).trim().replace(/[\s+]+/g, '+');
+    // Anything that isn't digits-and-plus is dropped rather than written into a DOM attribute,
+    // since this value comes straight off the URL and is attacker-controllable.
+    if (!/^[0-9]{1,32}(\+[0-9]{1,32})*$/.test(a.channel)) a.channel = '';
+
+    if (fromUrl.campaign || fromUrl.channel) {
+      try { sessionStorage.setItem(ATTR_KEY, JSON.stringify(a)); } catch (e) {}
+    }
+    attrCache = a;
+    return a;
+  }
+
   function fillAds() {
     try {
+      var channel = getAttribution().channel;
       document.querySelectorAll('ins.adsbygoogle').forEach(el => {
         if (!el.getAttribute('data-ad-fill-requested')) {
+          // Must be set BEFORE push() — the attribute is read as part of the ad request, so
+          // setting it afterwards would have no effect on reporting.
+          if (channel) el.setAttribute('data-ad-channel', channel);
           el.setAttribute('data-ad-fill-requested', '1');
           (window.adsbygoogle = window.adsbygoogle || []).push({});
         }
@@ -145,5 +195,5 @@ window.AppShared = (function () {
     });
   }
 
-  return { getState, setState, fillAds, fillAdsWhenReady, adLog, navigateWithInterstitial, goBackWithInterstitial };
+  return { getState, setState, fillAds, fillAdsWhenReady, adLog, getAttribution, navigateWithInterstitial, goBackWithInterstitial };
 })();

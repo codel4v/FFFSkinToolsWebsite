@@ -2,6 +2,49 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.27 — Campaign attribution: pass campaign/adset in URL, tag ads with AdSense channel (2026-08-13)
+- Requirement from the team: accept 'campaign' and 'adset' URL parameters, and attribute AdSense
+  revenue per campaign via a custom channel
+- Mechanism: AdSense reads a data-ad-channel attribute on the ad element as part of the ad
+  request. Google documents this on exactly the responsive unit type used here (data-ad-format
+  auto + full-width-responsive). Channel IDs are numeric; multiple are joined with '+'
+- Decision taken: the channel ID is passed IN THE URL rather than mapped in code
+  (?campaign=spring_ff&adset=a12&channel=1234567890). Ad ops fully controls attribution from the
+  campaign URL with no code change or redeploy per campaign, which matters given the manual
+  zip-upload workflow. Adset is captured but NOT sent to AdSense - campaign-level revenue only,
+  adset to be tracked in analytics instead
+- Params are persisted in sessionStorage for the visit. This is required, not a nicety: every
+  screen change on this site is a real page load, so without it the params would be dropped the
+  moment the user navigates and every ad after the landing screen would go untagged
+- sessionStorage rather than localStorage on purpose - it survives navigation within the tab but
+  clears when the tab closes, so a campaign can never be credited for an unrelated organic visit
+  days later. localStorage would quietly inflate campaign revenue over time
+- A fresh campaign link re-attributes the session; without params the stored values carry forward
+- data-ad-channel is set BEFORE adsbygoogle.push(), since the attribute is read as part of the ad
+  request and setting it afterwards would not affect reporting
+- The channel value is attacker-controllable (straight off the URL), so it is validated against
+  digits-and-plus only and dropped entirely otherwise, never written raw into a DOM attribute
+- Bug found and fixed by the Node tests before shipping: a '+' in a query string decodes to a
+  SPACE, so channel=111+222 arrives as "111 222" and was being rejected. Now any run of spaces or
+  plusses normalises back to '+', so ad ops can write it the natural way
+- Verified in Node across 7 cases: landing with full params; later navigation with params gone
+  from the URL; organic visit with no params; a new campaign link overwriting an earlier one;
+  a script-injection attempt in the channel param being dropped; multiple channels joined with
+  '+'; and a campaign with no channel (captured for analytics, no attribute set)
+- AppShared.getAttribution() is exported so any analytics added later can read campaign/adset
+  without re-parsing the URL
+- OPEN ITEM, flagged: there is NO analytics on this site - zero references to gtag, Google Tag
+  Manager or GA in index.html or shared.js. So 'adset tracked in GA instead' has nowhere to land
+  yet. The adset value is captured and available, but until analytics is installed it is not
+  recorded anywhere
+- ALSO NOTE: GA auto-captures utm_* parameters, not arbitrary names. Custom 'campaign' and
+  'adset' params will NOT appear in GA reports automatically - either have ad ops add utm_ params
+  alongside these, or send the values explicitly once analytics exists
+- NOT covered: the rewarded and interstitial placements go through adBreak() rather than an ad
+  element, so this tags the Top/Bottom display slots only. Whether H5 Games Ads revenue can carry
+  a custom channel is unconfirmed and would need checking with ad ops before promising
+  campaign attribution across all ad revenue
+
 ## v1.26 — Ad slot height reservation; remove top bar; Home back button (2026-08-13)
 - Reported on mobile: top/bottom banner slots either load then collapse, or don't load and the
   space collapses. Chose option A from the discussion: reserve fixed space, accept blank gaps
