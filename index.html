@@ -93,6 +93,13 @@
      display:none so the label still occupies its 16px and the reserved height is identical
      whether the slot fills or not. */
   .fff-ad:has(ins.adsbygoogle[data-ad-status="unfilled"]) span{visibility:hidden}
+  /* Google Auto ads inject their own container (.google-auto-placed) wherever Google decides.
+     When one lands inside the 2-column Top Features grid it becomes a grid item and eats a
+     cell, stretching the card beside it. Spanning the full row keeps the surrounding layout
+     intact and makes the unit read as sitting between rows instead of breaking one.
+     grid-column is ignored outside a grid container, so this is safe site-wide. No overflow or
+     height rules here on purpose, for the same reason as the slot CSS above. */
+  .google-auto-placed{grid-column:1/-1;max-width:100%}
 </style>
 </helmet>
 

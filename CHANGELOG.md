@@ -2,6 +2,39 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.28b — Stop Auto ads from breaking the grid layout (2026-08-13)
+- Reported: extra ad panels appearing in awkward mid-content positions on the Welcome page,
+  notably inside step 03 of How To Use and inside the Top Features grid
+- These are NOT our slots. Verified against the deployed file: the Welcome screen has exactly 2
+  ad slots in our markup (Top 3316443330, Bottom 7202099488) and there is no "Discover more"
+  markup anywhere in the repo. The only 'related' match in the file is that word inside a
+  character description
+- They are AdSense Related search for Auto ads - the "Discover more" format, a headed panel of
+  clickable related phrases. Google chooses the insertion points for Auto ads, so where they land
+  is not addressable from our code. There is no API to position them
+- Dashboard levers for ad ops, none of which are code changes: the Related search toggle in Auto
+  ads settings turns this format off specifically; Excluded areas marks regions of the page
+  off-limits to in-page Auto ads (the closest thing to "put them between sections"); Fine-tune
+  your ads (beta) controls the number of in-page ads and the distance between them; plus the Ad
+  load slider and Excluded pages
+- Worth checking with ad ops whether Related search was switched on recently - that explains the
+  timing better than anything in v1.26. Auto ads does re-evaluate page structure after a layout
+  change, so the top bar removal MAY have shifted its choices, but that is speculation and the
+  dashboard change history will answer it properly
+- What this release actually fixes: Auto ads wrap injections in a .google-auto-placed container.
+  Landing inside the 2-column Top Features grid (display:grid;grid-template-columns:1fr 1fr at
+  line 179) made it a grid ITEM, so it consumed one cell and stretched the Region Support card
+  beside it. Added .google-auto-placed{grid-column:1/-1;max-width:100%} so any auto-placed unit
+  spans the full row instead, keeping the surrounding cards intact
+- grid-column is ignored outside a grid container, so the rule is safe site-wide and is a no-op
+  on screens where Auto ads are already behaving
+- Deliberately no overflow or height rules on this selector, same reasoning as the slot CSS:
+  overflow:hidden clipped resizing ads back in v1.15, and sizing anything Google controls has
+  caused problems before. This only constrains how the injected container participates in grid
+  layout - it does not move, resize or restyle the ad itself
+- Does not change how many Auto ads appear or where Google puts them. That remains a dashboard
+  decision; this only stops a badly-placed one from distorting the layout around it
+
 ## v1.28 — Extend campaign channel tracking to H5 (rewarded + interstitial) ads (2026-08-13)
 - v1.27 tagged only the Top/Bottom display slots and flagged H5 attribution as unconfirmed. It IS
   supported -- general research says otherwise because it looks for an ad element that does not
