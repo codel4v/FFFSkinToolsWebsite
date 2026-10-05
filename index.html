@@ -21,7 +21,42 @@
 <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
 <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin>
 <link rel="dns-prefetch" href="https://tpc.googlesyndication.com">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8356035806330431" crossorigin="anonymous"></script>
+<script>
+  /* Campaign attribution, read here in the head because the H5 Games Ads custom channel has to
+     be an attribute on the AdSense script tag BEFORE it loads. H5 placements (rewarded and
+     interstitial) go through adBreak() and have no ad element to carry data-ad-channel, so the
+     script tag is the only place it can go. The AdSense loader is therefore injected rather
+     than hardcoded. shared.js is deferred and has not run yet at this point, so the parsing
+     logic is duplicated here deliberately and the result is handed to shared.js via window. */
+  (function () {
+    var KEY = 'fff_attr', campaign = '', adset = '', channel = '';
+    try {
+      var p = new URLSearchParams(location.search);
+      campaign = p.get('campaign') || ''; adset = p.get('adset') || ''; channel = p.get('channel') || '';
+    } catch (e) {}
+    if (!campaign && !channel) {
+      try {
+        var st = JSON.parse(sessionStorage.getItem(KEY) || '{}') || {};
+        campaign = st.campaign || ''; adset = st.adset || ''; channel = st.channel || '';
+      } catch (e) {}
+    }
+    /* A '+' in a query string decodes to a space, so normalise runs of either back to '+'. */
+    channel = String(channel).trim().replace(/[\s+]+/g, '+');
+    /* Value comes straight off the URL, so drop anything that is not digits-and-plus. */
+    if (!/^[0-9]{1,32}(\+[0-9]{1,32})*$/.test(channel)) channel = '';
+    if (campaign || channel) {
+      try { sessionStorage.setItem(KEY, JSON.stringify({ campaign: campaign, adset: adset, channel: channel })); } catch (e) {}
+    }
+    window.__fffAttr = { campaign: campaign, adset: adset, channel: channel };
+
+    var el = document.createElement('script');
+    el.async = true;
+    el.crossOrigin = 'anonymous';
+    if (channel) el.setAttribute('data-ad-channel', channel);
+    el.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8356035806330431';
+    document.head.appendChild(el);
+  })();
+</script>
 <script>
   window.adsbygoogle = window.adsbygoogle || [];
   window.adBreak = window.adConfig = function(o) { window.adsbygoogle.push(o); };

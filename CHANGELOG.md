@@ -2,6 +2,40 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.28 — Extend campaign channel tracking to H5 (rewarded + interstitial) ads (2026-08-13)
+- v1.27 tagged only the Top/Bottom display slots and flagged H5 attribution as unconfirmed. It IS
+  supported -- general research says otherwise because it looks for an ad element that does not
+  exist in the H5 flow
+- Google's own AdSense help page for adding the code to a game page lists data-ad-channel as an
+  optional AdSense code parameter: "You may include a custom channel ID for tracking the
+  performance of your ads. Example: data-ad-channel='1234'". For H5 it goes on the ADSENSE SCRIPT
+  TAG, not on an ad element -- rewarded and interstitial run through adBreak() and have no
+  element to carry it. Google's own ad-placement integration guides show it being set the same
+  way via script.setAttribute('data-ad-channel', ...)
+- Problem this creates: the attribute must be on the script tag before it loads, but the channel
+  comes from the URL. A static tag in the markup cannot carry a runtime value, so the AdSense
+  loader is now INJECTED by a small inline head script instead of hardcoded
+- That inline script runs during head parse (shared.js is deferred and has not run yet), so it
+  duplicates the attribution parsing deliberately. It writes the result to window.__fffAttr and
+  shared.js now reads that instead of re-parsing, keeping one source of truth. shared.js retains
+  its own parsing as a fallback if the head script did not run
+- The display slots keep their element-level data-ad-channel from v1.27. Same channel ID on both
+  paths, so campaign revenue is now attributed across banner AND rewarded/interstitial inventory
+- Loader is still async with crossOrigin anonymous, and the existing preconnect hints to
+  pagead2/googleads/tpc are unchanged, so load behaviour should be equivalent to the static tag
+- Verified in Node, 6 cases on the head loader: landing with a channel; later navigation with the
+  params gone from the URL; organic visit with no params; '+' arriving decoded as a space;
+  a script-injection attempt in the channel param being dropped; and a campaign with no channel.
+  Each case also asserts the loader src, async and crossOrigin are set correctly
+- Verified in Node, 3 further cases on the handoff: shared.js uses the head-computed value, honours
+  an empty channel, and falls back to its own parsing when the head script is absent
+- Template markers still occur exactly once each and no comment contains a parser-visible tag
+  string, per the v1.25 rule
+- Caveat worth holding: this is the documented parameter and the mechanism is sound, but H5
+  channel reporting should still be confirmed against a live campaign. AdSense channel data takes
+  roughly 24h to appear, and the H5 breakdown can also be sanity-checked with the Ad format
+  filter in AdSense reports
+
 ## v1.27 — Campaign attribution: pass campaign/adset in URL, tag ads with AdSense channel (2026-08-13)
 - Requirement from the team: accept 'campaign' and 'adset' URL parameters, and attribute AdSense
   revenue per campaign via a custom channel

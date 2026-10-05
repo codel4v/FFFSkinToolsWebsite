@@ -50,6 +50,17 @@ window.AppShared = (function () {
 
   function getAttribution() {
     if (attrCache) return attrCache;
+    // The head script already parsed and validated this before the AdSense loader was injected
+    // (it has to, so the H5 channel can ride on the script tag). Reuse its result so there is
+    // one source of truth. The logic below is only a fallback if that script didn't run.
+    if (window.__fffAttr && typeof window.__fffAttr === 'object') {
+      attrCache = {
+        campaign: window.__fffAttr.campaign || '',
+        adset: window.__fffAttr.adset || '',
+        channel: window.__fffAttr.channel || ''
+      };
+      return attrCache;
+    }
     var fromUrl = {
       campaign: readParam('campaign'),
       adset: readParam('adset'),
