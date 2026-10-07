@@ -62,8 +62,9 @@ window.AppShared = (function () {
       return attrCache;
     }
     var fromUrl = {
-      campaign: readParam('campaign'),
-      adset: readParam('adset'),
+      // UTM names accepted as fallbacks, mirroring the head script so both paths agree.
+      campaign: readParam('campaign') || readParam('utm_campaign'),
+      adset: readParam('adset') || readParam('utm_content') || readParam('utm_term'),
       channel: readParam('channel')
     };
     var stored = {};

@@ -5,6 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#05070F">
 <style>html,body{margin:0;background:#05070F}</style>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script>
+  /* Google Analytics 4. Lives in the REAL head rather than the helmet block, because helmet
+     contents are only injected once support.js boots - too late to reliably record a page view
+     before a bounce. GA4 natively reads utm_source / utm_medium / utm_campaign / utm_content /
+     utm_term off the landing URL, so no manual parsing is needed for campaign reporting.
+     Every screen change here is a full page load, but GA4 attribution is session-scoped and the
+     cookie persists across same-origin loads, so the whole visit stays credited to the landing
+     campaign. Internal links deliberately do NOT carry utm params - re-sending them mid-visit
+     would restart attribution. */
+  (function () {
+    /* GA4 Measurement ID. The matching Stream ID is 16060297142 - not needed by gtag.js, which
+       keys off the Measurement ID; it is only used for Measurement Protocol calls and in the
+       GA4 admin UI. Recorded here so it is findable. */
+    var GA_ID = 'G-4V0M8SC886';
+    /* Guard kept for safety: if this is ever blanked or reset to the placeholder, load nothing
+       at all rather than firing requests at a property that does not exist. The placeholder is
+       excluded by name as well as format, since it happens to satisfy the format check. */
+    if (GA_ID === 'G-XXXXXXXXXX' || !/^G-[A-Z0-9]{6,}$/.test(GA_ID)) return;
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+    var el = document.createElement('script');
+    el.async = true;
+    el.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(el);
+  })();
+</script>
 <script defer src="shared.js"></script>
 <script defer src="./support.js"></script>
 </head>
@@ -32,7 +62,14 @@
     var KEY = 'fff_attr', campaign = '', adset = '', channel = '';
     try {
       var p = new URLSearchParams(location.search);
-      campaign = p.get('campaign') || ''; adset = p.get('adset') || ''; channel = p.get('channel') || '';
+      /* Accept UTM names as well as the originals, so ad ops only needs ONE url format:
+         ?utm_source=..&utm_medium=..&utm_campaign=..&utm_content=..&channel=..
+         utm_campaign maps to campaign and utm_content to adset, matching how GA4 reports them
+         (Session campaign and Session manual ad content). The plain names still win if both are
+         present, so existing campaign links keep working unchanged. */
+      campaign = p.get('campaign') || p.get('utm_campaign') || '';
+      adset = p.get('adset') || p.get('utm_content') || p.get('utm_term') || '';
+      channel = p.get('channel') || '';
     } catch (e) {}
     if (!campaign && !channel) {
       try {

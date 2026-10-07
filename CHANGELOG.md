@@ -2,6 +2,56 @@
 
 All notable changes to the FFF Skin Tools website, newest first.
 
+## v1.29 — Google Analytics 4 install + UTM parameter support (2026-08-13)
+- Team requirement: connect GA to the site and run tracking through UTM parameters
+- GA4 Measurement ID G-4V0M8SC886 is wired in and live. Verified the loader actually fires with
+  it: the injected script URL carries the ID and dataLayer queues 'js' then 'config' correctly
+- The matching Stream ID 16060297142 is recorded as a comment next to it but is NOT used.
+  gtag.js keys off the Measurement ID; the Stream ID is only needed for Measurement Protocol
+  calls and inside the GA4 admin UI
+- The safety guard is kept anyway: if the ID is ever blanked or reset to a placeholder, the block
+  loads nothing rather than firing requests at a property that does not exist
+- GA4 is in the REAL head, not the helmet block. Helmet contents are only injected once
+  support.js boots, which is too late to reliably record a page view before a bounce - the same
+  late-injection behaviour that caused the v1.25 white flash. Added a preconnect to
+  googletagmanager.com alongside it
+- No manual UTM parsing for GA: GA4 natively reads utm_source / utm_medium / utm_campaign /
+  utm_content / utm_term from the landing URL
+- Important given this architecture: every screen change is a full page load, but GA4 attribution
+  is session-scoped and its cookie persists across same-origin loads, so the whole visit stays
+  credited to the landing campaign rather than going (direct) after the first navigation.
+  Internal links deliberately do NOT carry utm params - re-sending them mid-visit would restart
+  attribution and inflate session counts
+- The v1.27/v1.28 attribution now also accepts UTM names, so ad ops needs only ONE url format:
+  ?utm_source=..&utm_medium=..&utm_campaign=..&utm_content=..&channel=..
+  utm_campaign maps to campaign and utm_content (or utm_term) to adset, matching how GA4 reports
+  them as Session campaign and Session manual ad content. The plain campaign/adset names still
+  take precedence if both are present, so existing campaign links keep working unchanged
+- 'channel' stays a separate non-UTM parameter because it drives the AdSense custom channel on
+  both the display slots and the H5 script tag. GA does not use it and AdSense does not
+  understand utm_*, so the two systems are fed from one url without colliding
+- Both parsers updated in step - the head script and the shared.js fallback - so they cannot
+  disagree about what a url means
+- Two real bugs caught by the Node tests before shipping:
+  1. The gtag helper was assigned to window and then called bare, relying on implicit global
+     binding. Works in a browser, fragile everywhere else; now a proper local function
+     declaration matching Google's own snippet shape
+  2. The placeholder 'G-XXXXXXXXXX' SATISFIED the format regex, because X is within A-Z, so an
+     unconfigured deploy would have loaded gtag and fired requests at a nonexistent property.
+     The placeholder is now excluded by name as well as by format - retained as a guard even
+     though the real ID is now in place
+- Verified in Node, 9 cases: 6 on UTM attribution (full UTM url with channel; persistence across
+  a later navigation; utm_term used when utm_content is absent; legacy names taking precedence;
+  UTM with no channel so GA tracks but AdSense stays untagged; and no params at all) and 3 on the
+  GA loader (placeholder loads nothing, empty id loads nothing, real id loads and queues js and
+  config)
+- NOT included, available as a follow-up: custom events. GA will record page views and traffic
+  sources, but nothing about what users actually do - Get Started taps, category opens, rewarded
+  ad views, account linking. Those are what let media buyers compare source QUALITY rather than
+  just volume, and would need a short list of which actions matter
+- Also not included: sending the AdSense channel into GA as a custom dimension to join GA traffic
+  against AdSense revenue. Doable, but needs a custom dimension registered in GA4 first
+
 ## v1.28b — Stop Auto ads from breaking the grid layout (2026-08-13)
 - Reported: extra ad panels appearing in awkward mid-content positions on the Welcome page,
   notably inside step 03 of How To Use and inside the Top Features grid
